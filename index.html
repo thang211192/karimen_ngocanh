@@ -1,0 +1,2535 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1a5276">
+    <title>仮免許学科試験 - Ngọc Anh がんばれ！💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Hiragino Kaku Gothic Pro', 'Yu Gothic', 'Meiryo', sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            background: linear-gradient(135deg, #1a5276, #2980b9);
+            color: white;
+            padding: 15px 20px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .header h1 {
+            font-size: 20px;
+            margin-bottom: 2px;
+        }
+
+        .header .subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        .header-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .header-info .timer {
+            font-weight: bold;
+            font-size: 18px;
+            color: #ffd700;
+        }
+
+        .header-info .timer.warning {
+            color: #ff4444;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+
+        .header-info .score-display {
+            font-weight: bold;
+        }
+
+        /* ===== START SCREEN ===== */
+        .start-screen {
+            max-width: 700px;
+            margin: 40px auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .start-screen h2 {
+            font-size: 28px;
+            color: #1a5276;
+            margin-bottom: 10px;
+        }
+
+        .start-screen .exam-title-jp {
+            font-size: 22px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .exam-rules {
+            text-align: left;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 4px solid #2980b9;
+        }
+
+        .exam-rules h3 {
+            color: #1a5276;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .exam-rules table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .exam-rules td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 14px;
+        }
+
+        .exam-rules td:first-child {
+            font-weight: bold;
+            width: 40%;
+            color: #555;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 16px 60px;
+            font-size: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        /* ===== QUESTION AREA ===== */
+        .exam-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+            display: none;
+        }
+
+        .question-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            justify-content: center;
+        }
+
+        .question-nav .nav-btn {
+            width: 36px;
+            height: 36px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            color: #666;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .question-nav .nav-btn:hover {
+            border-color: #2980b9;
+            color: #2980b9;
+        }
+
+        .question-nav .nav-btn.current {
+            background: #2980b9;
+            color: white;
+            border-color: #2980b9;
+        }
+
+        .question-nav .nav-btn.answered-maru {
+            background: #d4edda;
+            border-color: #27ae60;
+            color: #27ae60;
+        }
+
+        .question-nav .nav-btn.answered-batsu {
+            background: #fde8e8;
+            border-color: #e74c3c;
+            color: #e74c3c;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 15px;
+        }
+
+        .question-number {
+            display: inline-block;
+            background: #1a5276;
+            color: white;
+            padding: 4px 14px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .question-image {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .question-image img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .question-text-jp {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #222;
+            margin-bottom: 12px;
+            padding: 15px;
+            background: #fafafa;
+            border-radius: 8px;
+            border-left: 4px solid #2980b9;
+        }
+
+        .question-text-vi {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            padding: 10px 15px;
+            background: #fff8e1;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+            font-style: italic;
+        }
+
+        .question-text-vi::before {
+            content: "🇻🇳 ";
+        }
+
+        .answer-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .answer-btn {
+            flex: 1;
+            max-width: 200px;
+            padding: 18px 30px;
+            border: 3px solid #ddd;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            font-size: 28px;
+            font-weight: bold;
+            transition: all 0.2s;
+            text-align: center;
+        }
+
+        .answer-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .answer-btn.maru {
+            color: #27ae60;
+        }
+
+        .answer-btn.maru:hover, .answer-btn.maru.selected {
+            border-color: #27ae60;
+            background: #d4edda;
+        }
+
+        .answer-btn.batsu {
+            color: #e74c3c;
+        }
+
+        .answer-btn.batsu:hover, .answer-btn.batsu.selected {
+            border-color: #e74c3c;
+            background: #fde8e8;
+        }
+
+        .answer-btn .label {
+            font-size: 13px;
+            display: block;
+            margin-top: 4px;
+            color: #888;
+            font-weight: normal;
+        }
+
+        /* ===== NAVIGATION BUTTONS ===== */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .nav-arrow {
+            padding: 10px 24px;
+            border: 2px solid #2980b9;
+            border-radius: 8px;
+            background: white;
+            color: #2980b9;
+            font-size: 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .nav-arrow:hover {
+            background: #2980b9;
+            color: white;
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .submit-btn {
+            padding: 14px 40px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* ===== RESULT SCREEN ===== */
+        .result-screen {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 0 15px;
+            display: none;
+        }
+
+        .result-summary {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .result-pass {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .result-pass.pass {
+            color: #27ae60;
+        }
+
+        .result-pass.fail {
+            color: #e74c3c;
+        }
+
+        .result-score {
+            font-size: 60px;
+            font-weight: bold;
+            color: #1a5276;
+            margin: 20px 0;
+        }
+
+        .result-score span {
+            font-size: 24px;
+            color: #888;
+        }
+
+        .result-details {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 25px 0;
+        }
+
+        .result-detail-item {
+            text-align: center;
+        }
+
+        .result-detail-item .number {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .result-detail-item .label {
+            font-size: 13px;
+            color: #888;
+        }
+
+        .result-detail-item.correct .number { color: #27ae60; }
+        .result-detail-item.wrong .number { color: #e74c3c; }
+        .result-detail-item.unanswered .number { color: #f39c12; }
+
+        .retry-btn {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            color: white;
+            border: none;
+            padding: 14px 50px;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .retry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(41, 128, 185, 0.4);
+        }
+
+        /* ===== REVIEW LIST ===== */
+        .review-list {
+            margin-top: 20px;
+        }
+
+        .review-item {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            border-left: 5px solid #ddd;
+        }
+
+        .review-item.correct {
+            border-left-color: #27ae60;
+        }
+
+        .review-item.wrong {
+            border-left-color: #e74c3c;
+        }
+
+        .review-item.unanswered {
+            border-left-color: #f39c12;
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-q-number {
+            font-weight: bold;
+            color: #1a5276;
+        }
+
+        .review-result-badge {
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .review-result-badge.correct { background: #27ae60; }
+        .review-result-badge.wrong { background: #e74c3c; }
+        .review-result-badge.unanswered { background: #f39c12; }
+
+        .review-question-jp {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 6px;
+        }
+
+        .review-question-vi {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .review-answer-row {
+            display: flex;
+            gap: 20px;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .review-your-answer {
+            color: #555;
+        }
+
+        .review-correct-answer {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .review-explanation {
+            background: #f0f7ff;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 13px;
+            color: #444;
+            line-height: 1.7;
+            margin-top: 8px;
+        }
+
+        .review-explanation .explanation-jp {
+            margin-bottom: 6px;
+        }
+
+        .review-explanation .explanation-vi {
+            color: #666;
+            font-style: italic;
+            border-top: 1px dashed #ddd;
+            padding-top: 6px;
+            margin-top: 6px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 18px;
+            border: 2px solid #ddd;
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .filter-btn.active {
+            background: #2980b9;
+            color: white;
+            border-color: #2980b9;
+        }
+
+        .filter-btn:hover {
+            border-color: #2980b9;
+        }
+
+        /* ===== INLINE EXPLANATION ===== */
+        .inline-explanation {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 10px;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .inline-explanation.correct {
+            background: #d4edda;
+            border: 2px solid #27ae60;
+        }
+
+        .inline-explanation.wrong {
+            background: #fde8e8;
+            border: 2px solid #e74c3c;
+        }
+
+        .inline-result {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .inline-result.correct { color: #27ae60; }
+        .inline-result.wrong { color: #e74c3c; }
+
+        .inline-correct-answer {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .inline-explain-jp {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+
+        .inline-explain-vi {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.7;
+            font-style: italic;
+            padding-top: 8px;
+            border-top: 1px dashed #ddd;
+        }
+
+        .answer-btn.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.2);
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-bar .progress {
+            height: 100%;
+            background: #ffd700;
+            transition: width 0.3s;
+            border-radius: 2px;
+        }
+
+        /* ===== RESPONSIVE - iPhone 13 (390x844) optimized ===== */
+        @media (max-width: 430px) {
+            body {
+                padding-bottom: env(safe-area-inset-bottom);
+                -webkit-text-size-adjust: 100%;
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            /* Header: compact, không chiếm quá nhiều màn hình */
+            .header {
+                padding: 10px 16px calc(8px + env(safe-area-inset-top, 0px));
+                padding-top: calc(10px + env(safe-area-inset-top, 0px));
+            }
+            .header h1 { font-size: 15px; }
+            .header-info { gap: 16px; font-size: 13px; margin-top: 6px; }
+            .header-info .timer { font-size: 16px; }
+
+            /* Start screen */
+            .start-screen {
+                margin: 16px 12px;
+                padding: 24px 18px;
+                border-radius: 10px;
+            }
+            .start-screen h2 { font-size: 22px; }
+            .start-screen .exam-title-jp { font-size: 17px; margin-bottom: 18px; }
+            .exam-rules { padding: 16px; margin: 14px 0; }
+            .exam-rules h3 { font-size: 14px; margin-bottom: 10px; }
+            .exam-rules td { padding: 7px 6px; font-size: 13px; }
+            .exam-rules td:first-child { width: 38%; }
+            .start-btn {
+                padding: 16px 40px;
+                font-size: 17px;
+                width: 100%;
+                border-radius: 12px;
+                margin-top: 18px;
+            }
+
+            /* Question navigation grid - 10 cột vừa iPhone 13 */
+            .exam-container { padding: 0 10px; margin-top: 12px; }
+            .question-nav {
+                gap: 4px;
+                padding: 10px 8px;
+                margin-bottom: 10px;
+                border-radius: 8px;
+            }
+            .question-nav .nav-btn {
+                width: 33px;
+                height: 33px;
+                font-size: 12px;
+                border-radius: 5px;
+                border-width: 1.5px;
+            }
+
+            /* Question card */
+            .question-card {
+                padding: 16px;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+            .question-number {
+                font-size: 13px;
+                padding: 3px 12px;
+                margin-bottom: 12px;
+            }
+            .question-text-jp {
+                font-size: 16px;
+                line-height: 1.7;
+                padding: 12px;
+                margin-bottom: 10px;
+            }
+            .question-text-vi {
+                font-size: 13px;
+                padding: 8px 12px;
+                margin-bottom: 16px;
+            }
+
+            /* Answer buttons - lớn, dễ bấm bằng ngón tay */
+            .answer-buttons {
+                gap: 12px;
+                margin-top: 14px;
+            }
+            .answer-btn {
+                max-width: none;
+                padding: 16px 10px;
+                font-size: 30px;
+                border-radius: 14px;
+                border-width: 2.5px;
+                min-height: 80px;
+            }
+            .answer-btn .label { font-size: 12px; margin-top: 2px; }
+            /* Bỏ hover effect trên mobile để tránh dính trạng thái */
+            .answer-btn:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            /* Active state cho touch feedback */
+            .answer-btn:active:not(.disabled) {
+                transform: scale(0.96);
+            }
+
+            /* Inline explanation */
+            .inline-explanation { padding: 14px; margin-top: 16px; }
+            .inline-result { font-size: 16px; flex-wrap: wrap; }
+            .inline-correct-answer { font-size: 13px; }
+            .inline-explain-jp { font-size: 13px; line-height: 1.6; }
+            .inline-explain-vi { font-size: 12px; line-height: 1.6; }
+
+            /* Navigation controls - cố định dưới màn hình */
+            .nav-controls {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: white;
+                padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
+                margin: 0;
+                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                z-index: 99;
+                gap: 8px;
+                border-top: 1px solid #e0e0e0;
+            }
+            .nav-arrow {
+                padding: 10px 14px;
+                font-size: 13px;
+                border-radius: 8px;
+                white-space: nowrap;
+            }
+            .submit-btn {
+                padding: 10px 16px;
+                font-size: 13px;
+                border-radius: 8px;
+                white-space: nowrap;
+            }
+            /* Thêm padding bottom cho exam container để không bị nav che */
+            .exam-container { padding-bottom: 75px; }
+
+            /* Result screen */
+            .result-screen { margin: 16px auto; padding: 0 10px; }
+            .result-summary { padding: 24px 18px; border-radius: 10px; }
+            .result-pass { font-size: 22px; line-height: 1.4; }
+            .result-score { font-size: 48px; margin: 14px 0; }
+            .result-score span { font-size: 20px; }
+            .result-details { gap: 24px; margin: 18px 0; }
+            .result-detail-item .number { font-size: 24px; }
+            .result-detail-item .label { font-size: 12px; }
+            .retry-btn {
+                width: 100%;
+                padding: 16px 30px;
+                font-size: 17px;
+                border-radius: 12px;
+            }
+
+            /* Review list */
+            .review-item { padding: 14px; margin-bottom: 8px; border-radius: 8px; }
+            .review-question-jp { font-size: 14px; }
+            .review-question-vi { font-size: 12px; }
+            .review-answer-row {
+                flex-direction: column;
+                gap: 4px;
+                font-size: 13px;
+            }
+            .review-explanation { padding: 10px; font-size: 12px; }
+
+            /* Filter buttons - dễ bấm hơn */
+            .filter-buttons { gap: 6px; }
+            .filter-btn {
+                padding: 8px 14px;
+                font-size: 12px;
+                border-radius: 18px;
+            }
+        }
+
+        /* Nav toggle - chỉ hiện trên mobile */
+        .nav-toggle-wrap {
+            display: none;
+        }
+        @media (max-width: 430px) {
+            .nav-toggle-wrap {
+                display: block;
+                margin-bottom: 8px;
+                text-align: center;
+            }
+            .nav-toggle-btn {
+                background: white;
+                border: 1.5px solid #ddd;
+                border-radius: 8px;
+                padding: 8px 16px;
+                font-size: 13px;
+                color: #555;
+                cursor: pointer;
+                width: 100%;
+                font-weight: 500;
+            }
+            .question-nav.collapsed {
+                display: none;
+            }
+        }
+
+        /* Notch / Dynamic Island safe area */
+        @supports (padding-top: env(safe-area-inset-top)) {
+            .header {
+                padding-top: calc(15px + env(safe-area-inset-top, 0px));
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== START SCREEN ===== -->
+<div class="start-screen" id="startScreen">
+    <div style="font-size: 48px; margin-bottom: 10px;">🌸</div>
+    <h2>仮免許学科試験</h2>
+    <div class="exam-title-jp">Thi thử bằng lái xe Karimen</div>
+
+    <div style="background: linear-gradient(135deg, #fff0f5, #ffe4ec); border-radius: 12px; padding: 20px; margin: 20px 0; border: 2px solid #f8a4c0;">
+        <p style="font-size: 18px; color: #d63384; font-weight: bold; margin-bottom: 8px;">
+            💕 Ngọc Anh ơi, cố lên nha！
+        </p>
+        <p style="font-size: 14px; color: #888; line-height: 1.8;">
+            Anh làm trang này riêng cho em luyện thi 🚗<br>
+            Mỗi ngày luyện một chút, nhất định em sẽ đỗ thôi！<br>
+            <span style="color: #d63384;">頑張れ、ゴックアイン！きっと合格できるよ！✨</span>
+        </p>
+    </div>
+
+    <div class="exam-rules">
+        <h3>📋 試験についての説明 / Hướng dẫn thi</h3>
+        <table>
+            <tr>
+                <td>問題数 / Số câu hỏi</td>
+                <td><strong>50問 / 50 câu</strong> (○×形式 / Dạng Đúng-Sai)</td>
+            </tr>
+            <tr>
+                <td>制限時間 / Thời gian</td>
+                <td><strong>30分 / 30 phút</strong></td>
+            </tr>
+            <tr>
+                <td>合格基準 / Điểm đạt</td>
+                <td><strong>45問以上正解 / Đúng từ 45 câu trở lên (90%)</strong></td>
+            </tr>
+            <tr>
+                <td>配点 / Điểm mỗi câu</td>
+                <td><strong>1問1点 / 1 điểm/câu</strong></td>
+            </tr>
+            <tr>
+                <td>解答方法 / Cách trả lời</td>
+                <td>○（正しい/Đúng）hoặc ×（誤り/Sai）</td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="text-align: left; background: #eef6ff; border-radius: 10px; padding: 20px; margin: 20px 0; border-left: 4px solid #2980b9;">
+        <h3 style="color: #1a5276; margin-bottom: 14px; font-size: 16px;">💡 Mẹo thi quan trọng / 試験のコツ</h3>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #c0392b; font-size: 14px; margin-bottom: 4px;">🔴 Cẩn thận với từ khóa bẫy:</p>
+            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
+                <li><strong>「必ず」(nhất định)・「常に」(luôn luôn)・「絶対に」(tuyệt đối)</strong> → Thường là <strong style="color:#e74c3c;">× (Sai)</strong> vì luật luôn có ngoại lệ</li>
+                <li><strong>「～することがある」(có trường hợp)・「～の場合もある」(cũng có lúc)</strong> → Thường là <strong style="color:#27ae60;">○ (Đúng)</strong></li>
+                <li><strong>「～してもよい」(có thể làm)</strong> → Đọc kỹ, có thể là bẫy！</li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #1a5276; font-size: 14px; margin-bottom: 4px;">🔢 Những con số phải nhớ:</p>
+            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
+                <li>Tốc độ đường thường (標識なし): <strong>60km/h</strong> | Đường cao tốc: <strong>100km/h</strong></li>
+                <li>Tốc độ tối thiểu cao tốc: <strong>50km/h</strong></li>
+                <li>Rẽ/quay đầu ra tín hiệu trước <strong>30m</strong> | Đổi làn trước <strong>3 giây</strong></li>
+                <li>Cấm đỗ: ngã tư/đường ngang <strong>5m</strong> | Trạm buýt <strong>10m</strong> | Hộp báo cháy <strong>1m</strong></li>
+                <li>Cấm dừng & đỗ: ngã tư/đường ngang <strong>5m</strong> + thêm cấm dừng gần đường ray <strong>10m</strong></li>
+                <li>Chiều cao chở hàng tối đa: <strong>3.8m</strong> | Nhô ra sau tối đa: <strong>1/10 chiều dài xe</strong></li>
+                <li>Xe gắn máy nguyên phụ (原付): tối đa <strong>30km/h</strong></li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #8e44ad; font-size: 14px; margin-bottom: 4px;">⚠️ Những chỗ hay nhầm:</p>
+            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
+                <li><strong>Đèn vàng nhấp nháy (黄点滅)</strong> = chú ý đi qua ≠ dừng lại. <strong>Đèn đỏ nhấp nháy (赤点滅)</strong> = dừng hẳn (一時停止)</li>
+                <li><strong>「車両進入禁止」</strong>(cấm đi vào) ≠ <strong>「車両通行止め」</strong>(cấm lưu thông) — khác nhau！</li>
+                <li><strong>Vượt xe (追い越し)</strong>: nguyên tắc vượt bên phải. Ngoại lệ: xe trước rẽ phải → vượt bên trái</li>
+                <li><strong>Xe khẩn cấp (緊急車両)</strong>: trong ngã tư → tránh sang trái. Ngoài ngã tư → tấp trái dừng lại</li>
+                <li><strong>Khoảng cách dừng (停止距離)</strong> = khoảng cách phản ứng (空走距離) + khoảng cách phanh (制動距離)</li>
+                <li><strong>徐行 (đi chậm)</strong> = dừng được ngay trong 1m. Không phải từ từ đi！</li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #27ae60; font-size: 14px; margin-bottom: 4px;">🛡️ Nguyên tắc an toàn (hầu hết là ○):</p>
+            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
+                <li>Liên quan đến <strong>bảo vệ người đi bộ, trẻ em, người khuyết tật</strong> → hầu hết là ○</li>
+                <li>Câu nào nói <strong>「安全を確認」(xác nhận an toàn)</strong> → thường là ○</li>
+                <li>Câu nào nói <strong>「徐行しなければならない」(phải đi chậm)</strong> gần trường học, khu dân cư → thường là ○</li>
+            </ul>
+        </div>
+
+        <div>
+            <p style="font-weight: bold; color: #e67e22; font-size: 14px; margin-bottom: 4px;">📝 Mẹo làm bài:</p>
+            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
+                <li>Đọc <strong>toàn bộ câu hỏi</strong> trước khi chọn — nhiều câu sai ở phần cuối câu</li>
+                <li>Không biết → <strong>đừng bỏ trống</strong>, chọn đại cũng có 50% đúng</li>
+                <li>Mỗi câu có <strong>36 giây</strong> (30 phút / 50 câu) — không cần vội nhưng đừng nghĩ quá lâu</li>
+                <li>Câu nào chắc chắn → chọn nhanh, dành thời gian cho câu khó</li>
+            </ul>
+        </div>
+    </div>
+
+    <p style="color: #888; font-size: 13px; margin-top: 15px;">
+        ※ 問題は毎回ランダムに出題されます。<br>
+        ※ Câu hỏi sẽ được xáo trộn ngẫu nhiên mỗi lần thi.
+    </p>
+
+    <button class="start-btn" onclick="startExam()">🌸 Em sẵn sàng thi rồi！/ 試験開始</button>
+</div>
+
+<!-- ===== HEADER (hidden until exam starts) ===== -->
+<div class="header" id="examHeader" style="display:none;">
+    <h1>🌸 Ngọc Anh の仮免許学科試験</h1>
+    <div class="header-info">
+        <div>⏱ 残り時間: <span class="timer" id="timerDisplay">30:00</span></div>
+        <div>📝 回答済: <span class="score-display" id="answeredCount">0</span>/50</div>
+    </div>
+    <div class="progress-bar">
+        <div class="progress" id="progressBar" style="width: 0%"></div>
+    </div>
+</div>
+
+<!-- ===== EXAM AREA ===== -->
+<div class="exam-container" id="examContainer">
+    <div class="nav-toggle-wrap">
+        <button class="nav-toggle-btn" id="navToggleBtn" onclick="toggleQuestionNav()">
+            📋 <span id="navToggleText">Ẩn bảng câu hỏi</span>
+        </button>
+    </div>
+    <div class="question-nav" id="questionNav"></div>
+
+    <div class="question-card" id="questionCard">
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-image" id="questionImage" style="display:none;"></div>
+        <div class="question-text-jp" id="questionTextJp"></div>
+        <div class="question-text-vi" id="questionTextVi"></div>
+        <div class="answer-buttons">
+            <button class="answer-btn maru" id="btnMaru" onclick="selectAnswer(true)">
+                ○
+                <span class="label">正しい / Đúng</span>
+            </button>
+            <button class="answer-btn batsu" id="btnBatsu" onclick="selectAnswer(false)">
+                ×
+                <span class="label">誤り / Sai</span>
+            </button>
+        </div>
+        <div class="inline-explanation" id="inlineExplanation">
+            <div class="inline-result" id="inlineResult"></div>
+            <div class="inline-correct-answer" id="inlineCorrectAnswer"></div>
+            <div class="inline-explain-jp" id="inlineExplainJp"></div>
+            <div class="inline-explain-vi" id="inlineExplainVi"></div>
+        </div>
+    </div>
+
+    <div class="nav-controls">
+        <button class="nav-arrow" id="prevBtn" onclick="prevQuestion()">◀ 前の問題</button>
+        <button class="submit-btn" id="submitBtn" onclick="submitExam()">提出する / Nộp bài</button>
+        <button class="nav-arrow" id="nextBtn" onclick="nextQuestion()">次の問題 ▶</button>
+    </div>
+</div>
+
+<!-- ===== RESULT SCREEN ===== -->
+<div class="result-screen" id="resultScreen">
+    <div class="result-summary">
+        <div class="result-pass" id="resultPass"></div>
+        <div class="result-score" id="resultScore"></div>
+        <div class="result-details">
+            <div class="result-detail-item correct">
+                <div class="number" id="resultCorrect">0</div>
+                <div class="label">正解 / Đúng</div>
+            </div>
+            <div class="result-detail-item wrong">
+                <div class="number" id="resultWrong">0</div>
+                <div class="label">不正解 / Sai</div>
+            </div>
+            <div class="result-detail-item unanswered">
+                <div class="number" id="resultUnanswered">0</div>
+                <div class="label">未回答 / Chưa trả lời</div>
+            </div>
+        </div>
+        <div id="resultMotivation" style="background: linear-gradient(135deg, #fff0f5, #ffe4ec); border-radius: 10px; padding: 15px; margin: 15px 0; border: 1px solid #f8a4c0;"></div>
+        <button class="retry-btn" onclick="location.reload()">🌸 Thi lại lần nữa nha！/ もう一度</button>
+    </div>
+
+    <h3 style="margin: 25px 0 15px; color: #1a5276;">📖 解答と解説 / Đáp án và giải thích</h3>
+
+    <div class="filter-buttons">
+        <button class="filter-btn active" onclick="filterReview('all', this)">すべて / Tất cả</button>
+        <button class="filter-btn" onclick="filterReview('wrong', this)">不正解のみ / Chỉ câu sai</button>
+        <button class="filter-btn" onclick="filterReview('correct', this)">正解のみ / Chỉ câu đúng</button>
+        <button class="filter-btn" onclick="filterReview('unanswered', this)">未回答 / Chưa trả lời</button>
+    </div>
+
+    <div class="review-list" id="reviewList"></div>
+</div>
+
+<script>
+// ===== QUESTION BANK =====
+const allQuestions = [
+    {
+        jp: "車両通行帯のある道路では、原則として一番左の車両通行帯を通行しなければならない。",
+        vi: "Trên đường có phân chia làn xe, về nguyên tắc phải đi ở làn xe bên trái ngoài cùng.",
+        answer: true,
+        explanationJp: "車両通行帯のある道路では、原則として一番左の車両通行帯を通行します。右側の車線は追い越しなどのために空けておきます。",
+        explanationVi: "Trên đường có phân chia làn xe, về nguyên tắc phải đi ở làn bên trái ngoài cùng. Làn bên phải được dành cho việc vượt xe."
+    },
+    {
+        jp: "交差点で右折するときは、あらかじめできるだけ道路の中央に寄り、交差点の中心のすぐ内側を徐行しなければならない。",
+        vi: "Khi rẽ phải ở ngã tư, phải đi sát vào giữa đường từ trước và đi chậm qua phía trong tâm ngã tư.",
+        answer: true,
+        explanationJp: "右折する場合は、あらかじめ道路の中央に寄り、交差点の中心の内側を徐行して曲がります。これは安全な右折の基本ルールです。",
+        explanationVi: "Khi rẽ phải, phải đi sát vào giữa đường từ trước và đi chậm qua phía trong tâm ngã tư. Đây là quy tắc cơ bản để rẽ phải an toàn."
+    },
+    {
+        jp: "追い越しをするときは、右側に出て前の車を追い越すのが原則である。",
+        vi: "Khi vượt xe, nguyên tắc là đi sang bên phải để vượt xe phía trước.",
+        answer: true,
+        explanationJp: "追い越しは原則として右側から行います。左側からの追い越しは原則禁止されています。",
+        explanationVi: "Vượt xe về nguyên tắc phải vượt từ bên phải. Vượt từ bên trái về nguyên tắc là bị cấm."
+    },
+    {
+        jp: "歩行者のそばを通るときは、歩行者との間に安全な間隔をあけるか、徐行しなければならない。",
+        vi: "Khi đi gần người đi bộ, phải giữ khoảng cách an toàn với người đi bộ hoặc đi chậm.",
+        answer: true,
+        explanationJp: "歩行者の安全を確保するため、十分な間隔を保つか、徐行する必要があります。安全間隔が取れない場合は徐行が義務です。",
+        explanationVi: "Để đảm bảo an toàn cho người đi bộ, phải giữ khoảng cách đủ hoặc đi chậm. Nếu không giữ được khoảng cách an toàn thì bắt buộc phải đi chậm."
+    },
+    {
+        jp: "見通しのよい道路では、信号がなくても横断歩道の手前で減速する必要はない。",
+        vi: "Trên đường có tầm nhìn tốt, không cần giảm tốc trước vạch sang đường dù không có đèn tín hiệu.",
+        answer: false,
+        explanationJp: "横断歩道に近づいたときは、見通しがよくても歩行者がいないことが明らかでない限り、減速して安全を確認しなければなりません。",
+        explanationVi: "Khi đến gần vạch sang đường, dù tầm nhìn tốt, nếu không rõ ràng là không có người đi bộ thì phải giảm tốc và xác nhận an toàn."
+    },
+    {
+        jp: "踏切を通過するときは、踏切の直前で一時停止し、安全を確認しなければならない。",
+        vi: "Khi qua đường ray, phải dừng tạm ngay trước đường ray và xác nhận an toàn.",
+        answer: true,
+        explanationJp: "踏切の直前で必ず一時停止し、左右の安全確認をしてから通過します。信号機がある踏切でも一時停止が必要です。",
+        explanationVi: "Phải dừng tạm ngay trước đường ray, xác nhận an toàn trái phải rồi mới qua. Dù đường ray có đèn tín hiệu cũng phải dừng tạm."
+    },
+    {
+        jp: "一方通行の道路では、道路の右側部分にはみ出して通行することができる。",
+        vi: "Trên đường một chiều, có thể đi lấn sang phần đường bên phải.",
+        answer: true,
+        explanationJp: "一方通行の道路では、対向車が来ないため、道路の右側部分にはみ出して通行することが認められています。",
+        explanationVi: "Trên đường một chiều, vì không có xe ngược chiều nên được phép đi lấn sang phần đường bên phải."
+    },
+    {
+        jp: "青信号は「進め」という意味である。",
+        vi: "Đèn xanh có nghĩa là \"đi\".",
+        answer: false,
+        explanationJp: "青信号は「進むことができる」という意味で、「進め」という命令ではありません。安全を確認してから進むことが大切です。",
+        explanationVi: "Đèn xanh có nghĩa là \"có thể đi\" chứ không phải lệnh \"đi\". Điều quan trọng là phải xác nhận an toàn rồi mới đi."
+    },
+    {
+        jp: "黄色の信号は、「注意して進め」という意味である。",
+        vi: "Đèn vàng có nghĩa là \"chú ý và đi tiếp\".",
+        answer: false,
+        explanationJp: "黄色信号は「止まれ」が原則です。ただし、停止線で安全に止まれない場合はそのまま進むことができます。",
+        explanationVi: "Đèn vàng về nguyên tắc có nghĩa là \"dừng lại\". Tuy nhiên, nếu không thể dừng an toàn ở vạch dừng thì có thể đi tiếp."
+    },
+    {
+        jp: "赤信号のとき、左折の矢印信号が出ている場合は左折することができる。",
+        vi: "Khi đèn đỏ, nếu có đèn mũi tên rẽ trái thì có thể rẽ trái.",
+        answer: true,
+        explanationJp: "赤信号でも、矢印信号が出ている方向には進むことができます。左折矢印が出ていれば左折可能です。",
+        explanationVi: "Dù đèn đỏ, nếu có đèn mũi tên thì có thể đi theo hướng mũi tên. Nếu có mũi tên rẽ trái thì có thể rẽ trái."
+    },
+    {
+        jp: "徐行とは、車がすぐに停止できるような速度で進行することをいう。",
+        vi: "Đi chậm (từ từ) nghĩa là đi với tốc độ mà xe có thể dừng lại ngay lập tức.",
+        answer: true,
+        explanationJp: "徐行とは、ブレーキをかけてすぐに（おおむね1メートル以内で）停止できる速度で、時速約10km以下をいいます。",
+        explanationVi: "Đi chậm là tốc độ mà khi phanh có thể dừng ngay (trong khoảng 1 mét), tức khoảng dưới 10km/h."
+    },
+    {
+        jp: "普通免許で運転できる車の総重量は、3.5トン未満である。",
+        vi: "Tổng trọng lượng xe có thể lái bằng bằng lái thường là dưới 3.5 tấn.",
+        answer: true,
+        explanationJp: "2017年3月12日以降に取得した普通免許では、車両総重量3.5トン未満、最大積載量2トン未満、乗車定員10人以下の車が運転できます。",
+        explanationVi: "Bằng lái thường lấy sau ngày 12/3/2017 có thể lái xe tổng trọng lượng dưới 3.5 tấn, tải trọng tối đa dưới 2 tấn, số chỗ ngồi 10 người trở xuống."
+    },
+    {
+        jp: "停車とは、車が継続的に停止することをいう。",
+        vi: "Đỗ xe nghĩa là xe dừng liên tục.",
+        answer: false,
+        explanationJp: "停車とは、駐車にあたらない短時間の車の停止のことです。継続的に停止するのは「駐車」です。5分以内の荷物の積み下ろしなどは停車です。",
+        explanationVi: "Dừng xe (停車) là việc dừng xe trong thời gian ngắn, không phải đỗ xe. Dừng liên tục là \"đỗ xe\" (駐車). Bốc dỡ hàng trong 5 phút trở xuống là dừng xe."
+    },
+    {
+        jp: "駐車禁止の場所であっても、5分以内であれば駐車してもよい。",
+        vi: "Dù ở nơi cấm đỗ xe, nếu trong 5 phút thì vẫn có thể đỗ.",
+        answer: false,
+        explanationJp: "駐車禁止の場所では、時間に関係なく駐車することはできません。5分以内の荷物の積み下ろしは「停車」であり「駐車」ではありません。",
+        explanationVi: "Ở nơi cấm đỗ xe, không được đỗ bất kể thời gian. Bốc dỡ hàng trong 5 phút là \"dừng xe\" chứ không phải \"đỗ xe\"."
+    },
+    {
+        jp: "道路の曲がり角から5メートル以内は、駐停車禁止である。",
+        vi: "Trong phạm vi 5 mét từ góc cua đường, cấm dừng đỗ xe.",
+        answer: true,
+        explanationJp: "道路の曲がり角から5メートル以内は駐停車禁止です。見通しが悪く、事故の原因となるためです。",
+        explanationVi: "Trong phạm vi 5 mét từ góc cua đường cấm dừng đỗ xe. Vì tầm nhìn kém, dễ gây tai nạn."
+    },
+    {
+        jp: "横断歩道や自転車横断帯とその手前30メートル以内は、追い越しが禁止されている。",
+        vi: "Vạch sang đường cho người đi bộ, vạch sang đường cho xe đạp và trong phạm vi 30 mét trước đó, cấm vượt xe.",
+        answer: true,
+        explanationJp: "横断歩道、自転車横断帯とその手前30メートル以内では、追い越しも追い抜きも禁止されています。",
+        explanationVi: "Ở vạch sang đường cho người đi bộ, xe đạp và trong phạm vi 30 mét trước đó, cấm vượt và cấm qua mặt xe khác."
+    },
+    {
+        jp: "高速道路の最低速度は、時速50キロメートルである。",
+        vi: "Tốc độ tối thiểu trên đường cao tốc là 50km/h.",
+        answer: true,
+        explanationJp: "高速自動車国道の本線車道での最低速度は50km/hです。これより遅い速度で走ると違反になります（やむを得ない場合を除く）。",
+        explanationVi: "Tốc độ tối thiểu trên làn chính của đường cao tốc là 50km/h. Đi chậm hơn sẽ bị phạt (trừ trường hợp bất khả kháng)."
+    },
+    {
+        jp: "一般道路での普通自動車の最高速度は、時速50キロメートルである。",
+        vi: "Tốc độ tối đa của ô tô thường trên đường thường là 50km/h.",
+        answer: false,
+        explanationJp: "一般道路での普通自動車の法定最高速度は時速60キロメートルです。ただし、標識で指定されている場合はその速度に従います。",
+        explanationVi: "Tốc độ tối đa theo luật của ô tô thường trên đường thường là 60km/h. Tuy nhiên, nếu có biển báo quy định thì phải theo tốc độ đó."
+    },
+    {
+        jp: "夜間、道路に駐停車するときは、非常点滅表示灯や駐車灯をつけなければならない。",
+        vi: "Ban đêm khi dừng đỗ xe trên đường phải bật đèn nháy khẩn cấp hoặc đèn đỗ xe.",
+        answer: true,
+        explanationJp: "夜間、道路上で駐停車する場合は、他の交通に対する安全のため、非常点滅表示灯か駐車灯をつける必要があります。",
+        explanationVi: "Ban đêm khi dừng đỗ trên đường phải bật đèn nháy khẩn cấp hoặc đèn đỗ để đảm bảo an toàn cho các phương tiện khác."
+    },
+    {
+        jp: "疲れているときでも、窓を開けて運転すれば安全である。",
+        vi: "Dù mệt mỏi, chỉ cần mở cửa sổ lái xe là an toàn.",
+        answer: false,
+        explanationJp: "疲れているときは判断力や注意力が低下するため、窓を開けるだけでは安全とはいえません。十分な休息を取ってから運転することが大切です。",
+        explanationVi: "Khi mệt mỏi, khả năng phán đoán và tập trung giảm, chỉ mở cửa sổ không đủ an toàn. Cần nghỉ ngơi đầy đủ trước khi lái xe."
+    },
+    {
+        jp: "運転中に大地震が発生したときは、急ブレーキをかけて停止しなければならない。",
+        vi: "Khi đang lái xe mà xảy ra động đất lớn, phải phanh gấp để dừng xe.",
+        answer: false,
+        explanationJp: "急ブレーキは後続車との衝突の危険があります。徐々に速度を落とし、道路の左側に停車し、エンジンを止めてラジオなどで情報を確認します。",
+        explanationVi: "Phanh gấp có nguy cơ bị xe sau đâm. Phải giảm tốc từ từ, dừng xe bên trái đường, tắt máy và nghe đài phát thanh để nắm thông tin."
+    },
+    {
+        jp: "同一方向に3つ以上の車両通行帯がある道路では、最も右側の車線は追い越し車線である。",
+        vi: "Trên đường có 3 làn xe trở lên cùng chiều, làn bên phải ngoài cùng là làn vượt xe.",
+        answer: true,
+        explanationJp: "3つ以上の車両通行帯がある場合、一番右側は追い越し車線です。追い越しが終わったら速やかに元の車線に戻ります。",
+        explanationVi: "Khi có 3 làn xe trở lên, làn bên phải ngoài cùng là làn vượt. Sau khi vượt xong phải nhanh chóng quay về làn cũ."
+    },
+    {
+        jp: "上り坂の頂上付近は、徐行しなければならない場所である。",
+        vi: "Khu vực gần đỉnh dốc lên là nơi phải đi chậm.",
+        answer: true,
+        explanationJp: "上り坂の頂上付近は見通しが悪いため、徐行しなければなりません。対向車や歩行者に注意が必要です。",
+        explanationVi: "Gần đỉnh dốc lên tầm nhìn kém nên phải đi chậm. Cần chú ý xe ngược chiều và người đi bộ."
+    },
+    {
+        jp: "勾配の急な下り坂は、徐行しなければならない場所である。",
+        vi: "Dốc xuống dốc đứng là nơi phải đi chậm.",
+        answer: true,
+        explanationJp: "勾配の急な下り坂は、スピードが出やすく危険なため、徐行が義務づけられています。エンジンブレーキを併用します。",
+        explanationVi: "Dốc xuống dốc đứng dễ tăng tốc và nguy hiểm nên bắt buộc phải đi chậm. Nên kết hợp sử dụng phanh động cơ."
+    },
+    {
+        jp: "安全地帯のある停留所で路面電車が止まっているときは、乗り降りする人がいても徐行して通過できる。",
+        vi: "Khi tàu điện dừng ở trạm có vùng an toàn, dù có người lên xuống vẫn có thể đi chậm qua.",
+        answer: true,
+        explanationJp: "安全地帯がある停留所では、乗降客の安全が確保されているため、徐行して通過することができます。安全地帯がない場合は一時停止が必要です。",
+        explanationVi: "Ở trạm có vùng an toàn, an toàn cho hành khách đã được đảm bảo nên có thể đi chậm qua. Nếu không có vùng an toàn thì phải dừng tạm."
+    },
+    {
+        jp: "タイヤの空気圧が低いと、燃費が悪くなる。",
+        vi: "Áp suất lốp thấp sẽ làm tốn nhiên liệu hơn.",
+        answer: true,
+        explanationJp: "タイヤの空気圧が低いと、路面との摩擦が増え、燃費が悪くなります。定期的な空気圧チェックが大切です。",
+        explanationVi: "Khi áp suất lốp thấp, ma sát với mặt đường tăng, làm tốn nhiên liệu hơn. Cần kiểm tra áp suất lốp định kỳ."
+    },
+    {
+        jp: "二重追い越しは禁止されている。",
+        vi: "Vượt xe hai lần liên tiếp (vượt kép) bị cấm.",
+        answer: true,
+        explanationJp: "前の車が他の車を追い越そうとしているときに、さらにその車を追い越すこと（二重追い越し）は禁止されています。",
+        explanationVi: "Khi xe phía trước đang vượt xe khác mà mình lại vượt xe đó (vượt kép) thì bị cấm."
+    },
+    {
+        jp: "車の運転者は、同乗者にもシートベルトを着用させる義務がある。",
+        vi: "Người lái xe có nghĩa vụ bắt người đi cùng cũng phải thắt dây an toàn.",
+        answer: true,
+        explanationJp: "運転者には、全ての同乗者にシートベルトを着用させる義務があります。後部座席の同乗者も含みます。",
+        explanationVi: "Người lái xe có nghĩa vụ bắt tất cả người đi cùng thắt dây an toàn, bao gồm cả người ngồi ghế sau."
+    },
+    {
+        jp: "原動機付自転車の法定最高速度は、時速30キロメートルである。",
+        vi: "Tốc độ tối đa theo luật của xe gắn máy (dưới 50cc) là 30km/h.",
+        answer: true,
+        explanationJp: "原動機付自転車（50cc以下）の法定最高速度は30km/hです。これを超えると速度超過違反になります。",
+        explanationVi: "Tốc độ tối đa theo luật của xe gắn máy (dưới 50cc) là 30km/h. Vượt quá sẽ bị phạt vi phạm tốc độ."
+    },
+    {
+        jp: "バス専用通行帯では、バス以外の車は一切通行できない。",
+        vi: "Trên làn dành riêng cho xe buýt, các xe khác hoàn toàn không được đi.",
+        answer: false,
+        explanationJp: "バス専用通行帯でも、小型特殊自動車、原動機付自転車、軽車両は通行できます。また、右左折のためにやむを得ない場合も通行できます。",
+        explanationVi: "Trên làn dành riêng cho xe buýt, xe đặc biệt nhỏ, xe gắn máy, xe hạng nhẹ vẫn có thể đi. Ngoài ra, khi cần rẽ trái phải bất khả kháng cũng được đi."
+    },
+    {
+        jp: "初心運転者標識（初心者マーク）は、免許を取得してから1年間表示する義務がある。",
+        vi: "Biển người mới lái xe (wakaba mark) bắt buộc gắn trong 1 năm kể từ khi lấy bằng.",
+        answer: true,
+        explanationJp: "普通免許を取得して1年間は初心運転者標識を車の前後に表示する義務があります。表示しないと違反になります。",
+        explanationVi: "Trong 1 năm sau khi lấy bằng lái thường phải gắn biển người mới lái ở trước và sau xe. Không gắn sẽ bị phạt."
+    },
+    {
+        jp: "車を運転するときは、運転免許証を携帯しなければならない。",
+        vi: "Khi lái xe phải mang theo bằng lái xe.",
+        answer: true,
+        explanationJp: "運転中は常に運転免許証を携帯する義務があります。携帯していないと免許不携帯の違反になります。",
+        explanationVi: "Khi lái xe phải luôn mang theo bằng lái. Nếu không mang sẽ bị phạt lỗi không mang bằng lái."
+    },
+    {
+        jp: "自動車損害賠償責任保険（自賠責保険）に加入していない車でも、運転することができる。",
+        vi: "Xe chưa tham gia bảo hiểm trách nhiệm dân sự bắt buộc (jibaiseki) vẫn có thể lái.",
+        answer: false,
+        explanationJp: "自賠責保険への加入は法律で義務づけられており、未加入の車を運転することはできません。違反すると厳しい罰則があります。",
+        explanationVi: "Tham gia bảo hiểm bắt buộc là quy định của pháp luật, không được lái xe chưa tham gia bảo hiểm. Vi phạm sẽ bị phạt nặng."
+    },
+    {
+        jp: "運転中に携帯電話を手に持って通話することは禁止されている。",
+        vi: "Cấm cầm điện thoại di động và gọi điện khi đang lái xe.",
+        answer: true,
+        explanationJp: "運転中に携帯電話を手に持って通話やメールをすることは法律で禁止されています。ハンズフリーであっても注意が必要です。",
+        explanationVi: "Cầm điện thoại để gọi hoặc nhắn tin khi lái xe bị pháp luật cấm. Dù dùng rảnh tay cũng cần chú ý."
+    },
+    {
+        jp: "対面する信号が赤色の点滅をしているときは、一時停止して安全を確認した後に進むことができる。",
+        vi: "Khi đèn tín hiệu phía trước nhấp nháy đỏ, dừng tạm và xác nhận an toàn rồi có thể đi.",
+        answer: true,
+        explanationJp: "赤色の点滅信号は「一時停止」を意味します。必ず止まって、安全を確認してから進みます。",
+        explanationVi: "Đèn nhấp nháy đỏ có nghĩa là \"dừng tạm\". Phải dừng lại, xác nhận an toàn rồi mới đi."
+    },
+    {
+        jp: "対面する信号が黄色の点滅をしているときは、一時停止しなければならない。",
+        vi: "Khi đèn tín hiệu phía trước nhấp nháy vàng, phải dừng tạm.",
+        answer: false,
+        explanationJp: "黄色の点滅信号は「注意して進む」という意味で、一時停止の義務はありません。ただし、他の交通に十分注意して進む必要があります。",
+        explanationVi: "Đèn nhấp nháy vàng có nghĩa là \"chú ý và đi tiếp\", không bắt buộc dừng tạm. Tuy nhiên, phải chú ý đầy đủ các phương tiện khác."
+    },
+    {
+        jp: "交差点内で緊急自動車が接近してきたときは、交差点の左側に寄って一時停止しなければならない。",
+        vi: "Khi xe khẩn cấp đến gần trong ngã tư, phải tránh sang trái ngã tư và dừng tạm.",
+        answer: false,
+        explanationJp: "交差点内にいる場合は、交差点を避けて道路の左側に寄り、一時停止します。交差点内で止まると緊急車両の妨げになります。",
+        explanationVi: "Nếu đang ở trong ngã tư, phải ra khỏi ngã tư rồi tránh sang bên trái đường và dừng tạm. Dừng trong ngã tư sẽ cản trở xe khẩn cấp."
+    },
+    {
+        jp: "ブレーキをかけてから車が停止するまでの距離を、制動距離という。",
+        vi: "Khoảng cách từ khi đạp phanh đến khi xe dừng hẳn gọi là khoảng cách phanh.",
+        answer: true,
+        explanationJp: "制動距離は、ブレーキが効き始めてから停止するまでの距離です。空走距離と制動距離を合わせたものが停止距離です。",
+        explanationVi: "Khoảng cách phanh là khoảng cách từ khi phanh bắt đầu tác dụng đến khi xe dừng. Khoảng cách phản ứng + khoảng cách phanh = khoảng cách dừng."
+    },
+    {
+        jp: "路線バスが発進の合図を出したときは、その発進を妨げてはならない。",
+        vi: "Khi xe buýt tuyến ra tín hiệu xuất phát, không được cản trở việc xuất phát.",
+        answer: true,
+        explanationJp: "路線バスが発進の合図を出したときは、後方の車はバスの発進を妨げてはなりません。ただし、急ブレーキや急ハンドルで避けなければならないときは除きます。",
+        explanationVi: "Khi xe buýt tuyến ra tín hiệu xuất phát, xe phía sau không được cản trở. Tuy nhiên, trừ trường hợp phải phanh gấp hoặc đánh lái gấp để tránh."
+    },
+    {
+        jp: "児童の乗り降りのために停車しているスクールバスのそばを通るときは、徐行して安全を確認しなければならない。",
+        vi: "Khi đi qua gần xe buýt trường học đang dừng cho học sinh lên xuống, phải đi chậm và xác nhận an toàn.",
+        answer: true,
+        explanationJp: "スクールバスが児童の乗り降りのために停車しているときは、徐行して安全を確認しなければなりません。児童の飛び出しに注意が必要です。",
+        explanationVi: "Khi xe buýt trường học dừng cho học sinh lên xuống phải đi chậm và xác nhận an toàn. Cần chú ý học sinh có thể chạy ra đường."
+    },
+    {
+        jp: "「警笛鳴らせ」の標識がある場所では、警音器を鳴らさなければならない。",
+        vi: "Ở nơi có biển báo \"bấm còi\", phải bấm còi.",
+        answer: true,
+        explanationJp: "「警笛鳴らせ」の標識がある場所では、警音器を鳴らす義務があります。見通しの悪いカーブなどに設置されています。",
+        explanationVi: "Ở nơi có biển báo \"bấm còi\" thì bắt buộc phải bấm còi. Biển này thường đặt ở những khúc cua tầm nhìn kém."
+    },
+    {
+        jp: "エンジンブレーキは、低速ギアほど制動力が大きい。",
+        vi: "Phanh động cơ có lực phanh càng lớn khi ở số thấp.",
+        answer: true,
+        explanationJp: "エンジンブレーキは低速ギア（1速、2速）ほど制動力が大きくなります。長い下り坂ではエンジンブレーキを活用することが大切です。",
+        explanationVi: "Phanh động cơ có lực phanh lớn hơn ở số thấp (số 1, số 2). Ở dốc dài nên tận dụng phanh động cơ."
+    },
+    {
+        jp: "霧が出ているときは、フォグランプを点灯し、速度を落として運転する。",
+        vi: "Khi có sương mù, phải bật đèn sương mù và giảm tốc độ khi lái xe.",
+        answer: true,
+        explanationJp: "霧のときはフォグランプや前照灯を点灯し、速度を落とし、車間距離を十分に取って運転します。",
+        explanationVi: "Khi có sương mù phải bật đèn sương mù hoặc đèn pha, giảm tốc độ và giữ khoảng cách xe đủ lớn."
+    },
+    {
+        jp: "右折や左折の合図は、右折や左折をしようとする地点から30メートル手前で出す。",
+        vi: "Tín hiệu rẽ phải hoặc rẽ trái phải bật ở vị trí cách 30 mét trước điểm rẽ.",
+        answer: true,
+        explanationJp: "右左折の合図は、その行為をしようとする地点（交差点）の30メートル手前に達したときに出します。",
+        explanationVi: "Tín hiệu rẽ phải trái phải bật khi đến vị trí cách 30 mét trước điểm rẽ (ngã tư)."
+    },
+    {
+        jp: "進路変更の合図は、進路を変えようとする約3秒前に出す。",
+        vi: "Tín hiệu đổi làn phải bật khoảng 3 giây trước khi đổi làn.",
+        answer: true,
+        explanationJp: "進路変更の合図は、変更しようとするときの約3秒前に出します。右左折の30メートル手前とは異なるので注意しましょう。",
+        explanationVi: "Tín hiệu đổi làn phải bật khoảng 3 giây trước khi đổi. Lưu ý khác với tín hiệu rẽ (30 mét trước)."
+    },
+    {
+        jp: "坂道で駐車するときは、車輪止めをする必要はない。",
+        vi: "Khi đỗ xe trên dốc, không cần chèn bánh xe.",
+        answer: false,
+        explanationJp: "坂道で駐車するときは、車が動き出さないように車輪止めをするか、ハンドルを切っておく必要があります。",
+        explanationVi: "Khi đỗ xe trên dốc, phải chèn bánh xe hoặc đánh lái để xe không bị trôi."
+    },
+    {
+        jp: "車間距離は、速度が速いほど長くとる必要がある。",
+        vi: "Khoảng cách giữa các xe cần giữ càng xa khi tốc độ càng cao.",
+        answer: true,
+        explanationJp: "速度が速いほど制動距離が長くなるため、車間距離も長く取る必要があります。",
+        explanationVi: "Tốc độ càng cao thì khoảng cách phanh càng dài, nên cần giữ khoảng cách xe xa hơn."
+    },
+    {
+        jp: "交差点で左折するとき、ハンドルを切りながら左側のサイドミラーで巻き込み確認をすればよい。",
+        vi: "Khi rẽ trái ở ngã tư, chỉ cần kiểm tra gương bên trái khi đang đánh lái là được.",
+        answer: false,
+        explanationJp: "左折時の巻き込み確認は、ハンドルを切る前に行います。ハンドルを切りながらでは遅すぎて、巻き込み事故を防げない可能性があります。",
+        explanationVi: "Kiểm tra điểm mù khi rẽ trái phải thực hiện trước khi đánh lái. Nếu kiểm tra khi đang đánh lái thì quá muộn, có thể không tránh được tai nạn cuốn vào."
+    },
+    {
+        jp: "トンネルの中では、車両通行帯がある場合でも追い越しをしてはならない。",
+        vi: "Trong hầm, dù có phân chia làn xe cũng không được vượt xe.",
+        answer: false,
+        explanationJp: "トンネル内でも車両通行帯がある場合は追い越しができます。車両通行帯がない場合は追い越し禁止です。",
+        explanationVi: "Trong hầm nếu có phân chia làn xe thì được vượt. Nếu không có phân chia làn thì cấm vượt."
+    },
+    {
+        jp: "飲酒運転は、酒の量に関係なく禁止されている。",
+        vi: "Lái xe khi uống rượu bị cấm bất kể lượng rượu uống.",
+        answer: true,
+        explanationJp: "飲酒運転は酒の量に関係なく禁止されています。少量の飲酒でも判断力が低下し、重大事故の原因となります。",
+        explanationVi: "Lái xe sau khi uống rượu bị cấm bất kể lượng rượu. Dù uống ít cũng giảm khả năng phán đoán, có thể gây tai nạn nghiêm trọng."
+    },
+    {
+        jp: "オートマチック車のクリープ現象とは、エンジンがかかっているとき、アクセルを踏まなくても車がゆっくり動く現象である。",
+        vi: "Hiện tượng creep của xe số tự động là hiện tượng xe từ từ di chuyển dù không đạp ga khi động cơ đang chạy.",
+        answer: true,
+        explanationJp: "AT車はドライブ（D）レンジに入っていると、アクセルを踏まなくても車がゆっくり動きます。これをクリープ現象といい、駐車場などでの事故原因にもなります。",
+        explanationVi: "Xe AT khi ở số D, dù không đạp ga xe vẫn từ từ di chuyển. Đây gọi là hiện tượng creep, có thể gây tai nạn ở bãi đỗ xe."
+    },
+    // ===== BỔ SUNG: 信号・標識 (Tín hiệu & Biển báo) =====
+    {
+        jp: "警察官が腕を横に水平に上げているとき、警察官の身体の正面に対面する交通は赤信号と同じ意味である。",
+        vi: "Khi cảnh sát giơ tay ngang, phía đối diện thân người cảnh sát có ý nghĩa giống đèn đỏ.",
+        answer: true,
+        explanationJp: "警察官が腕を横に水平に上げたとき、正面と背面の交通に対しては赤信号と同じ意味になります。",
+        explanationVi: "Khi cảnh sát giơ tay ngang, phía trước mặt và phía sau lưng cảnh sát có ý nghĩa giống đèn đỏ."
+    },
+    {
+        jp: "警察官が腕を横に水平に上げているとき、警察官の身体の側面に平行する交通は青信号と同じ意味である。",
+        vi: "Khi cảnh sát giơ tay ngang, giao thông song song với thân người cảnh sát có ý nghĩa giống đèn xanh.",
+        answer: true,
+        explanationJp: "警察官の身体の側面に平行する方向の交通は、青信号と同じ意味で進むことができます。",
+        explanationVi: "Giao thông song song với hai bên thân người cảnh sát có ý nghĩa giống đèn xanh, có thể đi."
+    },
+    {
+        jp: "「一方通行」の標識は、自転車にも適用される。",
+        vi: "Biển báo \"một chiều\" cũng áp dụng cho xe đạp.",
+        answer: true,
+        explanationJp: "一方通行の標識は、「自転車を除く」などの補助標識がない限り、自転車にも適用されます。",
+        explanationVi: "Biển báo một chiều cũng áp dụng cho xe đạp, trừ khi có biển phụ ghi \"trừ xe đạp\"."
+    },
+    {
+        jp: "「車両進入禁止」の標識は、一方通行の出口に設けられている。",
+        vi: "Biển báo \"cấm xe đi vào\" được đặt ở lối ra của đường một chiều.",
+        answer: true,
+        explanationJp: "「車両進入禁止」の標識は一方通行の出口側に設けられ、反対方向からの車の進入を禁止します。",
+        explanationVi: "Biển \"cấm xe đi vào\" được đặt ở phía lối ra đường một chiều, cấm xe từ hướng ngược lại đi vào."
+    },
+    {
+        jp: "「車両通行止め」の標識は、車は通行できないが、歩行者は通行できる。",
+        vi: "Biển báo \"cấm xe\" thì xe không được đi nhưng người đi bộ vẫn đi được.",
+        answer: true,
+        explanationJp: "「車両通行止め」は車両の通行を禁止するものであり、歩行者は通行できます。",
+        explanationVi: "\"Cấm xe\" chỉ cấm xe cộ, người đi bộ vẫn có thể đi qua."
+    },
+    {
+        jp: "「通行止め」の標識がある道路は、歩行者も車も通行できない。",
+        vi: "Đường có biển báo \"cấm đi\" thì cả người đi bộ và xe đều không được đi.",
+        answer: true,
+        explanationJp: "「通行止め」は歩行者、車両を含むすべての交通の通行を禁止する標識です。",
+        explanationVi: "\"Cấm đi\" là biển cấm tất cả giao thông bao gồm cả người đi bộ và xe cộ."
+    },
+    {
+        jp: "「駐車禁止」の標識がある場所では、停車もしてはならない。",
+        vi: "Ở nơi có biển \"cấm đỗ xe\" thì cũng không được dừng xe.",
+        answer: false,
+        explanationJp: "「駐車禁止」は駐車を禁止するもので、停車は禁止していません。停車も禁止する場合は「駐停車禁止」の標識が設置されます。",
+        explanationVi: "\"Cấm đỗ xe\" chỉ cấm đỗ, không cấm dừng xe. Nếu muốn cấm cả dừng thì sẽ đặt biển \"cấm dừng đỗ\"."
+    },
+    {
+        jp: "「最高速度」の標識がない一般道路では、どんな車でも時速60キロメートルで走行できる。",
+        vi: "Trên đường thường không có biển tốc độ tối đa, bất kỳ xe nào cũng có thể chạy 60km/h.",
+        answer: false,
+        explanationJp: "原動機付自転車の法定速度は30km/h、他の車両は60km/hです。すべての車が60km/hで走行できるわけではありません。",
+        explanationVi: "Tốc độ luật định của xe gắn máy là 30km/h, các xe khác là 60km/h. Không phải tất cả xe đều được chạy 60km/h."
+    },
+    {
+        jp: "「徐行」の標識がある場所では、徐行しなければならない。",
+        vi: "Ở nơi có biển báo \"đi chậm\", phải đi chậm.",
+        answer: true,
+        explanationJp: "「徐行」の標識がある場所では、車がすぐに停止できるような速度（おおむね10km/h以下）で進行しなければなりません。",
+        explanationVi: "Ở nơi có biển \"đi chậm\" phải đi với tốc độ có thể dừng ngay (khoảng dưới 10km/h)."
+    },
+    {
+        jp: "「一時停止」の標識があるところでは、停止線の直前で一時停止しなければならない。",
+        vi: "Ở nơi có biển \"dừng tạm\", phải dừng tạm ngay trước vạch dừng.",
+        answer: true,
+        explanationJp: "「一時停止」の標識では、停止線がある場合はその直前で、ない場合は交差点の直前で一時停止します。",
+        explanationVi: "Ở biển \"dừng tạm\", nếu có vạch dừng thì dừng ngay trước vạch, nếu không có thì dừng ngay trước ngã tư."
+    },
+    {
+        jp: "「指定方向外進行禁止」の標識は、車が矢印の方向以外に進行することを禁止している。",
+        vi: "Biển \"cấm đi ngoài hướng chỉ định\" cấm xe đi theo hướng khác ngoài hướng mũi tên.",
+        answer: true,
+        explanationJp: "この標識は矢印の方向にのみ進行できることを示し、それ以外の方向への進行は禁止されています。",
+        explanationVi: "Biển này cho biết chỉ được đi theo hướng mũi tên, cấm đi các hướng khác."
+    },
+    {
+        jp: "「転回禁止」の標識がある場所では、Uターンをしてはならない。",
+        vi: "Ở nơi có biển \"cấm quay đầu\", không được quay đầu xe (U-turn).",
+        answer: true,
+        explanationJp: "「転回禁止」の標識がある場所では、Uターン（転回）は禁止されています。",
+        explanationVi: "Ở nơi có biển \"cấm quay đầu\" thì không được quay đầu xe."
+    },
+    {
+        jp: "「追越しのための右側部分はみ出し通行禁止」の標識がある道路では、追い越し自体が禁止されている。",
+        vi: "Trên đường có biển \"cấm lấn sang phải để vượt\", bản thân việc vượt xe cũng bị cấm.",
+        answer: false,
+        explanationJp: "この標識は右側部分にはみ出しての追い越しを禁止するもので、はみ出さずに追い越すことは可能です。",
+        explanationVi: "Biển này cấm lấn sang phần đường bên phải để vượt, nhưng nếu không lấn sang thì vẫn có thể vượt."
+    },
+    // ===== BỔ SUNG: 速度・車間距離 (Tốc độ & Khoảng cách) =====
+    {
+        jp: "停止距離とは、空走距離と制動距離を合わせた距離のことである。",
+        vi: "Khoảng cách dừng xe là tổng khoảng cách phản ứng và khoảng cách phanh.",
+        answer: true,
+        explanationJp: "停止距離＝空走距離（危険を感じてからブレーキが効くまで）＋制動距離（ブレーキが効いてから停止するまで）です。",
+        explanationVi: "Khoảng cách dừng = Khoảng cách phản ứng (từ lúc nhận thấy nguy hiểm đến khi phanh tác dụng) + Khoảng cách phanh (từ lúc phanh tác dụng đến khi dừng)."
+    },
+    {
+        jp: "雨にぬれた道路では、乾いた道路に比べて制動距離が長くなる。",
+        vi: "Trên đường ướt mưa, khoảng cách phanh dài hơn so với đường khô.",
+        answer: true,
+        explanationJp: "路面がぬれていると、タイヤと路面の摩擦力が低下するため、制動距離が長くなります。速度を落として走行する必要があります。",
+        explanationVi: "Khi mặt đường ướt, lực ma sát giữa lốp và đường giảm nên khoảng cách phanh dài hơn. Cần giảm tốc độ khi đi."
+    },
+    {
+        jp: "速度が2倍になると、制動距離は2倍になる。",
+        vi: "Khi tốc độ tăng gấp 2 thì khoảng cách phanh cũng tăng gấp 2.",
+        answer: false,
+        explanationJp: "制動距離は速度の2乗に比例します。速度が2倍になると制動距離は約4倍になります。",
+        explanationVi: "Khoảng cách phanh tỷ lệ với bình phương tốc độ. Tốc độ gấp 2 thì khoảng cách phanh gấp khoảng 4 lần."
+    },
+    {
+        jp: "高速道路での車間距離は、時速100キロメートルのとき約100メートル以上が必要である。",
+        vi: "Khoảng cách xe trên đường cao tốc khi chạy 100km/h cần khoảng từ 100 mét trở lên.",
+        answer: true,
+        explanationJp: "高速道路では速度に応じた十分な車間距離が必要です。時速100kmでは約100m以上の車間距離が目安です。",
+        explanationVi: "Trên đường cao tốc cần giữ khoảng cách xe phù hợp với tốc độ. Ở 100km/h thì cần khoảng 100m trở lên."
+    },
+    {
+        jp: "高速自動車国道の本線車道での最高速度は、普通自動車の場合、時速100キロメートルである。",
+        vi: "Tốc độ tối đa trên làn chính đường cao tốc đối với ô tô thường là 100km/h.",
+        answer: true,
+        explanationJp: "高速自動車国道の本線車道では、普通自動車の最高速度は100km/hです。ただし標識で別の速度が示されている場合はそれに従います。",
+        explanationVi: "Trên làn chính đường cao tốc, tốc độ tối đa ô tô thường là 100km/h. Tuy nhiên nếu có biển báo tốc độ khác thì phải tuân theo."
+    },
+    // ===== BỔ SUNG: 追い越し・進路変更 (Vượt xe & Đổi làn) =====
+    {
+        jp: "追い越しが禁止されている場所であっても、自転車などの軽車両を追い越すことはできる。",
+        vi: "Dù ở nơi cấm vượt, vẫn có thể vượt xe đạp và xe hạng nhẹ.",
+        answer: true,
+        explanationJp: "追い越し禁止の場所でも、自転車などの軽車両を追い越すことは認められています。",
+        explanationVi: "Ở nơi cấm vượt, vẫn được phép vượt xe đạp và các xe hạng nhẹ."
+    },
+    {
+        jp: "前の車が右折するために道路の中央に寄っているときは、その左側を通って追い越すことができる。",
+        vi: "Khi xe phía trước đi sát vào giữa đường để rẽ phải, có thể vượt từ bên trái.",
+        answer: true,
+        explanationJp: "前の車が右折のため中央に寄っている場合は、例外的にその左側から追い越すことが認められています。",
+        explanationVi: "Khi xe trước đi sát giữa đường để rẽ phải, ngoại lệ được phép vượt từ bên trái."
+    },
+    {
+        jp: "前の車が追い越そうとしているときに、さらにその車を追い越すことは二重追い越しとなり禁止されている。",
+        vi: "Khi xe trước đang vượt xe khác mà mình lại vượt xe đó thì gọi là vượt kép và bị cấm.",
+        answer: true,
+        explanationJp: "前の車が追い越しをしようとしているときに、さらにその車を追い越す二重追い越しは危険であり禁止されています。",
+        explanationVi: "Khi xe trước đang vượt mà mình lại vượt tiếp (vượt kép) rất nguy hiểm và bị cấm."
+    },
+    {
+        jp: "追い越されるときは、速度を上げて追い越されないようにしてはならない。",
+        vi: "Khi bị vượt, không được tăng tốc để không cho vượt.",
+        answer: true,
+        explanationJp: "追い越されるときは、追い越しが安全にできるように、速度を上げてはなりません。進路を譲るのが原則です。",
+        explanationVi: "Khi bị vượt, không được tăng tốc, phải nhường đường để việc vượt diễn ra an toàn."
+    },
+    {
+        jp: "交差点とその手前30メートル以内は、追い越しが禁止されている。",
+        vi: "Ngã tư và trong phạm vi 30 mét trước ngã tư, cấm vượt xe.",
+        answer: false,
+        explanationJp: "交差点とその手前30メートル以内での追い越しは、優先道路を通行している場合を除き禁止です。優先道路であれば追い越しできます。",
+        explanationVi: "Cấm vượt ở ngã tư và 30m trước ngã tư, trừ khi đang đi trên đường ưu tiên. Nếu đang trên đường ưu tiên thì được vượt."
+    },
+    // ===== BỔ SUNG: 駐停車 (Dừng đỗ xe) =====
+    {
+        jp: "駐車とは、車が継続的に停止することや、運転者が車から離れてすぐに運転できない状態をいう。",
+        vi: "Đỗ xe là việc xe dừng liên tục hoặc người lái rời xe và không thể lái ngay.",
+        answer: true,
+        explanationJp: "駐車とは、5分を超える荷物の積み下ろしや、運転者が車から離れてすぐに運転できない状態での停止をいいます。",
+        explanationVi: "Đỗ xe là bốc dỡ hàng quá 5 phút hoặc người lái rời xe mà không thể lái ngay lập tức."
+    },
+    {
+        jp: "バス停留所の標示板から10メートル以内は、駐停車禁止である。",
+        vi: "Trong phạm vi 10 mét từ bảng trạm xe buýt, cấm dừng đỗ xe.",
+        answer: true,
+        explanationJp: "バス停留所の標示板（柱）から10メートル以内は駐停車禁止です。バスの運行を妨げないためです。",
+        explanationVi: "Trong 10 mét từ bảng trạm xe buýt cấm dừng đỗ. Để không cản trở hoạt động của xe buýt."
+    },
+    {
+        jp: "消防署の出入口から5メートル以内は駐停車禁止である。",
+        vi: "Trong phạm vi 5 mét từ cổng trạm cứu hỏa, cấm dừng đỗ xe.",
+        answer: false,
+        explanationJp: "消防署の出入口からは5メートルではなく、「消火栓から5メートル以内」が駐停車禁止です。消防署の出入口は「駐車禁止」の対象です。",
+        explanationVi: "Cổng trạm cứu hỏa thuộc diện \"cấm đỗ\", không phải cấm dừng đỗ. \"Trong 5 mét từ trụ nước cứu hỏa\" mới là cấm dừng đỗ."
+    },
+    {
+        jp: "火災報知機から1メートル以内は、駐停車禁止である。",
+        vi: "Trong phạm vi 1 mét từ hộp báo cháy, cấm dừng đỗ xe.",
+        answer: true,
+        explanationJp: "火災報知機から1メートル以内は駐停車禁止です。緊急時にすぐ使用できるようにするためです。",
+        explanationVi: "Trong 1 mét từ hộp báo cháy cấm dừng đỗ. Để có thể sử dụng ngay khi khẩn cấp."
+    },
+    {
+        jp: "交差点の側端から5メートル以内は、駐停車禁止である。",
+        vi: "Trong phạm vi 5 mét từ mép ngã tư, cấm dừng đỗ xe.",
+        answer: true,
+        explanationJp: "交差点の側端から5メートル以内は駐停車禁止です。車の通行を妨げ、見通しが悪くなるためです。",
+        explanationVi: "Trong 5 mét từ mép ngã tư cấm dừng đỗ xe. Vì cản trở giao thông và giảm tầm nhìn."
+    },
+    {
+        jp: "横断歩道や自転車横断帯とその前後5メートル以内は、駐停車禁止である。",
+        vi: "Vạch sang đường cho người đi bộ, xe đạp và trong phạm vi 5 mét trước sau, cấm dừng đỗ xe.",
+        answer: true,
+        explanationJp: "横断歩道・自転車横断帯とその前後5メートル以内は駐停車禁止です。歩行者の安全のためです。",
+        explanationVi: "Vạch sang đường và 5 mét trước sau cấm dừng đỗ. Để đảm bảo an toàn cho người đi bộ."
+    },
+    {
+        jp: "坂の頂上付近や勾配の急な坂は、駐停車禁止である。",
+        vi: "Gần đỉnh dốc và dốc đứng cấm dừng đỗ xe.",
+        answer: true,
+        explanationJp: "坂の頂上付近や勾配の急な坂は見通しが悪く危険なため、駐停車禁止です。",
+        explanationVi: "Gần đỉnh dốc và dốc đứng tầm nhìn kém, nguy hiểm nên cấm dừng đỗ."
+    },
+    {
+        jp: "駐車場や車庫などの出入口から3メートル以内は、駐車禁止である。",
+        vi: "Trong phạm vi 3 mét từ cổng bãi đỗ xe hoặc nhà để xe, cấm đỗ xe.",
+        answer: true,
+        explanationJp: "駐車場、車庫などの自動車用の出入口から3メートル以内は駐車禁止です。出入りを妨げないためです。",
+        explanationVi: "Trong 3 mét từ cổng bãi đỗ xe, nhà để xe cấm đỗ. Để không cản trở việc ra vào."
+    },
+    {
+        jp: "消火栓から5メートル以内は、駐車禁止である。",
+        vi: "Trong phạm vi 5 mét từ trụ nước cứu hỏa, cấm đỗ xe.",
+        answer: false,
+        explanationJp: "消火栓から5メートル以内は「駐車禁止」ではなく「駐停車禁止」です。消火活動に支障がないようにするためです。",
+        explanationVi: "Trong 5 mét từ trụ nước cứu hỏa là \"cấm dừng đỗ\" chứ không chỉ \"cấm đỗ\". Để không cản trở hoạt động chữa cháy."
+    },
+    // ===== BỔ SUNG: 交差点 (Ngã tư) =====
+    {
+        jp: "交差点で左折するときは、あらかじめできるだけ道路の左端に寄り、交差点の側端に沿って徐行する。",
+        vi: "Khi rẽ trái ở ngã tư, phải đi sát bên trái đường từ trước và đi chậm dọc theo mép ngã tư.",
+        answer: true,
+        explanationJp: "左折時は、あらかじめ道路の左端に寄り、交差点の側端に沿って徐行しながら曲がります。巻き込み事故を防止するためです。",
+        explanationVi: "Khi rẽ trái, phải đi sát bên trái từ trước và đi chậm dọc mép ngã tư. Để phòng tránh tai nạn cuốn vào."
+    },
+    {
+        jp: "交差点に入ろうとしたとき、すでに交差点内に入っている車があるときは、その車の進行を妨げてはならない。",
+        vi: "Khi định vào ngã tư mà đã có xe trong ngã tư, không được cản trở xe đó.",
+        answer: true,
+        explanationJp: "先に交差点に入っている車には優先権があります。後から来た車はその進行を妨げてはなりません。",
+        explanationVi: "Xe đã vào ngã tư trước có quyền ưu tiên. Xe đến sau không được cản trở."
+    },
+    {
+        jp: "信号のない同じ幅の交差点では、左方から来る車が優先である。",
+        vi: "Ở ngã tư không có đèn tín hiệu, đường cùng độ rộng, xe từ bên trái được ưu tiên.",
+        answer: true,
+        explanationJp: "信号のない同じ幅の道路の交差点では、左方から来る車の進行を妨げてはなりません（左方優先）。",
+        explanationVi: "Ở ngã tư không đèn, đường cùng rộng, xe từ bên trái được ưu tiên (ưu tiên bên trái)."
+    },
+    {
+        jp: "交差点で右折する車と左折する車が出会ったときは、右折する車が優先である。",
+        vi: "Khi xe rẽ phải và xe rẽ trái gặp nhau ở ngã tư, xe rẽ phải được ưu tiên.",
+        answer: false,
+        explanationJp: "左折する車が優先です。右折車は左折車の進行を妨げてはなりません。",
+        explanationVi: "Xe rẽ trái được ưu tiên. Xe rẽ phải không được cản trở xe rẽ trái."
+    },
+    {
+        jp: "優先道路を通行しているときは、交差点内でも追い越しをすることができる。",
+        vi: "Khi đi trên đường ưu tiên, có thể vượt xe ngay trong ngã tư.",
+        answer: true,
+        explanationJp: "優先道路を通行している場合は、交差点やその手前30メートル以内でも追い越しが認められています。",
+        explanationVi: "Khi đi trên đường ưu tiên, được phép vượt xe ở ngã tư và trong phạm vi 30m trước ngã tư."
+    },
+    // ===== BỔ SUNG: 緊急車両・バス (Xe khẩn cấp & Xe buýt) =====
+    {
+        jp: "緊急自動車が接近してきたときは、道路の左側に寄って一時停止しなければならない。",
+        vi: "Khi xe khẩn cấp đến gần, phải tránh sang bên trái đường và dừng tạm.",
+        answer: false,
+        explanationJp: "一方通行の道路では左側に寄ると妨げになる場合があり、右側に寄ることもあります。交差点付近では交差点を避けて道路の左側に寄ります。必ずしも一時停止が必要ではなく、進路を譲ればよい場合もあります。",
+        explanationVi: "Trên đường một chiều có khi phải tránh sang phải. Gần ngã tư phải ra khỏi ngã tư rồi tránh sang trái. Không phải lúc nào cũng phải dừng tạm, có trường hợp chỉ cần nhường đường."
+    },
+    {
+        jp: "交差点付近以外の道路で緊急自動車が近づいてきたときは、道路の左側に寄って進路を譲る。",
+        vi: "Ở nơi không phải gần ngã tư, khi xe khẩn cấp đến gần phải tránh sang trái đường và nhường đường.",
+        answer: true,
+        explanationJp: "交差点やその付近以外では、道路の左側に寄って緊急自動車に進路を譲ります。一時停止は必須ではありません。",
+        explanationVi: "Ở nơi không phải ngã tư, tránh sang trái và nhường đường cho xe khẩn cấp. Không bắt buộc phải dừng tạm."
+    },
+    // ===== BỔ SUNG: 歩行者保護 (Bảo vệ người đi bộ) =====
+    {
+        jp: "横断歩道に近づいたとき、横断する人がいるかいないか明らかでない場合は、停止できるような速度で進行する。",
+        vi: "Khi đến gần vạch sang đường, nếu không rõ có người sang hay không, phải đi với tốc độ có thể dừng được.",
+        answer: true,
+        explanationJp: "横断歩道の手前では、歩行者がいないことが明らかな場合を除き、停止できるような速度で進行しなければなりません。",
+        explanationVi: "Trước vạch sang đường, trừ khi rõ ràng không có người, phải đi với tốc độ có thể dừng lại được."
+    },
+    {
+        jp: "横断歩道を横断している人がいるときは、横断歩道の手前で一時停止して、歩行者に道を譲らなければならない。",
+        vi: "Khi có người đang sang đường ở vạch sang, phải dừng tạm trước vạch và nhường đường cho người đi bộ.",
+        answer: true,
+        explanationJp: "横断歩道で横断中の歩行者がいる場合は、必ず横断歩道の手前で一時停止して道を譲ります。",
+        explanationVi: "Khi có người đang sang ở vạch sang đường, bắt buộc phải dừng trước vạch và nhường đường."
+    },
+    {
+        jp: "横断歩道のない交差点やその近くを歩行者が横断しているときは、その通行を妨げてはならない。",
+        vi: "Khi người đi bộ đang sang đường ở ngã tư không có vạch sang hoặc gần đó, không được cản trở.",
+        answer: true,
+        explanationJp: "横断歩道のない交差点でも、歩行者が横断しているときはその通行を妨げてはなりません。",
+        explanationVi: "Dù ngã tư không có vạch sang đường, khi người đi bộ đang sang vẫn không được cản trở."
+    },
+    {
+        jp: "通学通園バスが止まって児童が乗り降りしているとき、バスの側方を通過する場合は徐行しなければならない。",
+        vi: "Khi xe buýt trường học dừng cho trẻ lên xuống, nếu đi qua bên cạnh xe buýt phải đi chậm.",
+        answer: false,
+        explanationJp: "通学通園バスの側方を通るときは、徐行ではなく一時停止して安全を確認しなければなりません。",
+        explanationVi: "Khi đi qua bên cạnh xe buýt trường học, phải dừng tạm chứ không phải đi chậm, và phải xác nhận an toàn."
+    },
+    {
+        jp: "身体障害者用の車いすで通行している人は、歩行者として扱われる。",
+        vi: "Người đi bằng xe lăn dành cho người khuyết tật được coi là người đi bộ.",
+        answer: true,
+        explanationJp: "車いすで通行している人は歩行者として扱われ、歩行者と同じ保護を受けます。",
+        explanationVi: "Người đi xe lăn được coi là người đi bộ và được bảo vệ như người đi bộ."
+    },
+    // ===== BỔ SUNG: 安全運転 (Lái xe an toàn) =====
+    {
+        jp: "夜間、対向車のライトがまぶしいときは、視点をやや左前方に移して、目がくらまないようにする。",
+        vi: "Ban đêm khi đèn xe ngược chiều chói mắt, nên chuyển tầm nhìn sang phía trước bên trái để không bị lóa.",
+        answer: true,
+        explanationJp: "対向車のライトが眩しいときは、視点をやや左前方に移し、目がくらまないようにします。速度を落とすことも大切です。",
+        explanationVi: "Khi bị đèn xe ngược chiều chói, chuyển tầm nhìn sang trái phía trước để không bị lóa. Giảm tốc cũng quan trọng."
+    },
+    {
+        jp: "夜間、他の車とすれ違うときは、前照灯を減光するか、下向きに切り替えなければならない。",
+        vi: "Ban đêm khi gặp xe ngược chiều, phải giảm sáng đèn pha hoặc chuyển sang đèn cốt.",
+        answer: true,
+        explanationJp: "対向車とすれ違う際は、前照灯を減光するか下向き（ロービーム）に切り替え、対向車の運転者の目を眩ませないようにします。",
+        explanationVi: "Khi gặp xe ngược chiều, phải giảm sáng hoặc chuyển sang đèn cốt để không làm chói mắt người lái xe ngược chiều."
+    },
+    {
+        jp: "ぬかるみや水たまりの近くでは、泥や水をはねて他人に迷惑をかけないように注意して運転しなければならない。",
+        vi: "Ở gần vũng lầy hoặc vũng nước, phải chú ý lái xe để không bắn bùn nước gây phiền cho người khác.",
+        answer: true,
+        explanationJp: "ぬかるみや水たまりのある場所では、徐行するなどして泥や水をはね飛ばさないよう注意します。",
+        explanationVi: "Ở nơi có vũng lầy hoặc vũng nước, phải đi chậm để không bắn bùn nước lên người khác."
+    },
+    {
+        jp: "長い下り坂では、フットブレーキを使い続けるとブレーキが効かなくなることがある。",
+        vi: "Ở dốc dài xuống, nếu dùng phanh chân liên tục thì phanh có thể mất tác dụng.",
+        answer: true,
+        explanationJp: "長い下り坂でフットブレーキを使い続けると、ブレーキが過熱して効かなくなる「フェード現象」や「べーパーロック現象」が起きることがあります。エンジンブレーキを併用しましょう。",
+        explanationVi: "Dốc dài dùng phanh chân liên tục, phanh quá nóng có thể mất tác dụng (hiện tượng fade hoặc vapor lock). Nên kết hợp phanh động cơ."
+    },
+    {
+        jp: "フェード現象とは、ブレーキを使いすぎてブレーキの効きが悪くなる現象である。",
+        vi: "Hiện tượng fade là hiện tượng phanh giảm tác dụng do sử dụng phanh quá nhiều.",
+        answer: true,
+        explanationJp: "フェード現象は、ブレーキの過度な使用により、摩擦材（ブレーキライニング）が過熱して摩擦力が低下する現象です。",
+        explanationVi: "Hiện tượng fade xảy ra khi dùng phanh quá nhiều, má phanh quá nóng làm giảm lực ma sát."
+    },
+    {
+        jp: "ハイドロプレーニング現象とは、雨の日に高速で走ると、タイヤが水の上を滑走する現象である。",
+        vi: "Hiện tượng hydroplaning là hiện tượng lốp trượt trên mặt nước khi chạy nhanh vào ngày mưa.",
+        answer: true,
+        explanationJp: "雨の日に高速走行すると、タイヤと路面の間に水の膜ができ、ハンドルやブレーキが効かなくなります。速度を落とすことが大切です。",
+        explanationVi: "Khi chạy nhanh ngày mưa, giữa lốp và mặt đường hình thành lớp nước, khiến tay lái và phanh mất tác dụng. Cần giảm tốc."
+    },
+    {
+        jp: "スタンディングウェーブ現象とは、タイヤの空気圧が低い状態で高速走行したとき、タイヤが波打つ現象である。",
+        vi: "Hiện tượng standing wave là hiện tượng lốp bị sóng khi chạy tốc độ cao với áp suất lốp thấp.",
+        answer: true,
+        explanationJp: "タイヤの空気圧が低いまま高速走行すると、タイヤが波打って変形し、バースト（破裂）の原因になります。",
+        explanationVi: "Khi chạy nhanh với áp suất lốp thấp, lốp bị biến dạng sóng và có thể nổ lốp."
+    },
+    // ===== BỔ SUNG: 免許・法規 (Bằng lái & Luật) =====
+    {
+        jp: "仮運転免許証では、練習のため、高速道路を通行することができる。",
+        vi: "Bằng lái tạm thời có thể đi trên đường cao tốc để luyện tập.",
+        answer: false,
+        explanationJp: "仮運転免許で高速道路を通行することはできません。仮免許での練習は一般道路に限られます。",
+        explanationVi: "Bằng lái tạm thời không được đi trên đường cao tốc. Luyện tập với bằng tạm chỉ giới hạn trên đường thường."
+    },
+    {
+        jp: "仮運転免許で練習するときは、その車を運転できる免許を受けて3年以上の人か、第二種免許を受けている人を横に乗せなければならない。",
+        vi: "Khi luyện tập với bằng tạm, phải có người đã có bằng lái loại đó từ 3 năm trở lên hoặc người có bằng loại 2 ngồi bên cạnh.",
+        answer: true,
+        explanationJp: "仮免許練習中は、その車を運転できる第一種免許を3年以上持っている人か、第二種免許を持っている人を助手席に乗せる必要があります。",
+        explanationVi: "Khi luyện với bằng tạm, phải có người có bằng loại 1 từ 3 năm trở lên hoặc bằng loại 2 ngồi ghế phụ."
+    },
+    {
+        jp: "仮運転免許で練習するときは、車の前後に「仮免許練習中」の標識を付けなければならない。",
+        vi: "Khi luyện tập với bằng tạm, phải gắn biển \"đang luyện tập bằng tạm\" ở trước và sau xe.",
+        answer: true,
+        explanationJp: "仮免許で路上練習するときは、車の前後の見やすい位置に「仮免許練習中」と書かれた標識をつけます。",
+        explanationVi: "Khi luyện trên đường với bằng tạm, phải gắn biển \"仮免許練習中\" ở vị trí dễ thấy trước và sau xe."
+    },
+    {
+        jp: "運転免許証の有効期間が過ぎたときは、運転することができない。",
+        vi: "Khi bằng lái hết hạn thì không được lái xe.",
+        answer: true,
+        explanationJp: "有効期間が切れた免許証で運転すると、無免許運転になります。期限前に更新手続きを行いましょう。",
+        explanationVi: "Lái xe khi bằng hết hạn sẽ bị coi là lái xe không bằng. Phải làm thủ tục gia hạn trước khi hết hạn."
+    },
+    {
+        jp: "運転者が病気や過労のときは、運転してはならない。",
+        vi: "Khi người lái bị bệnh hoặc quá mệt mỏi thì không được lái xe.",
+        answer: true,
+        explanationJp: "病気や過労、睡眠不足などで正常な運転ができないおそれがあるときは、運転してはなりません。",
+        explanationVi: "Khi bệnh, quá mệt, thiếu ngủ mà có thể không lái xe bình thường thì không được lái."
+    },
+    // ===== BỔ SUNG: 積載・牽引 (Chở hàng & Kéo xe) =====
+    {
+        jp: "普通自動車の荷物の高さ制限は、地上から3.8メートル以内である。",
+        vi: "Giới hạn chiều cao hàng hóa của ô tô thường là trong phạm vi 3.8 mét tính từ mặt đất.",
+        answer: true,
+        explanationJp: "普通自動車の積載物の高さは、地上から3.8メートル以内でなければなりません。",
+        explanationVi: "Chiều cao hàng hóa trên ô tô thường không được vượt quá 3.8 mét tính từ mặt đất."
+    },
+    {
+        jp: "普通自動車の荷物は、車体の幅からはみ出して積んではならない。",
+        vi: "Hàng hóa trên ô tô thường không được chất vượt ra ngoài chiều rộng thân xe.",
+        answer: true,
+        explanationJp: "積載物の幅は、車体の幅を超えてはなりません。はみ出して積むと危険です。",
+        explanationVi: "Chiều rộng hàng hóa không được vượt quá chiều rộng thân xe. Chất hàng thò ra ngoài rất nguy hiểm."
+    },
+    {
+        jp: "普通自動車の荷物は、車体の後ろから車体の長さの10分の1までははみ出すことができる。",
+        vi: "Hàng hóa trên ô tô thường có thể thò ra phía sau tối đa 1/10 chiều dài thân xe.",
+        answer: true,
+        explanationJp: "積載物は車体の後方から車体の長さの10分の1までならはみ出すことが認められています。",
+        explanationVi: "Hàng hóa được phép thò ra phía sau tối đa 1/10 chiều dài thân xe."
+    },
+    // ===== BỔ SUNG: 高速道路 (Đường cao tốc) =====
+    {
+        jp: "高速道路では、故障などでやむを得ず駐停車するときは、車の後方に停止表示器材を置かなければならない。",
+        vi: "Trên đường cao tốc, khi buộc phải dừng đỗ do hỏng xe, phải đặt vật hiển thị dừng xe phía sau xe.",
+        answer: true,
+        explanationJp: "高速道路でやむを得ず停車する場合は、停止表示器材（三角表示板など）を車の後方に置き、後続車に知らせます。",
+        explanationVi: "Khi buộc phải dừng trên cao tốc, phải đặt tam giác cảnh báo phía sau xe để báo cho xe phía sau."
+    },
+    {
+        jp: "高速道路では、駐停車が禁止されている。",
+        vi: "Trên đường cao tốc, cấm dừng đỗ xe.",
+        answer: true,
+        explanationJp: "高速道路の本線車道では駐停車禁止です。やむを得ない場合は路肩に停車し、停止表示器材を置きます。",
+        explanationVi: "Trên làn chính đường cao tốc cấm dừng đỗ. Trường hợp bất khả kháng thì dừng ở lề đường và đặt tam giác cảnh báo."
+    },
+    {
+        jp: "高速道路の加速車線では、十分に加速してから本線車道に合流する。",
+        vi: "Ở làn tăng tốc đường cao tốc, phải tăng tốc đủ rồi mới nhập vào làn chính.",
+        answer: true,
+        explanationJp: "加速車線で十分にスピードを上げ、本線の流れに合わせてから合流します。徐行して合流するのは危険です。",
+        explanationVi: "Phải tăng tốc đủ ở làn tăng tốc, hòa vào dòng xe trên làn chính. Đi chậm để nhập làn rất nguy hiểm."
+    },
+    {
+        jp: "高速道路の本線車道を通行中に出口を通り過ぎた場合は、バックして戻ってもよい。",
+        vi: "Khi đi quá lối ra trên đường cao tốc, có thể lùi xe quay lại.",
+        answer: false,
+        explanationJp: "高速道路では後退は禁止されています。出口を通り過ぎた場合は次の出口まで進みます。",
+        explanationVi: "Trên đường cao tốc cấm lùi xe. Nếu đi quá lối ra thì phải đi đến lối ra tiếp theo."
+    },
+    {
+        jp: "高速道路では、転回（Uターン）や横断をしてはならない。",
+        vi: "Trên đường cao tốc, không được quay đầu (U-turn) hoặc cắt ngang.",
+        answer: true,
+        explanationJp: "高速道路では転回、横断、後退が禁止されています。非常に危険な行為です。",
+        explanationVi: "Trên đường cao tốc cấm quay đầu, cắt ngang, lùi xe. Đây là hành vi cực kỳ nguy hiểm."
+    },
+    // ===== BỔ SUNG: 合図 (Tín hiệu) =====
+    {
+        jp: "右折や左折が終わったら、合図をやめなければならない。",
+        vi: "Sau khi rẽ phải hoặc rẽ trái xong, phải tắt tín hiệu.",
+        answer: true,
+        explanationJp: "右左折が終わったら速やかに合図をやめます。合図を出しっぱなしにすると、他の交通を混乱させます。",
+        explanationVi: "Sau khi rẽ xong phải nhanh chóng tắt tín hiệu. Để tín hiệu bật mãi sẽ gây nhầm lẫn cho các xe khác."
+    },
+    {
+        jp: "後退するときの合図は、後退灯がつかない場合は腕で合図する。",
+        vi: "Khi lùi xe, nếu đèn lùi không sáng thì phải ra tín hiệu bằng tay.",
+        answer: true,
+        explanationJp: "後退灯がつかない場合や昼間見えにくい場合は、腕を斜め下に伸ばして後退の合図をします。",
+        explanationVi: "Nếu đèn lùi không sáng hoặc ban ngày khó thấy, phải đưa tay xuống xiên để ra tín hiệu lùi."
+    },
+    {
+        jp: "環状交差点（ラウンドアバウト）に入るときは、左の方向指示器で合図を出す。",
+        vi: "Khi vào vòng xuyến, phải bật đèn xi-nhan trái.",
+        answer: false,
+        explanationJp: "環状交差点に入るときは合図を出す必要はありません。環状交差点から出るときに左の方向指示器を出します。",
+        explanationVi: "Khi vào vòng xuyến không cần bật xi-nhan. Chỉ bật xi-nhan trái khi ra khỏi vòng xuyến."
+    },
+    // ===== BỔ SUNG: 車の装置・点検 (Thiết bị & Kiểm tra xe) =====
+    {
+        jp: "チャイルドシートは、6歳未満の幼児を乗せるときに使用しなければならない。",
+        vi: "Ghế trẻ em phải được sử dụng khi chở trẻ dưới 6 tuổi.",
+        answer: true,
+        explanationJp: "6歳未満の幼児を乗車させるときは、チャイルドシートを使用する義務があります。",
+        explanationVi: "Khi chở trẻ dưới 6 tuổi bắt buộc phải sử dụng ghế trẻ em."
+    },
+    {
+        jp: "座席ベルト（シートベルト）は、運転席と助手席だけ着用すればよい。",
+        vi: "Dây an toàn chỉ cần thắt ở ghế lái và ghế phụ là được.",
+        answer: false,
+        explanationJp: "シートベルトは後部座席も含め、すべての座席で着用が義務づけられています。",
+        explanationVi: "Dây an toàn bắt buộc thắt ở tất cả các ghế, bao gồm cả ghế sau."
+    },
+    {
+        jp: "自動車の日常点検は、走行距離や運行状態から判断して適切な時期に行えばよい。",
+        vi: "Việc kiểm tra xe hàng ngày chỉ cần thực hiện vào thời điểm thích hợp dựa trên quãng đường đi và tình trạng vận hành.",
+        answer: true,
+        explanationJp: "自家用乗用車の日常点検は、走行距離や運行時の状態などから判断した適切な時期に行います。事業用は1日1回です。",
+        explanationVi: "Kiểm tra hàng ngày xe cá nhân thực hiện vào thời điểm thích hợp dựa trên tình trạng xe. Xe kinh doanh phải kiểm tra 1 lần/ngày."
+    },
+    // ===== BỔ SUNG: 危険予測 (Dự đoán nguy hiểm) =====
+    {
+        jp: "子どもが一人で歩いているときは、急に飛び出してくることがあるので注意する。",
+        vi: "Khi thấy trẻ em đi bộ một mình, cần chú ý vì trẻ có thể bất ngờ lao ra đường.",
+        answer: true,
+        explanationJp: "子どもは大人と違い、急に道路に飛び出すことがあります。子どもの近くでは徐行や一時停止の準備をしましょう。",
+        explanationVi: "Trẻ em khác người lớn, có thể bất ngờ lao ra đường. Gần trẻ em nên chuẩn bị đi chậm hoặc dừng."
+    },
+    {
+        jp: "ボールが転がってきたときは、子どもが追いかけて飛び出してくるかもしれないので注意する。",
+        vi: "Khi thấy bóng lăn ra đường, cần chú ý vì trẻ em có thể chạy theo bóng ra đường.",
+        answer: true,
+        explanationJp: "ボールが道路に転がってきた場合は、子どもが追いかけて飛び出す可能性が高いので、徐行や停止の準備をします。",
+        explanationVi: "Khi bóng lăn ra đường, trẻ em rất có thể chạy theo, nên chuẩn bị đi chậm hoặc dừng."
+    },
+    {
+        jp: "停車しているバスの側方を通過するときは、バスの陰から人が飛び出してくることがあるので注意する。",
+        vi: "Khi đi qua bên cạnh xe buýt đang dừng, cần chú ý vì người có thể lao ra từ phía sau xe buýt.",
+        answer: true,
+        explanationJp: "停車中のバスの前後から歩行者が出てくることがあります。速度を落とし、安全を確認しながら通過します。",
+        explanationVi: "Người đi bộ có thể xuất hiện từ trước sau xe buýt đang dừng. Phải giảm tốc và xác nhận an toàn khi đi qua."
+    },
+    {
+        jp: "対向車線が渋滞しているときは、渋滞車両の間から歩行者が横断してくることがあるので注意する。",
+        vi: "Khi làn ngược chiều đang tắc, cần chú ý vì người đi bộ có thể sang đường từ khe giữa các xe.",
+        answer: true,
+        explanationJp: "対向車線が渋滞しているときは、車の間から歩行者が出てくる危険があります。速度を落として注意深く走行します。",
+        explanationVi: "Khi làn ngược chiều tắc, người đi bộ có thể xuất hiện từ giữa các xe. Phải giảm tốc và chú ý cẩn thận."
+    },
+    // ===== BỔ SUNG: トリック問題 (Câu hỏi dễ nhầm) =====
+    {
+        jp: "安全地帯は、車が通行してはならない場所である。",
+        vi: "Vùng an toàn là nơi xe không được đi qua.",
+        answer: true,
+        explanationJp: "安全地帯は歩行者の安全を確保するための場所であり、車は通行してはなりません。",
+        explanationVi: "Vùng an toàn là nơi đảm bảo an toàn cho người đi bộ, xe không được đi qua."
+    },
+    {
+        jp: "路面電車が走っていないときは、軌道敷内を通行してもよい。",
+        vi: "Khi tàu điện không chạy, có thể đi trên đường ray.",
+        answer: false,
+        explanationJp: "軌道敷内の通行は原則禁止です。右左折や横断などやむを得ない場合や、標識で認められている場合を除き、路面電車が走っていなくても通行できません。",
+        explanationVi: "Về nguyên tắc cấm đi trên đường ray. Trừ trường hợp rẽ, sang đường bất khả kháng hoặc có biển cho phép, dù tàu điện không chạy cũng không được đi."
+    },
+    {
+        jp: "道路に面した場所に出入りするために、歩道を横切ることはできない。",
+        vi: "Không thể băng qua vỉa hè để ra vào nơi tiếp giáp đường.",
+        answer: false,
+        explanationJp: "道路に面した場所（駐車場など）に出入りするために、歩道を横切ることは認められています。ただし、歩行者に十分注意し、徐行します。",
+        explanationVi: "Được phép băng qua vỉa hè để ra vào nơi tiếp giáp đường (bãi đỗ xe...). Tuy nhiên phải chú ý người đi bộ và đi chậm."
+    },
+    {
+        jp: "二輪車を運転するときは、げたやサンダルで運転してもよい。",
+        vi: "Khi lái xe hai bánh, có thể đi guốc gỗ hoặc dép xăng-đan.",
+        answer: false,
+        explanationJp: "げたやサンダルなど不安定な履物での運転は危険であり、禁止されています。しっかりした靴で運転しましょう。",
+        explanationVi: "Đi guốc gỗ hoặc dép xăng-đan khi lái xe rất nguy hiểm và bị cấm. Phải đi giày chắc chắn."
+    },
+    {
+        jp: "故障車をロープでけん引するときは、けん引する車と故障車の間を5メートル以内にしなければならない。",
+        vi: "Khi kéo xe hỏng bằng dây, khoảng cách giữa xe kéo và xe hỏng phải trong 5 mét.",
+        answer: true,
+        explanationJp: "ロープでけん引するときは、両車の間隔を5メートル以内にし、ロープの中間に白い布（0.3メートル平方以上）を付けます。",
+        explanationVi: "Khi kéo bằng dây, khoảng cách 2 xe trong 5m, và phải buộc vải trắng (từ 0.3m vuông trở lên) ở giữa dây."
+    },
+    {
+        jp: "原動機付自転車は、右折するとき常に二段階右折をしなければならない。",
+        vi: "Xe gắn máy khi rẽ phải luôn phải rẽ phải 2 giai đoạn.",
+        answer: false,
+        explanationJp: "原動機付自転車の二段階右折が必要なのは、片側3車線以上の道路や「原動機付自転車の右折方法（二段階）」の標識がある場合です。",
+        explanationVi: "Xe gắn máy chỉ phải rẽ phải 2 giai đoạn khi đường có 3 làn trở lên mỗi phía hoặc có biển báo quy định."
+    },
+    {
+        jp: "自動車検査証（車検証）は、車に備え付けておかなければならない。",
+        vi: "Giấy kiểm định xe (shaken) phải được để trong xe.",
+        answer: true,
+        explanationJp: "自動車検査証は運転中に携帯する義務はありませんが、車に備え付けておかなければなりません。",
+        explanationVi: "Giấy kiểm định xe không bắt buộc mang theo người nhưng phải để trong xe."
+    },
+    {
+        jp: "信号機のない横断歩道に歩行者がいても、その歩行者が横断しそうになければ、そのまま通過してよい。",
+        vi: "Dù có người đi bộ ở vạch sang đường không có đèn, nếu họ không có vẻ muốn sang thì có thể đi qua.",
+        answer: false,
+        explanationJp: "横断歩道に歩行者がいるときは、横断の意思に関係なく、一時停止して歩行者に道を譲らなければなりません。",
+        explanationVi: "Khi có người đi bộ ở vạch sang đường, bất kể họ có muốn sang hay không, phải dừng tạm và nhường đường."
+    },
+    {
+        jp: "道路の左側部分の幅が6メートル未満の見通しのよい道路では、はみ出して追い越しをすることができる。",
+        vi: "Trên đường có tầm nhìn tốt và phần đường bên trái rộng dưới 6 mét, có thể lấn sang để vượt.",
+        answer: true,
+        explanationJp: "道路の左側部分の幅が6メートル未満の見通しのよい道路では、右側部分にはみ出して追い越しをすることができます（追い越し禁止場所を除く）。",
+        explanationVi: "Trên đường có tầm nhìn tốt, phần trái dưới 6m, được phép lấn sang phải để vượt (trừ nơi cấm vượt)."
+    },
+    {
+        jp: "交通事故を起こしたときは、まず負傷者の救護を行い、その後警察に届け出なければならない。",
+        vi: "Khi gây tai nạn giao thông, trước tiên phải cứu chữa người bị thương, sau đó báo cảnh sát.",
+        answer: true,
+        explanationJp: "事故を起こしたら、①負傷者の救護、②危険防止の措置、③警察への届出の順で対応します。負傷者の救護が最優先です。",
+        explanationVi: "Khi gây tai nạn: ①Cứu chữa người bị thương, ②Biện pháp phòng ngừa nguy hiểm, ③Báo cảnh sát. Cứu người là ưu tiên hàng đầu."
+    },
+    {
+        jp: "交通事故の届出は、加害者だけが行えばよい。",
+        vi: "Việc báo tai nạn giao thông chỉ cần người gây tai nạn thực hiện.",
+        answer: false,
+        explanationJp: "交通事故の届出は、加害者だけでなく被害者も行わなければなりません。双方に届出の義務があります。",
+        explanationVi: "Báo tai nạn giao thông không chỉ người gây tai nạn mà cả người bị hại đều phải thực hiện. Cả hai bên đều có nghĩa vụ."
+    },
+    {
+        jp: "二輪車のブレーキは、前輪ブレーキと後輪ブレーキを同時にかけるのがよい。",
+        vi: "Phanh xe hai bánh nên dùng đồng thời phanh bánh trước và phanh bánh sau.",
+        answer: true,
+        explanationJp: "二輪車は前後のブレーキを同時にかけることで、安定した制動力が得られます。片方だけだと転倒の危険があります。",
+        explanationVi: "Xe hai bánh dùng đồng thời phanh trước và sau sẽ có lực phanh ổn định. Chỉ dùng một bên có nguy cơ ngã."
+    },
+    {
+        jp: "二輪車でカーブを曲がるときは、カーブの手前で十分に速度を落とす。",
+        vi: "Khi xe hai bánh vào cua, phải giảm tốc đủ trước khúc cua.",
+        answer: true,
+        explanationJp: "カーブ内でブレーキをかけると転倒の危険があるため、手前で十分に速度を落としてからカーブに入ります。",
+        explanationVi: "Phanh trong khúc cua có nguy cơ ngã, nên phải giảm tốc đủ trước khi vào cua."
+    },
+    {
+        jp: "車は、原則として道路の中央から左の部分を通行しなければならない。",
+        vi: "Xe về nguyên tắc phải đi phần đường từ giữa sang bên trái.",
+        answer: true,
+        explanationJp: "日本では車は左側通行です。道路の中央から左の部分を通行するのが原則です。",
+        explanationVi: "Ở Nhật Bản xe đi bên trái. Nguyên tắc là đi phần đường từ giữa sang bên trái."
+    },
+    {
+        jp: "見通しの悪い交差点に近づいたとき、「止まれ」の標識がなければ、徐行しないで通過してよい。",
+        vi: "Khi đến gần ngã tư tầm nhìn kém, nếu không có biển \"dừng lại\" thì không cần đi chậm mà đi qua luôn.",
+        answer: false,
+        explanationJp: "見通しの悪い交差点では、標識がなくても徐行しなければなりません。見通しが悪い場所は徐行義務があります。",
+        explanationVi: "Ở ngã tư tầm nhìn kém, dù không có biển cũng phải đi chậm. Nơi tầm nhìn kém có nghĩa vụ đi chậm."
+    },
+    {
+        jp: "「警笛区間」の標識がある区間内では、見通しのきかない交差点やカーブなどで警音器を鳴らさなければならない。",
+        vi: "Trong khu vực có biển \"khu vực bấm còi\", phải bấm còi ở ngã tư và khúc cua không có tầm nhìn.",
+        answer: true,
+        explanationJp: "「警笛区間」の標識がある区間内の、見通しの悪い交差点、曲がり角、上り坂の頂上付近では警音器を鳴らします。",
+        explanationVi: "Trong khu vực \"bấm còi\", phải bấm còi ở ngã tư tầm nhìn kém, góc cua, gần đỉnh dốc."
+    },
+    {
+        jp: "警音器は、危険を防止するためやむを得ない場合と、標識のある場所以外では鳴らしてはならない。",
+        vi: "Còi xe chỉ được bấm khi cần thiết để phòng nguy hiểm hoặc ở nơi có biển báo, ngoài ra không được bấm.",
+        answer: true,
+        explanationJp: "みだりに警音器を鳴らすことは禁止されています。使用できるのは危険防止のためと、標識のある場所だけです。",
+        explanationVi: "Cấm bấm còi tùy tiện. Chỉ được bấm khi phòng nguy hiểm và ở nơi có biển báo."
+    },
+    {
+        jp: "夜間、一般道路に駐停車する場合で、50メートル後方から車が見えるだけの照明がある場所では、灯火をつけなくてもよい。",
+        vi: "Ban đêm dừng đỗ trên đường thường, nếu nơi đó có đủ ánh sáng nhìn thấy xe từ 50m phía sau thì không cần bật đèn.",
+        answer: true,
+        explanationJp: "50メートル後方から見える程度の照明がある場所では、非常点滅表示灯や駐車灯をつけなくてもよいとされています。",
+        explanationVi: "Nếu nơi đó có đủ ánh sáng để nhìn thấy xe từ 50m phía sau thì không cần bật đèn nháy khẩn cấp hoặc đèn đỗ."
+    },
+    {
+        jp: "げたやサンダルをはいて自動車を運転してはならない。",
+        vi: "Không được đi guốc gỗ hoặc dép xăng-đan khi lái ô tô.",
+        answer: true,
+        explanationJp: "げたやサンダルなどの不安定な履物で運転すると、ブレーキ操作などが不確実になり危険です。",
+        explanationVi: "Đi guốc gỗ hoặc dép xăng-đan khi lái xe làm thao tác phanh không chắc chắn, rất nguy hiểm."
+    },
+    {
+        jp: "踏切の信号が青のときは、一時停止しないで通過できる。",
+        vi: "Khi đèn tín hiệu đường ray xanh, có thể đi qua mà không cần dừng tạm.",
+        answer: false,
+        explanationJp: "踏切では、信号が青でも一時停止して安全を確認するのが原則です。",
+        explanationVi: "Ở đường ray, dù đèn xanh vẫn phải dừng tạm và xác nhận an toàn theo nguyên tắc."
+    },
+    {
+        jp: "車両総重量が750キログラム以下の車をけん引するときは、けん引免許は必要ない。",
+        vi: "Khi kéo xe có tổng trọng lượng 750kg trở xuống thì không cần bằng kéo xe.",
+        answer: true,
+        explanationJp: "車両総重量750kg以下の車をけん引する場合、けん引免許は不要です。ただし、その車に応じた免許は必要です。",
+        explanationVi: "Kéo xe có tổng trọng lượng 750kg trở xuống không cần bằng kéo xe. Tuy nhiên vẫn cần bằng lái phù hợp."
+    },
+    {
+        jp: "道路の片側に障害物があるときは、障害物のある側の車が一時停止して対向車に道を譲る。",
+        vi: "Khi một bên đường có chướng ngại vật, xe phía có chướng ngại vật phải dừng tạm nhường đường cho xe ngược chiều.",
+        answer: true,
+        explanationJp: "道路の片側に障害物がある場合、障害物のある側の車が対向車に道を譲ります。反対側の車が優先です。",
+        explanationVi: "Khi một bên đường có chướng ngại vật, xe phía đó phải nhường đường cho xe ngược chiều. Xe phía không có chướng ngại vật được ưu tiên."
+    },
+    {
+        jp: "乗車定員11人のマイクロバスは、普通免許で運転できる。",
+        vi: "Xe buýt nhỏ 11 chỗ ngồi có thể lái bằng bằng lái thường.",
+        answer: false,
+        explanationJp: "普通免許で運転できるのは乗車定員10人以下の車です。11人以上は中型免許以上が必要です。",
+        explanationVi: "Bằng lái thường chỉ lái được xe 10 chỗ trở xuống. Từ 11 chỗ trở lên cần bằng trung cấp trở lên."
+    },
+    {
+        jp: "前方の信号が青でも、交差点内が混雑していて交差点内で停止するおそれがあるときは、交差点に入ってはならない。",
+        vi: "Dù đèn xanh, nếu ngã tư đang tắc và có nguy cơ phải dừng trong ngã tư, không được vào ngã tư.",
+        answer: true,
+        explanationJp: "青信号でも、交差点内で停止して他の交通の妨げになるおそれがある場合は、交差点に入ってはなりません。",
+        explanationVi: "Dù đèn xanh, nếu có thể bị dừng trong ngã tư gây cản trở giao thông thì không được vào ngã tư."
+    },
+    {
+        jp: "車の窓から手や顔を出して運転してはならない。",
+        vi: "Không được thò tay hoặc mặt ra ngoài cửa sổ xe khi lái.",
+        answer: true,
+        explanationJp: "安全のため、車の窓から手や顔、体の一部を出して運転してはなりません。",
+        explanationVi: "Vì an toàn, không được thò tay, mặt hoặc bất kỳ phần cơ thể nào ra ngoài cửa sổ xe khi lái."
+    },
+    {
+        jp: "高齢運転者標識（もみじマーク）を付けている車に対して、幅寄せや割り込みをしてはならない。",
+        vi: "Không được ép sát hoặc chen ngang xe có gắn biển người cao tuổi (momiji mark).",
+        answer: true,
+        explanationJp: "高齢運転者標識を付けている車に対する幅寄せや割り込みは法律で禁止されています。初心者マークも同様です。",
+        explanationVi: "Ép sát hoặc chen ngang xe có biển người cao tuổi bị luật pháp cấm. Biển người mới lái cũng tương tự."
+    },
+    {
+        jp: "タクシーや代行運転など、お客さんを乗せて運転するには、第二種運転免許が必要である。",
+        vi: "Để lái taxi hoặc lái thuê chở khách, cần có bằng lái loại 2.",
+        answer: true,
+        explanationJp: "旅客自動車（タクシー・バスなど）を運転するには、第二種免許が必要です。",
+        explanationVi: "Để lái xe chở khách (taxi, xe buýt...) cần có bằng lái loại 2."
+    },
+    {
+        jp: "左側に寄ると緊急自動車の妨げになるときは、右側に寄って進路を譲る。",
+        vi: "Khi tránh sang trái sẽ cản trở xe khẩn cấp, thì tránh sang phải để nhường đường.",
+        answer: true,
+        explanationJp: "一方通行の道路などで、左側に寄ると緊急自動車の通行を妨げる場合は、右側に寄って進路を譲ります。",
+        explanationVi: "Trên đường một chiều, nếu tránh sang trái sẽ cản xe khẩn cấp thì tránh sang phải để nhường đường."
+    }
+];
+
+// ===== EXAM STATE =====
+let questions = [];
+let currentIndex = 0;
+let answers = {};
+let timerInterval = null;
+let timeLeft = 30 * 60; // 30 minutes in seconds
+
+// ===== FUNCTIONS =====
+function shuffleArray(arr) {
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+}
+
+function startExam() {
+    questions = shuffleArray(allQuestions).slice(0, 50);
+    if (questions.length < 50) {
+        // If not enough questions, repeat some
+        while (questions.length < 50) {
+            const extra = shuffleArray(allQuestions);
+            questions.push(...extra.slice(0, 50 - questions.length));
+        }
+    }
+
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('examHeader').style.display = 'block';
+    document.getElementById('examContainer').style.display = 'block';
+
+    buildQuestionNav();
+    showQuestion(0);
+    startTimer();
+}
+
+function buildQuestionNav() {
+    const nav = document.getElementById('questionNav');
+    nav.innerHTML = '';
+    for (let i = 0; i < questions.length; i++) {
+        const btn = document.createElement('button');
+        btn.className = 'nav-btn';
+        btn.textContent = i + 1;
+        btn.onclick = () => showQuestion(i);
+        nav.appendChild(btn);
+    }
+}
+
+function updateQuestionNav() {
+    const buttons = document.querySelectorAll('.question-nav .nav-btn');
+    buttons.forEach((btn, i) => {
+        btn.className = 'nav-btn';
+        if (i === currentIndex) btn.classList.add('current');
+        if (answers[i] === true) btn.classList.add('answered-maru');
+        if (answers[i] === false) btn.classList.add('answered-batsu');
+    });
+}
+
+function showQuestion(index) {
+    currentIndex = index;
+    const q = questions[index];
+
+    document.getElementById('questionNumber').textContent = `問題 ${index + 1} / 50`;
+    document.getElementById('questionTextJp').textContent = q.jp;
+    document.getElementById('questionTextVi').textContent = q.vi;
+
+    // Reset button states
+    document.getElementById('btnMaru').classList.remove('selected', 'disabled');
+    document.getElementById('btnBatsu').classList.remove('selected', 'disabled');
+    hideInlineExplanation();
+
+    // Show selected answer if exists
+    if (answers[index] !== undefined) {
+        if (answers[index] === true) {
+            document.getElementById('btnMaru').classList.add('selected');
+        } else {
+            document.getElementById('btnBatsu').classList.add('selected');
+        }
+        // Disable buttons and show explanation for already answered questions
+        document.getElementById('btnMaru').classList.add('disabled');
+        document.getElementById('btnBatsu').classList.add('disabled');
+        const isCorrect = (answers[index] === q.answer);
+        showInlineExplanation(q, answers[index], isCorrect);
+    }
+
+    // Update nav
+    updateQuestionNav();
+
+    // Update prev/next buttons
+    document.getElementById('prevBtn').disabled = index === 0;
+    document.getElementById('nextBtn').disabled = index === questions.length - 1;
+
+    // Scroll to top of question (offset for sticky header on mobile)
+    const card = document.getElementById('questionCard');
+    const headerH = document.getElementById('examHeader').offsetHeight || 0;
+    const y = card.getBoundingClientRect().top + window.pageYOffset - headerH - 10;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+}
+
+function selectAnswer(isMaru) {
+    // Don't allow changing answer once answered
+    if (answers[currentIndex] !== undefined) return;
+
+    answers[currentIndex] = isMaru;
+    const q = questions[currentIndex];
+    const isCorrect = (isMaru === q.answer);
+
+    document.getElementById('btnMaru').classList.remove('selected');
+    document.getElementById('btnBatsu').classList.remove('selected');
+
+    if (isMaru) {
+        document.getElementById('btnMaru').classList.add('selected');
+    } else {
+        document.getElementById('btnBatsu').classList.add('selected');
+    }
+
+    // Disable both buttons after answering
+    document.getElementById('btnMaru').classList.add('disabled');
+    document.getElementById('btnBatsu').classList.add('disabled');
+
+    // Show inline explanation
+    showInlineExplanation(q, isMaru, isCorrect);
+
+    updateQuestionNav();
+    updateAnsweredCount();
+}
+
+function showInlineExplanation(q, userAnswer, isCorrect) {
+    const el = document.getElementById('inlineExplanation');
+    const resultEl = document.getElementById('inlineResult');
+    const correctEl = document.getElementById('inlineCorrectAnswer');
+    const jpEl = document.getElementById('inlineExplainJp');
+    const viEl = document.getElementById('inlineExplainVi');
+
+    el.className = 'inline-explanation ' + (isCorrect ? 'correct' : 'wrong');
+    resultEl.className = 'inline-result ' + (isCorrect ? 'correct' : 'wrong');
+
+    const encourageCorrect = [
+        '✅ Giỏi lắm Ngọc Anh！正解！',
+        '✅ Đúng rồi nè！Em hay quá！💕',
+        '✅ Chính xác！Ngọc Anh すごい！🌸',
+        '✅ Tuyệt vời！Em đang làm rất tốt！',
+        '✅ Đúng luôn！Cứ đà này là đỗ thôi！🎉',
+        '✅ Hay lắm em！正解だよ！💪',
+        '✅ Em giỏi quá đi！Tiếp tục nha！🌟',
+    ];
+    const encourageWrong = [
+        '❌ Sai rồi, nhưng không sao nha Ngọc Anh！Đọc giải thích để nhớ nè 💪',
+        '❌ Chưa đúng, nhưng sai là để học mà em！🌸',
+        '❌ Oops！Không sao đâu, lần sau em sẽ nhớ！💕',
+        '❌ Câu này hơi khó, đọc giải thích để lần sau đúng nha！',
+        '❌ Sai cũng là một cách học！Cố lên Ngọc Anh！✨',
+    ];
+
+    if (isCorrect) {
+        resultEl.innerHTML = encourageCorrect[Math.floor(Math.random() * encourageCorrect.length)];
+    } else {
+        resultEl.innerHTML = encourageWrong[Math.floor(Math.random() * encourageWrong.length)];
+    }
+
+    const correctAnswerText = q.answer ? '○（正しい / Đúng）' : '×（誤り / Sai）';
+    correctEl.innerHTML = '正解 / Đáp án đúng: <strong>' + correctAnswerText + '</strong>';
+    jpEl.innerHTML = '📖 ' + q.explanationJp;
+    viEl.innerHTML = '🇻🇳 ' + q.explanationVi;
+
+    el.style.display = 'block';
+}
+
+function hideInlineExplanation() {
+    const el = document.getElementById('inlineExplanation');
+    el.style.display = 'none';
+}
+
+function nextQuestion() {
+    if (currentIndex < questions.length - 1) {
+        showQuestion(currentIndex + 1);
+    }
+}
+
+function prevQuestion() {
+    if (currentIndex > 0) {
+        showQuestion(currentIndex - 1);
+    }
+}
+
+function updateAnsweredCount() {
+    const count = Object.keys(answers).length;
+    document.getElementById('answeredCount').textContent = count;
+    document.getElementById('progressBar').style.width = (count / questions.length * 100) + '%';
+}
+
+function startTimer() {
+    updateTimerDisplay();
+    timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+
+        if (timeLeft <= 300) {
+            document.getElementById('timerDisplay').classList.add('warning');
+        }
+
+        if (timeLeft <= 0) {
+            clearInterval(timerInterval);
+            submitExam();
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.getElementById('timerDisplay').textContent =
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function submitExam() {
+    const unanswered = questions.length - Object.keys(answers).length;
+    if (unanswered > 0) {
+        if (!confirm(`まだ${unanswered}問未回答です。提出しますか？\nCòn ${unanswered} câu chưa trả lời. Bạn có muốn nộp bài?`)) {
+            return;
+        }
+    }
+
+    clearInterval(timerInterval);
+
+    // Calculate results
+    let correct = 0;
+    let wrong = 0;
+    let unansweredCount = 0;
+
+    questions.forEach((q, i) => {
+        if (answers[i] === undefined) {
+            unansweredCount++;
+        } else if (answers[i] === q.answer) {
+            correct++;
+        } else {
+            wrong++;
+        }
+    });
+
+    const passed = correct >= 45;
+
+    // Show result screen
+    document.getElementById('examHeader').style.display = 'none';
+    document.getElementById('examContainer').style.display = 'none';
+    document.getElementById('resultScreen').style.display = 'block';
+
+    if (passed) {
+        document.getElementById('resultPass').innerHTML = '🎉🌸 Ngọc Anh ĐỖ RỒI！合格おめでとう！🌸🎉';
+    } else {
+        document.getElementById('resultPass').innerHTML = '💪 Chưa đỗ lần này, nhưng Ngọc Anh đừng nản nha！<br><span style="font-size:16px; color:#888;">Luyện thêm rồi thi lại, nhất định sẽ đỗ thôi！🌸</span>';
+    }
+    document.getElementById('resultPass').className = 'result-pass ' + (passed ? 'pass' : 'fail');
+    document.getElementById('resultScore').innerHTML = `${correct}<span> / 50点</span>`;
+    document.getElementById('resultCorrect').textContent = correct;
+    document.getElementById('resultWrong').textContent = wrong;
+    document.getElementById('resultUnanswered').textContent = unansweredCount;
+
+    // Personalized motivation message
+    const motEl = document.getElementById('resultMotivation');
+    if (correct >= 50) {
+        motEl.innerHTML = '🏆 <strong>Trời ơi 50/50！</strong> Ngọc Anh perfect luôn！Em là thiên tài！Anh tự hào về em lắm！💕🌸';
+    } else if (correct >= 48) {
+        motEl.innerHTML = '🌟 <strong>Xuất sắc quá Ngọc Anh！</strong> Gần perfect rồi！Em giỏi lắm luôn á！💕';
+    } else if (correct >= 45) {
+        motEl.innerHTML = '🎉 <strong>Đỗ rồi nè！</strong> Ngọc Anh cố gắng nhiều quá, kết quả xứng đáng lắm！Anh tin em！💕🌸';
+    } else if (correct >= 40) {
+        motEl.innerHTML = '💪 <strong>Gần đỗ lắm rồi！</strong> Chỉ còn thiếu ' + (45 - correct) + ' câu nữa thôi！Ôn lại mấy câu sai rồi thi lại là đỗ ngay！Em cố lên nha！🌸';
+    } else if (correct >= 30) {
+        motEl.innerHTML = '📚 <strong>Ngọc Anh đang tiến bộ！</strong> Lần sau sẽ tốt hơn thôi！Đọc kỹ phần giải thích bên dưới rồi thi lại nha！Anh luôn ủng hộ em！💕';
+    } else {
+        motEl.innerHTML = '🌱 <strong>Không sao đâu Ngọc Anh！</strong> Ai cũng phải bắt đầu từ đầu mà！Đọc giải thích từng câu, luyện thêm mỗi ngày, nhất định em sẽ đỗ！Anh tin em！💕🌸';
+    }
+
+    // Build review list
+    buildReviewList();
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function buildReviewList() {
+    const list = document.getElementById('reviewList');
+    list.innerHTML = '';
+
+    questions.forEach((q, i) => {
+        const userAnswer = answers[i];
+        let status, statusLabel;
+
+        if (userAnswer === undefined) {
+            status = 'unanswered';
+            statusLabel = '未回答 / Chưa trả lời';
+        } else if (userAnswer === q.answer) {
+            status = 'correct';
+            statusLabel = '正解 / Đúng';
+        } else {
+            status = 'wrong';
+            statusLabel = '不正解 / Sai';
+        }
+
+        const item = document.createElement('div');
+        item.className = `review-item ${status}`;
+        item.dataset.status = status;
+
+        const userAnswerText = userAnswer === undefined
+            ? '--- / Chưa chọn'
+            : (userAnswer ? '○（正しい）' : '×（誤り）');
+        const correctAnswerText = q.answer ? '○（正しい / Đúng）' : '×（誤り / Sai）';
+
+        item.innerHTML = `
+            <div class="review-header">
+                <span class="review-q-number">問題 ${i + 1}</span>
+                <span class="review-result-badge ${status}">${statusLabel}</span>
+            </div>
+            <div class="review-question-jp">${q.jp}</div>
+            <div class="review-question-vi">${q.vi}</div>
+            <div class="review-answer-row">
+                <span class="review-your-answer">あなたの回答 / Bạn chọn: <strong>${userAnswerText}</strong></span>
+                <span class="review-correct-answer">正解 / Đáp án: <strong>${correctAnswerText}</strong></span>
+            </div>
+            <div class="review-explanation">
+                <div class="explanation-jp">📖 ${q.explanationJp}</div>
+                <div class="explanation-vi">🇻🇳 ${q.explanationVi}</div>
+            </div>
+        `;
+
+        list.appendChild(item);
+    });
+}
+
+function filterReview(filter, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.review-item').forEach(item => {
+        if (filter === 'all') {
+            item.style.display = 'block';
+        } else {
+            item.style.display = item.dataset.status === filter ? 'block' : 'none';
+        }
+    });
+}
+
+// Swipe gesture for mobile
+let touchStartX = 0;
+let touchStartY = 0;
+document.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+document.addEventListener('touchend', (e) => {
+    if (document.getElementById('examContainer').style.display === 'none') return;
+    const dx = e.changedTouches[0].screenX - touchStartX;
+    const dy = e.changedTouches[0].screenY - touchStartY;
+    if (Math.abs(dx) < 60 || Math.abs(dy) > Math.abs(dx) * 0.7) return;
+    if (dx > 0) prevQuestion();
+    else nextQuestion();
+}, { passive: true });
+
+// Toggle question nav (mobile)
+function toggleQuestionNav() {
+    const nav = document.getElementById('questionNav');
+    const text = document.getElementById('navToggleText');
+    nav.classList.toggle('collapsed');
+    text.textContent = nav.classList.contains('collapsed') ? 'Hiện bảng câu hỏi' : 'Ẩn bảng câu hỏi';
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', (e) => {
+    if (document.getElementById('examContainer').style.display === 'none') return;
+
+    if (e.key === 'ArrowLeft' || e.key === 'a') prevQuestion();
+    if (e.key === 'ArrowRight' || e.key === 'd') nextQuestion();
+    if (e.key === '1' || e.key === 'o') selectAnswer(true);
+    if (e.key === '2' || e.key === 'x') selectAnswer(false);
+});
+</script>
+
+</body>
+</html>
