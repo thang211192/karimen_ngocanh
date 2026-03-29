@@ -5,142 +5,244 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#1a5276">
+    <meta name="theme-color" content="#b85c8a">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <title>仮免許学科試験 - Ngọc Anh がんばれ！💕</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --pink: #e8628a;
+            --pink-light: #f8a4c0;
+            --pink-soft: #fff0f5;
+            --pink-deep: #c94c73;
+            --sakura: #ffb7c5;
+            --purple: #9b59b6;
+            --purple-soft: #f3e5f5;
+            --gold: #f0c27f;
+            --green: #4ecdc4;
+            --green-soft: #e8f8f5;
+            --red: #ff6b6b;
+            --red-soft: #ffe0e0;
+            --bg: linear-gradient(160deg, #fdf2f8 0%, #fce7f3 30%, #f0e6ff 60%, #e8f4fd 100%);
+            --card-bg: rgba(255,255,255,0.85);
+            --card-shadow: 0 8px 32px rgba(184,92,138,0.12);
+            --font: 'Nunito', 'Noto Sans JP', 'Hiragino Kaku Gothic Pro', sans-serif;
         }
 
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
         body {
-            font-family: 'Segoe UI', 'Hiragino Kaku Gothic Pro', 'Yu Gothic', 'Meiryo', sans-serif;
-            background: #f0f2f5;
-            color: #333;
+            font-family: var(--font);
+            background: var(--bg);
+            background-attachment: fixed;
+            color: #4a3548;
             line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== FLOATING SAKURA PETALS ===== */
+        .sakura-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .petal {
+            position: absolute;
+            top: -40px;
+            width: 12px; height: 12px;
+            background: radial-gradient(ellipse at center, #ffb7c5 0%, #ff91a4 50%, transparent 70%);
+            border-radius: 50% 0 50% 50%;
+            opacity: 0.5;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { transform: translateY(-10vh) rotate(0deg) translateX(0); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.4; }
+            100% { transform: translateY(105vh) rotate(720deg) translateX(80px); opacity: 0; }
         }
 
         /* ===== HEADER ===== */
         .header {
-            background: linear-gradient(135deg, #1a5276, #2980b9);
+            background: linear-gradient(135deg, #b85c8a, #e8628a, #f8a4c0);
             color: white;
             padding: 15px 20px;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 20px rgba(184,92,138,0.3);
+            backdrop-filter: blur(10px);
         }
 
         .header h1 {
-            font-size: 20px;
+            font-size: 19px;
             margin-bottom: 2px;
-        }
-
-        .header .subtitle {
-            font-size: 13px;
-            opacity: 0.9;
+            font-weight: 800;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.15);
         }
 
         .header-info {
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-top: 10px;
+            margin-top: 8px;
             font-size: 14px;
+            font-weight: 600;
         }
 
         .header-info .timer {
-            font-weight: bold;
+            font-weight: 800;
             font-size: 18px;
-            color: #ffd700;
+            color: #ffe066;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.2);
         }
 
         .header-info .timer.warning {
             color: #ff4444;
-            animation: blink 1s infinite;
+            animation: blink 0.8s infinite;
         }
 
         @keyframes blink {
-            50% { opacity: 0.5; }
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
 
-        .header-info .score-display {
-            font-weight: bold;
-        }
+        .header-info .score-display { font-weight: 800; }
 
         /* ===== START SCREEN ===== */
         .start-screen {
             max-width: 700px;
-            margin: 40px auto;
-            background: white;
-            border-radius: 12px;
+            margin: 30px auto;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
             padding: 40px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: var(--card-shadow);
             text-align: center;
+            position: relative;
+            z-index: 1;
+            border: 1px solid rgba(255,255,255,0.6);
         }
 
         .start-screen h2 {
             font-size: 28px;
-            color: #1a5276;
-            margin-bottom: 10px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #b85c8a, #e8628a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 6px;
         }
 
         .start-screen .exam-title-jp {
-            font-size: 22px;
-            color: #555;
-            margin-bottom: 30px;
+            font-size: 18px;
+            color: #8a6d7f;
+            margin-bottom: 24px;
+            font-weight: 600;
+        }
+
+        .love-message {
+            background: linear-gradient(135deg, #fff0f5, #fce4ec, #f8e8ff);
+            border-radius: 18px;
+            padding: 22px;
+            margin: 20px 0;
+            border: 2px solid var(--pink-light);
+            position: relative;
+            overflow: hidden;
+        }
+        .love-message::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(255,183,197,0.15) 0%, transparent 70%);
+            animation: shimmer 4s ease-in-out infinite;
+        }
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-10%, -10%); }
+            50% { transform: translate(10%, 10%); }
         }
 
         .exam-rules {
             text-align: left;
-            background: #f8f9fa;
-            border-radius: 8px;
-            padding: 25px;
-            margin: 20px 0;
-            border-left: 4px solid #2980b9;
+            background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(248,240,255,0.6));
+            border-radius: 16px;
+            padding: 22px;
+            margin: 18px 0;
+            border-left: 4px solid var(--purple);
+            backdrop-filter: blur(10px);
         }
 
         .exam-rules h3 {
-            color: #1a5276;
-            margin-bottom: 15px;
-            font-size: 16px;
+            color: var(--purple);
+            margin-bottom: 14px;
+            font-size: 15px;
+            font-weight: 700;
         }
 
-        .exam-rules table {
-            width: 100%;
-            border-collapse: collapse;
-        }
+        .exam-rules table { width: 100%; border-collapse: collapse; }
 
         .exam-rules td {
-            padding: 8px 10px;
-            border-bottom: 1px solid #e0e0e0;
+            padding: 9px 10px;
+            border-bottom: 1px solid rgba(155,89,182,0.12);
             font-size: 14px;
         }
 
         .exam-rules td:first-child {
-            font-weight: bold;
+            font-weight: 700;
             width: 40%;
-            color: #555;
+            color: #7a5c8a;
+        }
+
+        .tips-box {
+            text-align: left;
+            background: linear-gradient(135deg, rgba(232,244,253,0.8), rgba(240,230,255,0.6));
+            border-radius: 16px;
+            padding: 22px;
+            margin: 18px 0;
+            border-left: 4px solid var(--pink);
+            backdrop-filter: blur(10px);
         }
 
         .start-btn {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            background: linear-gradient(135deg, var(--pink), var(--pink-deep), #a8446b);
             color: white;
             border: none;
-            padding: 16px 60px;
-            font-size: 20px;
-            border-radius: 8px;
+            padding: 18px 50px;
+            font-size: 19px;
+            border-radius: 50px;
             cursor: pointer;
-            margin-top: 25px;
+            margin-top: 24px;
             transition: all 0.3s;
-            font-weight: bold;
+            font-weight: 800;
+            font-family: var(--font);
+            box-shadow: 0 6px 24px rgba(232,98,138,0.35);
+            letter-spacing: 0.3px;
+            position: relative;
+            overflow: hidden;
+        }
+        .start-btn::after {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+            animation: btnShine 3s ease-in-out infinite;
+        }
+        @keyframes btnShine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
         }
 
         .start-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(232,98,138,0.5);
         }
 
         /* ===== QUESTION AREA ===== */
@@ -149,30 +251,34 @@
             margin: 20px auto;
             padding: 0 15px;
             display: none;
+            position: relative;
+            z-index: 1;
         }
 
         .question-nav {
             display: flex;
             flex-wrap: wrap;
             gap: 5px;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            padding: 14px;
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            margin-bottom: 14px;
+            box-shadow: 0 4px 16px rgba(184,92,138,0.08);
             justify-content: center;
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
         .question-nav .nav-btn {
             width: 36px;
             height: 36px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
+            border: 2px solid #e8c8d8;
+            border-radius: 10px;
             background: white;
             cursor: pointer;
             font-size: 13px;
-            font-weight: bold;
-            color: #666;
+            font-weight: 700;
+            color: #9a7b8e;
             transition: all 0.2s;
             display: flex;
             align-items: center;
@@ -180,45 +286,49 @@
         }
 
         .question-nav .nav-btn:hover {
-            border-color: #2980b9;
-            color: #2980b9;
+            border-color: var(--pink);
+            color: var(--pink);
+            background: var(--pink-soft);
         }
 
         .question-nav .nav-btn.current {
-            background: #2980b9;
+            background: linear-gradient(135deg, var(--pink), var(--pink-deep));
             color: white;
-            border-color: #2980b9;
+            border-color: transparent;
+            box-shadow: 0 2px 8px rgba(232,98,138,0.3);
         }
 
         .question-nav .nav-btn.answered-maru {
-            background: #d4edda;
-            border-color: #27ae60;
-            color: #27ae60;
+            background: var(--green-soft);
+            border-color: var(--green);
+            color: var(--green);
         }
 
         .question-nav .nav-btn.answered-batsu {
-            background: #fde8e8;
-            border-color: #e74c3c;
-            color: #e74c3c;
+            background: var(--red-soft);
+            border-color: var(--red);
+            color: var(--red);
         }
 
         .question-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            margin-bottom: 15px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 28px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 14px;
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
         .question-number {
             display: inline-block;
-            background: #1a5276;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
             color: white;
-            padding: 4px 14px;
+            padding: 5px 16px;
             border-radius: 20px;
-            font-size: 14px;
-            font-weight: bold;
-            margin-bottom: 15px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 16px;
         }
 
         .question-image {
@@ -228,29 +338,30 @@
 
         .question-image img {
             max-width: 100%;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            border: 2px solid rgba(232,98,138,0.15);
         }
 
         .question-text-jp {
-            font-size: 18px;
-            line-height: 1.8;
-            color: #222;
+            font-size: 17px;
+            line-height: 1.85;
+            color: #3a2a38;
             margin-bottom: 12px;
-            padding: 15px;
-            background: #fafafa;
-            border-radius: 8px;
-            border-left: 4px solid #2980b9;
+            padding: 16px;
+            background: linear-gradient(135deg, #fefefe, #fdf2f8);
+            border-radius: 12px;
+            border-left: 4px solid var(--pink);
+            font-weight: 500;
         }
 
         .question-text-vi {
             font-size: 14px;
-            color: #666;
+            color: #7a6578;
             margin-bottom: 20px;
-            padding: 10px 15px;
-            background: #fff8e1;
-            border-radius: 8px;
-            border-left: 4px solid #f39c12;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #fffbeb, #fff8e1);
+            border-radius: 12px;
+            border-left: 4px solid var(--gold);
             font-style: italic;
         }
 
@@ -260,7 +371,7 @@
 
         .answer-buttons {
             display: flex;
-            gap: 15px;
+            gap: 14px;
             justify-content: center;
             margin-top: 20px;
         }
@@ -268,46 +379,48 @@
         .answer-btn {
             flex: 1;
             max-width: 200px;
-            padding: 18px 30px;
-            border: 3px solid #ddd;
-            border-radius: 12px;
+            padding: 18px 24px;
+            border: 3px solid #e8c8d8;
+            border-radius: 18px;
             background: white;
             cursor: pointer;
             font-size: 28px;
-            font-weight: bold;
-            transition: all 0.2s;
+            font-weight: 800;
+            transition: all 0.25s cubic-bezier(.4,0,.2,1);
             text-align: center;
+            font-family: var(--font);
         }
 
         .answer-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.08);
         }
 
-        .answer-btn.maru {
-            color: #27ae60;
-        }
-
+        .answer-btn.maru { color: var(--green); }
         .answer-btn.maru:hover, .answer-btn.maru.selected {
-            border-color: #27ae60;
-            background: #d4edda;
+            border-color: var(--green);
+            background: var(--green-soft);
+            box-shadow: 0 4px 16px rgba(78,205,196,0.25);
         }
 
-        .answer-btn.batsu {
-            color: #e74c3c;
-        }
-
+        .answer-btn.batsu { color: var(--red); }
         .answer-btn.batsu:hover, .answer-btn.batsu.selected {
-            border-color: #e74c3c;
-            background: #fde8e8;
+            border-color: var(--red);
+            background: var(--red-soft);
+            box-shadow: 0 4px 16px rgba(255,107,107,0.25);
         }
 
         .answer-btn .label {
-            font-size: 13px;
+            font-size: 12px;
             display: block;
             margin-top: 4px;
-            color: #888;
-            font-weight: normal;
+            color: #a89ba5;
+            font-weight: 600;
+        }
+
+        .answer-btn.disabled {
+            opacity: 0.45;
+            pointer-events: none;
         }
 
         /* ===== NAVIGATION BUTTONS ===== */
@@ -319,42 +432,46 @@
         }
 
         .nav-arrow {
-            padding: 10px 24px;
-            border: 2px solid #2980b9;
-            border-radius: 8px;
-            background: white;
-            color: #2980b9;
-            font-size: 15px;
+            padding: 10px 22px;
+            border: 2px solid var(--pink-light);
+            border-radius: 12px;
+            background: var(--card-bg);
+            color: var(--pink-deep);
+            font-size: 14px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 700;
             transition: all 0.2s;
+            font-family: var(--font);
         }
 
         .nav-arrow:hover {
-            background: #2980b9;
+            background: linear-gradient(135deg, var(--pink), var(--pink-deep));
             color: white;
+            border-color: transparent;
         }
 
         .nav-arrow:disabled {
-            opacity: 0.4;
+            opacity: 0.35;
             cursor: not-allowed;
         }
 
         .submit-btn {
-            padding: 14px 40px;
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            padding: 12px 32px;
+            background: linear-gradient(135deg, var(--red), #e55555);
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
+            font-family: var(--font);
+            box-shadow: 0 4px 16px rgba(255,107,107,0.25);
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+            box-shadow: 0 6px 24px rgba(255,107,107,0.4);
         }
 
         .submit-btn:disabled {
@@ -364,117 +481,199 @@
             box-shadow: none;
         }
 
+        /* ===== INLINE EXPLANATION ===== */
+        .inline-explanation {
+            margin-top: 20px;
+            padding: 18px;
+            border-radius: 16px;
+            display: none;
+            animation: fadeSlideIn 0.4s cubic-bezier(.4,0,.2,1);
+        }
+
+        @keyframes fadeSlideIn {
+            from { opacity: 0; transform: translateY(-12px) scale(0.97); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .inline-explanation.correct {
+            background: linear-gradient(135deg, #e8f8f5, #d1f2eb);
+            border: 2px solid var(--green);
+        }
+
+        .inline-explanation.wrong {
+            background: linear-gradient(135deg, #ffe8e8, #ffd6d6);
+            border: 2px solid var(--red);
+        }
+
+        .inline-result {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .inline-result.correct { color: #2ea89e; }
+        .inline-result.wrong { color: var(--red); }
+
+        .inline-correct-answer {
+            font-size: 13px;
+            color: #6a5a68;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(0,0,0,0.12);
+            font-weight: 600;
+        }
+
+        .inline-explain-jp {
+            font-size: 14px;
+            color: #4a3a48;
+            line-height: 1.75;
+            margin-bottom: 8px;
+        }
+
+        .inline-explain-vi {
+            font-size: 13px;
+            color: #7a6a78;
+            line-height: 1.7;
+            font-style: italic;
+            padding-top: 8px;
+            border-top: 1px dashed rgba(0,0,0,0.08);
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .progress-bar {
+            height: 5px;
+            background: rgba(255,255,255,0.25);
+            width: 100%;
+            margin-top: 10px;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ffe066, #ffd700, #ffb347);
+            transition: width 0.3s;
+            border-radius: 3px;
+            box-shadow: 0 0 8px rgba(255,215,0,0.4);
+        }
+
         /* ===== RESULT SCREEN ===== */
         .result-screen {
             max-width: 800px;
             margin: 30px auto;
             padding: 0 15px;
             display: none;
+            position: relative;
+            z-index: 1;
         }
 
         .result-summary {
-            background: white;
-            border-radius: 12px;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
             padding: 40px;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: var(--card-shadow);
             margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.5);
         }
 
         .result-pass {
-            font-size: 36px;
-            font-weight: bold;
+            font-size: 32px;
+            font-weight: 800;
             margin-bottom: 10px;
         }
 
-        .result-pass.pass {
-            color: #27ae60;
-        }
-
-        .result-pass.fail {
-            color: #e74c3c;
-        }
+        .result-pass.pass { color: var(--green); }
+        .result-pass.fail { color: var(--red); }
 
         .result-score {
             font-size: 60px;
-            font-weight: bold;
-            color: #1a5276;
-            margin: 20px 0;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--pink), var(--purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 16px 0;
         }
 
         .result-score span {
-            font-size: 24px;
-            color: #888;
+            font-size: 22px;
+            -webkit-text-fill-color: #a89ba5;
         }
 
         .result-details {
             display: flex;
             justify-content: center;
-            gap: 40px;
-            margin: 25px 0;
+            gap: 32px;
+            margin: 24px 0;
         }
 
-        .result-detail-item {
-            text-align: center;
-        }
+        .result-detail-item { text-align: center; }
 
         .result-detail-item .number {
             font-size: 28px;
-            font-weight: bold;
+            font-weight: 800;
         }
 
         .result-detail-item .label {
-            font-size: 13px;
-            color: #888;
+            font-size: 12px;
+            color: #a89ba5;
+            font-weight: 600;
         }
 
-        .result-detail-item.correct .number { color: #27ae60; }
-        .result-detail-item.wrong .number { color: #e74c3c; }
-        .result-detail-item.unanswered .number { color: #f39c12; }
+        .result-detail-item.correct .number { color: var(--green); }
+        .result-detail-item.wrong .number { color: var(--red); }
+        .result-detail-item.unanswered .number { color: var(--gold); }
+
+        .result-motivation {
+            background: linear-gradient(135deg, #fff0f5, #fce4ec, #f8e8ff);
+            border-radius: 16px;
+            padding: 18px;
+            margin: 18px 0;
+            border: 1.5px solid var(--pink-light);
+        }
 
         .retry-btn {
-            background: linear-gradient(135deg, #2980b9, #3498db);
+            background: linear-gradient(135deg, var(--pink), var(--pink-deep));
             color: white;
             border: none;
-            padding: 14px 50px;
-            font-size: 18px;
-            border-radius: 8px;
+            padding: 16px 50px;
+            font-size: 17px;
+            border-radius: 50px;
             cursor: pointer;
-            font-weight: bold;
+            font-weight: 800;
             margin-top: 20px;
             transition: all 0.3s;
+            font-family: var(--font);
+            box-shadow: 0 6px 24px rgba(232,98,138,0.3);
         }
 
         .retry-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(41, 128, 185, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(232,98,138,0.45);
         }
 
         /* ===== REVIEW LIST ===== */
-        .review-list {
-            margin-top: 20px;
-        }
+        .review-list { margin-top: 20px; }
 
         .review-item {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-            border-left: 5px solid #ddd;
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 12px rgba(184,92,138,0.06);
+            border-left: 5px solid #e0d0da;
+            border: 1px solid rgba(255,255,255,0.4);
         }
 
-        .review-item.correct {
-            border-left-color: #27ae60;
-        }
-
-        .review-item.wrong {
-            border-left-color: #e74c3c;
-        }
-
-        .review-item.unanswered {
-            border-left-color: #f39c12;
-        }
+        .review-item.correct { border-left: 5px solid var(--green); }
+        .review-item.wrong { border-left: 5px solid var(--red); }
+        .review-item.unanswered { border-left: 5px solid var(--gold); }
 
         .review-header {
             display: flex;
@@ -483,182 +682,85 @@
             margin-bottom: 10px;
         }
 
-        .review-q-number {
-            font-weight: bold;
-            color: #1a5276;
-        }
+        .review-q-number { font-weight: 700; color: #7a5c8a; }
 
         .review-result-badge {
-            padding: 3px 12px;
+            padding: 4px 14px;
             border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+            font-size: 11px;
+            font-weight: 700;
             color: white;
         }
 
-        .review-result-badge.correct { background: #27ae60; }
-        .review-result-badge.wrong { background: #e74c3c; }
-        .review-result-badge.unanswered { background: #f39c12; }
+        .review-result-badge.correct { background: var(--green); }
+        .review-result-badge.wrong { background: var(--red); }
+        .review-result-badge.unanswered { background: var(--gold); }
 
-        .review-question-jp {
-            font-size: 15px;
-            color: #333;
-            margin-bottom: 6px;
-        }
-
-        .review-question-vi {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 10px;
-            font-style: italic;
-        }
+        .review-question-jp { font-size: 15px; color: #4a3a48; margin-bottom: 6px; font-weight: 500; }
+        .review-question-vi { font-size: 13px; color: #a89ba5; margin-bottom: 10px; font-style: italic; }
 
         .review-answer-row {
             display: flex;
             gap: 20px;
-            font-size: 14px;
+            font-size: 13px;
             margin-bottom: 8px;
         }
 
-        .review-your-answer {
-            color: #555;
-        }
-
-        .review-correct-answer {
-            color: #27ae60;
-            font-weight: bold;
-        }
+        .review-your-answer { color: #6a5a68; }
+        .review-correct-answer { color: var(--green); font-weight: 700; }
 
         .review-explanation {
-            background: #f0f7ff;
-            border-radius: 6px;
+            background: linear-gradient(135deg, #f0f7ff, #f8f0ff);
+            border-radius: 10px;
             padding: 12px;
             font-size: 13px;
-            color: #444;
+            color: #5a4a58;
             line-height: 1.7;
             margin-top: 8px;
         }
 
-        .review-explanation .explanation-jp {
-            margin-bottom: 6px;
-        }
+        .review-explanation .explanation-jp { margin-bottom: 6px; }
 
         .review-explanation .explanation-vi {
-            color: #666;
+            color: #8a7a88;
             font-style: italic;
-            border-top: 1px dashed #ddd;
+            border-top: 1px dashed rgba(0,0,0,0.08);
             padding-top: 6px;
             margin-top: 6px;
         }
 
         .filter-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             margin-bottom: 15px;
             flex-wrap: wrap;
         }
 
         .filter-btn {
             padding: 8px 18px;
-            border: 2px solid #ddd;
-            border-radius: 20px;
-            background: white;
+            border: 2px solid #e8c8d8;
+            border-radius: 25px;
+            background: var(--card-bg);
             cursor: pointer;
             font-size: 13px;
-            font-weight: bold;
+            font-weight: 700;
             transition: all 0.2s;
+            font-family: var(--font);
+            color: #8a6d7f;
         }
 
         .filter-btn.active {
-            background: #2980b9;
+            background: linear-gradient(135deg, var(--pink), var(--pink-deep));
             color: white;
-            border-color: #2980b9;
+            border-color: transparent;
+            box-shadow: 0 3px 12px rgba(232,98,138,0.25);
         }
 
-        .filter-btn:hover {
-            border-color: #2980b9;
-        }
+        .filter-btn:hover { border-color: var(--pink); }
 
-        /* ===== INLINE EXPLANATION ===== */
-        .inline-explanation {
-            margin-top: 20px;
-            padding: 18px;
-            border-radius: 10px;
-            display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .inline-explanation.correct {
-            background: #d4edda;
-            border: 2px solid #27ae60;
-        }
-
-        .inline-explanation.wrong {
-            background: #fde8e8;
-            border: 2px solid #e74c3c;
-        }
-
-        .inline-result {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .inline-result.correct { color: #27ae60; }
-        .inline-result.wrong { color: #e74c3c; }
-
-        .inline-correct-answer {
-            font-size: 14px;
-            color: #555;
-            margin-bottom: 10px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #ccc;
-        }
-
-        .inline-explain-jp {
-            font-size: 14px;
-            color: #333;
-            line-height: 1.7;
-            margin-bottom: 8px;
-        }
-
-        .inline-explain-vi {
-            font-size: 13px;
-            color: #666;
-            line-height: 1.7;
-            font-style: italic;
-            padding-top: 8px;
-            border-top: 1px dashed #ddd;
-        }
-
-        .answer-btn.disabled {
-            opacity: 0.5;
-            pointer-events: none;
-        }
-
-        /* ===== PROGRESS BAR ===== */
-        .progress-bar {
-            height: 4px;
-            background: rgba(255,255,255,0.2);
-            width: 100%;
-            margin-top: 10px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .progress-bar .progress {
-            height: 100%;
-            background: #ffd700;
-            transition: width 0.3s;
-            border-radius: 2px;
+        .review-section-title {
+            color: #7a5c8a;
+            font-weight: 800;
         }
 
         /* ===== RESPONSIVE - iPhone 13 (390x844) optimized ===== */
@@ -669,7 +771,6 @@
                 -webkit-tap-highlight-color: transparent;
             }
 
-            /* Header: compact, không chiếm quá nhiều màn hình */
             .header {
                 padding: 10px 16px calc(8px + env(safe-area-inset-top, 0px));
                 padding-top: calc(10px + env(safe-area-inset-top, 0px));
@@ -678,50 +779,47 @@
             .header-info { gap: 16px; font-size: 13px; margin-top: 6px; }
             .header-info .timer { font-size: 16px; }
 
-            /* Start screen */
             .start-screen {
                 margin: 16px 12px;
                 padding: 24px 18px;
-                border-radius: 10px;
+                border-radius: 20px;
             }
             .start-screen h2 { font-size: 22px; }
-            .start-screen .exam-title-jp { font-size: 17px; margin-bottom: 18px; }
-            .exam-rules { padding: 16px; margin: 14px 0; }
+            .start-screen .exam-title-jp { font-size: 16px; margin-bottom: 16px; }
+            .exam-rules { padding: 16px; margin: 12px 0; border-radius: 14px; }
             .exam-rules h3 { font-size: 14px; margin-bottom: 10px; }
             .exam-rules td { padding: 7px 6px; font-size: 13px; }
             .exam-rules td:first-child { width: 38%; }
+            .tips-box { padding: 16px; margin: 12px 0; border-radius: 14px; }
             .start-btn {
                 padding: 16px 40px;
                 font-size: 17px;
                 width: 100%;
-                border-radius: 12px;
+                border-radius: 50px;
                 margin-top: 18px;
             }
 
-            /* Question navigation grid - 10 cột vừa iPhone 13 */
             .exam-container { padding: 0 10px; margin-top: 12px; }
             .question-nav {
                 gap: 4px;
                 padding: 10px 8px;
                 margin-bottom: 10px;
-                border-radius: 8px;
+                border-radius: 14px;
             }
             .question-nav .nav-btn {
-                width: 33px;
-                height: 33px;
+                width: 33px; height: 33px;
                 font-size: 12px;
-                border-radius: 5px;
+                border-radius: 8px;
                 border-width: 1.5px;
             }
 
-            /* Question card */
             .question-card {
                 padding: 16px;
-                border-radius: 10px;
+                border-radius: 16px;
                 margin-bottom: 10px;
             }
             .question-number {
-                font-size: 13px;
+                font-size: 12px;
                 padding: 3px 12px;
                 margin-bottom: 12px;
             }
@@ -730,77 +828,68 @@
                 line-height: 1.7;
                 padding: 12px;
                 margin-bottom: 10px;
+                border-radius: 10px;
             }
             .question-text-vi {
                 font-size: 13px;
                 padding: 8px 12px;
                 margin-bottom: 16px;
+                border-radius: 10px;
             }
 
-            /* Answer buttons - lớn, dễ bấm bằng ngón tay */
-            .answer-buttons {
-                gap: 12px;
-                margin-top: 14px;
-            }
+            .answer-buttons { gap: 12px; margin-top: 14px; }
             .answer-btn {
                 max-width: none;
                 padding: 16px 10px;
                 font-size: 30px;
-                border-radius: 14px;
+                border-radius: 16px;
                 border-width: 2.5px;
                 min-height: 80px;
             }
             .answer-btn .label { font-size: 12px; margin-top: 2px; }
-            /* Bỏ hover effect trên mobile để tránh dính trạng thái */
             .answer-btn:hover {
                 transform: none;
                 box-shadow: none;
             }
-            /* Active state cho touch feedback */
             .answer-btn:active:not(.disabled) {
                 transform: scale(0.96);
             }
 
-            /* Inline explanation */
-            .inline-explanation { padding: 14px; margin-top: 16px; }
-            .inline-result { font-size: 16px; flex-wrap: wrap; }
-            .inline-correct-answer { font-size: 13px; }
+            .inline-explanation { padding: 14px; margin-top: 16px; border-radius: 14px; }
+            .inline-result { font-size: 15px; flex-wrap: wrap; }
+            .inline-correct-answer { font-size: 12px; }
             .inline-explain-jp { font-size: 13px; line-height: 1.6; }
             .inline-explain-vi { font-size: 12px; line-height: 1.6; }
 
-            /* Navigation controls - cố định dưới màn hình */
             .nav-controls {
                 position: fixed;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                background: white;
+                bottom: 0; left: 0; right: 0;
+                background: rgba(255,255,255,0.95);
+                backdrop-filter: blur(15px);
                 padding: 10px 12px calc(10px + env(safe-area-inset-bottom, 0px));
                 margin: 0;
-                box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+                box-shadow: 0 -4px 20px rgba(184,92,138,0.1);
                 z-index: 99;
                 gap: 8px;
-                border-top: 1px solid #e0e0e0;
+                border-top: 1px solid rgba(232,98,138,0.15);
             }
             .nav-arrow {
                 padding: 10px 14px;
                 font-size: 13px;
-                border-radius: 8px;
+                border-radius: 10px;
                 white-space: nowrap;
             }
             .submit-btn {
                 padding: 10px 16px;
                 font-size: 13px;
-                border-radius: 8px;
+                border-radius: 10px;
                 white-space: nowrap;
             }
-            /* Thêm padding bottom cho exam container để không bị nav che */
             .exam-container { padding-bottom: 75px; }
 
-            /* Result screen */
             .result-screen { margin: 16px auto; padding: 0 10px; }
-            .result-summary { padding: 24px 18px; border-radius: 10px; }
-            .result-pass { font-size: 22px; line-height: 1.4; }
+            .result-summary { padding: 24px 18px; border-radius: 20px; }
+            .result-pass { font-size: 20px; line-height: 1.4; }
             .result-score { font-size: 48px; margin: 14px 0; }
             .result-score span { font-size: 20px; }
             .result-details { gap: 24px; margin: 18px 0; }
@@ -810,11 +899,10 @@
                 width: 100%;
                 padding: 16px 30px;
                 font-size: 17px;
-                border-radius: 12px;
+                border-radius: 50px;
             }
 
-            /* Review list */
-            .review-item { padding: 14px; margin-bottom: 8px; border-radius: 8px; }
+            .review-item { padding: 14px; margin-bottom: 8px; border-radius: 14px; }
             .review-question-jp { font-size: 14px; }
             .review-question-vi { font-size: 12px; }
             .review-answer-row {
@@ -822,21 +910,18 @@
                 gap: 4px;
                 font-size: 13px;
             }
-            .review-explanation { padding: 10px; font-size: 12px; }
+            .review-explanation { padding: 10px; font-size: 12px; border-radius: 10px; }
 
-            /* Filter buttons - dễ bấm hơn */
             .filter-buttons { gap: 6px; }
             .filter-btn {
                 padding: 8px 14px;
                 font-size: 12px;
-                border-radius: 18px;
+                border-radius: 20px;
             }
         }
 
-        /* Nav toggle - chỉ hiện trên mobile */
-        .nav-toggle-wrap {
-            display: none;
-        }
+        /* Nav toggle - mobile only */
+        .nav-toggle-wrap { display: none; }
         @media (max-width: 430px) {
             .nav-toggle-wrap {
                 display: block;
@@ -844,22 +929,20 @@
                 text-align: center;
             }
             .nav-toggle-btn {
-                background: white;
-                border: 1.5px solid #ddd;
-                border-radius: 8px;
+                background: var(--card-bg);
+                border: 1.5px solid #e8c8d8;
+                border-radius: 10px;
                 padding: 8px 16px;
                 font-size: 13px;
-                color: #555;
+                color: #8a6d7f;
                 cursor: pointer;
                 width: 100%;
-                font-weight: 500;
+                font-weight: 600;
+                font-family: var(--font);
             }
-            .question-nav.collapsed {
-                display: none;
-            }
+            .question-nav.collapsed { display: none; }
         }
 
-        /* Notch / Dynamic Island safe area */
         @supports (padding-top: env(safe-area-inset-top)) {
             .header {
                 padding-top: calc(15px + env(safe-area-inset-top, 0px));
@@ -869,21 +952,81 @@
 </head>
 <body>
 
+<!-- ===== FLOATING SAKURA ===== -->
+<div class="sakura-container" id="sakuraContainer"></div>
+
 <!-- ===== START SCREEN ===== -->
 <div class="start-screen" id="startScreen">
-    <div style="font-size: 48px; margin-bottom: 10px;">🌸</div>
+    <div style="font-size: 52px; margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(232,98,138,0.3));">🌸</div>
     <h2>仮免許学科試験</h2>
     <div class="exam-title-jp">Thi thử bằng lái xe Karimen</div>
 
-    <div style="background: linear-gradient(135deg, #fff0f5, #ffe4ec); border-radius: 12px; padding: 20px; margin: 20px 0; border: 2px solid #f8a4c0;">
-        <p style="font-size: 18px; color: #d63384; font-weight: bold; margin-bottom: 8px;">
+    <div class="love-message">
+        <p style="font-size: 18px; color: #c94c73; font-weight: 800; margin-bottom: 8px; position: relative;">
             💕 Ngọc Anh ơi, cố lên nha！
         </p>
-        <p style="font-size: 14px; color: #888; line-height: 1.8;">
+        <p style="font-size: 14px; color: #9a7b8e; line-height: 1.9; position: relative;">
             Anh làm trang này riêng cho em luyện thi 🚗<br>
             Mỗi ngày luyện một chút, nhất định em sẽ đỗ thôi！<br>
-            <span style="color: #d63384;">頑張れ、ゴックアイン！きっと合格できるよ！✨</span>
+            <span style="color: #c94c73; font-weight: 700;">頑張れ、ゴックアイン！きっと合格できるよ！✨</span>
         </p>
+    </div>
+
+    <div class="tips-box">
+        <h3 style="color: var(--pink-deep); margin-bottom: 14px; font-size: 16px; font-weight: 800;">💡 Mẹo thi quan trọng / 試験のコツ</h3>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #e8628a; font-size: 14px; margin-bottom: 4px;">🔴 Cẩn thận với từ khóa bẫy:</p>
+            <ul style="font-size: 13px; color: #5a4a58; line-height: 1.9; padding-left: 20px;">
+                <li><strong>「必ず」(nhất định)・「常に」(luôn luôn)・「絶対に」(tuyệt đối)</strong> → Thường là <strong style="color:#ff6b6b;">× (Sai)</strong> vì luật luôn có ngoại lệ</li>
+                <li><strong>「～することがある」(có trường hợp)・「～の場合もある」(cũng có lúc)</strong> → Thường là <strong style="color:#4ecdc4;">○ (Đúng)</strong></li>
+                <li><strong>「～してもよい」(có thể làm)</strong> → Đọc kỹ, có thể là bẫy！</li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #7a5c8a; font-size: 14px; margin-bottom: 4px;">🔢 Những con số phải nhớ:</p>
+            <ul style="font-size: 13px; color: #5a4a58; line-height: 1.9; padding-left: 20px;">
+                <li>Tốc độ đường thường (標識なし): <strong>60km/h</strong> | Đường cao tốc: <strong>100km/h</strong></li>
+                <li>Tốc độ tối thiểu cao tốc: <strong>50km/h</strong></li>
+                <li>Rẽ/quay đầu ra tín hiệu trước <strong>30m</strong> | Đổi làn trước <strong>3 giây</strong></li>
+                <li>Cấm đỗ: ngã tư/đường ngang <strong>5m</strong> | Trạm buýt <strong>10m</strong> | Hộp báo cháy <strong>1m</strong></li>
+                <li>Cấm dừng & đỗ: ngã tư/đường ngang <strong>5m</strong> + thêm cấm dừng gần đường ray <strong>10m</strong></li>
+                <li>Chiều cao chở hàng tối đa: <strong>3.8m</strong> | Nhô ra sau tối đa: <strong>1/10 chiều dài xe</strong></li>
+                <li>Xe gắn máy nguyên phụ (原付): tối đa <strong>30km/h</strong></li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #9b59b6; font-size: 14px; margin-bottom: 4px;">⚠️ Những chỗ hay nhầm:</p>
+            <ul style="font-size: 13px; color: #5a4a58; line-height: 1.9; padding-left: 20px;">
+                <li><strong>Đèn vàng nhấp nháy (黄点滅)</strong> = chú ý đi qua ≠ dừng lại. <strong>Đèn đỏ nhấp nháy (赤点滅)</strong> = dừng hẳn (一時停止)</li>
+                <li><strong>「車両進入禁止」</strong>(cấm đi vào) ≠ <strong>「車両通行止め」</strong>(cấm lưu thông) — khác nhau！</li>
+                <li><strong>Vượt xe (追い越し)</strong>: nguyên tắc vượt bên phải. Ngoại lệ: xe trước rẽ phải → vượt bên trái</li>
+                <li><strong>Xe khẩn cấp (緊急車両)</strong>: trong ngã tư → tránh sang trái. Ngoài ngã tư → tấp trái dừng lại</li>
+                <li><strong>Khoảng cách dừng (停止距離)</strong> = khoảng cách phản ứng (空走距離) + khoảng cách phanh (制動距離)</li>
+                <li><strong>徐行 (đi chậm)</strong> = dừng được ngay trong 1m. Không phải từ từ đi！</li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #4ecdc4; font-size: 14px; margin-bottom: 4px;">🛡️ Nguyên tắc an toàn (hầu hết là ○):</p>
+            <ul style="font-size: 13px; color: #5a4a58; line-height: 1.9; padding-left: 20px;">
+                <li>Liên quan đến <strong>bảo vệ người đi bộ, trẻ em, người khuyết tật</strong> → hầu hết là ○</li>
+                <li>Câu nào nói <strong>「安全を確認」(xác nhận an toàn)</strong> → thường là ○</li>
+                <li>Câu nào nói <strong>「徐行しなければならない」(phải đi chậm)</strong> gần trường học, khu dân cư → thường là ○</li>
+            </ul>
+        </div>
+
+        <div>
+            <p style="font-weight: bold; color: #f0a050; font-size: 14px; margin-bottom: 4px;">📝 Mẹo làm bài:</p>
+            <ul style="font-size: 13px; color: #5a4a58; line-height: 1.9; padding-left: 20px;">
+                <li>Đọc <strong>toàn bộ câu hỏi</strong> trước khi chọn — nhiều câu sai ở phần cuối câu</li>
+                <li>Không biết → <strong>đừng bỏ trống</strong>, chọn đại cũng có 50% đúng</li>
+                <li>Mỗi câu có <strong>36 giây</strong> (30 phút / 50 câu) — không cần vội nhưng đừng nghĩ quá lâu</li>
+                <li>Câu nào chắc chắn → chọn nhanh, dành thời gian cho câu khó</li>
+            </ul>
+        </div>
     </div>
 
     <div class="exam-rules">
@@ -912,64 +1055,7 @@
         </table>
     </div>
 
-    <div style="text-align: left; background: #eef6ff; border-radius: 10px; padding: 20px; margin: 20px 0; border-left: 4px solid #2980b9;">
-        <h3 style="color: #1a5276; margin-bottom: 14px; font-size: 16px;">💡 Mẹo thi quan trọng / 試験のコツ</h3>
-
-        <div style="margin-bottom: 14px;">
-            <p style="font-weight: bold; color: #c0392b; font-size: 14px; margin-bottom: 4px;">🔴 Cẩn thận với từ khóa bẫy:</p>
-            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
-                <li><strong>「必ず」(nhất định)・「常に」(luôn luôn)・「絶対に」(tuyệt đối)</strong> → Thường là <strong style="color:#e74c3c;">× (Sai)</strong> vì luật luôn có ngoại lệ</li>
-                <li><strong>「～することがある」(có trường hợp)・「～の場合もある」(cũng có lúc)</strong> → Thường là <strong style="color:#27ae60;">○ (Đúng)</strong></li>
-                <li><strong>「～してもよい」(có thể làm)</strong> → Đọc kỹ, có thể là bẫy！</li>
-            </ul>
-        </div>
-
-        <div style="margin-bottom: 14px;">
-            <p style="font-weight: bold; color: #1a5276; font-size: 14px; margin-bottom: 4px;">🔢 Những con số phải nhớ:</p>
-            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
-                <li>Tốc độ đường thường (標識なし): <strong>60km/h</strong> | Đường cao tốc: <strong>100km/h</strong></li>
-                <li>Tốc độ tối thiểu cao tốc: <strong>50km/h</strong></li>
-                <li>Rẽ/quay đầu ra tín hiệu trước <strong>30m</strong> | Đổi làn trước <strong>3 giây</strong></li>
-                <li>Cấm đỗ: ngã tư/đường ngang <strong>5m</strong> | Trạm buýt <strong>10m</strong> | Hộp báo cháy <strong>1m</strong></li>
-                <li>Cấm dừng & đỗ: ngã tư/đường ngang <strong>5m</strong> + thêm cấm dừng gần đường ray <strong>10m</strong></li>
-                <li>Chiều cao chở hàng tối đa: <strong>3.8m</strong> | Nhô ra sau tối đa: <strong>1/10 chiều dài xe</strong></li>
-                <li>Xe gắn máy nguyên phụ (原付): tối đa <strong>30km/h</strong></li>
-            </ul>
-        </div>
-
-        <div style="margin-bottom: 14px;">
-            <p style="font-weight: bold; color: #8e44ad; font-size: 14px; margin-bottom: 4px;">⚠️ Những chỗ hay nhầm:</p>
-            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
-                <li><strong>Đèn vàng nhấp nháy (黄点滅)</strong> = chú ý đi qua ≠ dừng lại. <strong>Đèn đỏ nhấp nháy (赤点滅)</strong> = dừng hẳn (一時停止)</li>
-                <li><strong>「車両進入禁止」</strong>(cấm đi vào) ≠ <strong>「車両通行止め」</strong>(cấm lưu thông) — khác nhau！</li>
-                <li><strong>Vượt xe (追い越し)</strong>: nguyên tắc vượt bên phải. Ngoại lệ: xe trước rẽ phải → vượt bên trái</li>
-                <li><strong>Xe khẩn cấp (緊急車両)</strong>: trong ngã tư → tránh sang trái. Ngoài ngã tư → tấp trái dừng lại</li>
-                <li><strong>Khoảng cách dừng (停止距離)</strong> = khoảng cách phản ứng (空走距離) + khoảng cách phanh (制動距離)</li>
-                <li><strong>徐行 (đi chậm)</strong> = dừng được ngay trong 1m. Không phải từ từ đi！</li>
-            </ul>
-        </div>
-
-        <div style="margin-bottom: 14px;">
-            <p style="font-weight: bold; color: #27ae60; font-size: 14px; margin-bottom: 4px;">🛡️ Nguyên tắc an toàn (hầu hết là ○):</p>
-            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
-                <li>Liên quan đến <strong>bảo vệ người đi bộ, trẻ em, người khuyết tật</strong> → hầu hết là ○</li>
-                <li>Câu nào nói <strong>「安全を確認」(xác nhận an toàn)</strong> → thường là ○</li>
-                <li>Câu nào nói <strong>「徐行しなければならない」(phải đi chậm)</strong> gần trường học, khu dân cư → thường là ○</li>
-            </ul>
-        </div>
-
-        <div>
-            <p style="font-weight: bold; color: #e67e22; font-size: 14px; margin-bottom: 4px;">📝 Mẹo làm bài:</p>
-            <ul style="font-size: 13px; color: #444; line-height: 1.9; padding-left: 20px;">
-                <li>Đọc <strong>toàn bộ câu hỏi</strong> trước khi chọn — nhiều câu sai ở phần cuối câu</li>
-                <li>Không biết → <strong>đừng bỏ trống</strong>, chọn đại cũng có 50% đúng</li>
-                <li>Mỗi câu có <strong>36 giây</strong> (30 phút / 50 câu) — không cần vội nhưng đừng nghĩ quá lâu</li>
-                <li>Câu nào chắc chắn → chọn nhanh, dành thời gian cho câu khó</li>
-            </ul>
-        </div>
-    </div>
-
-    <p style="color: #888; font-size: 13px; margin-top: 15px;">
+    <p style="color: #a89ba5; font-size: 13px; margin-top: 15px; font-weight: 600;">
         ※ 問題は毎回ランダムに出題されます。<br>
         ※ Câu hỏi sẽ được xáo trộn ngẫu nhiên mỗi lần thi.
     </p>
@@ -1047,11 +1133,11 @@
                 <div class="label">未回答 / Chưa trả lời</div>
             </div>
         </div>
-        <div id="resultMotivation" style="background: linear-gradient(135deg, #fff0f5, #ffe4ec); border-radius: 10px; padding: 15px; margin: 15px 0; border: 1px solid #f8a4c0;"></div>
+        <div id="resultMotivation" class="result-motivation"></div>
         <button class="retry-btn" onclick="location.reload()">🌸 Thi lại lần nữa nha！/ もう一度</button>
     </div>
 
-    <h3 style="margin: 25px 0 15px; color: #1a5276;">📖 解答と解説 / Đáp án và giải thích</h3>
+    <h3 class="review-section-title" style="margin: 25px 0 15px;">📖 解答と解説 / Đáp án và giải thích</h3>
 
     <div class="filter-buttons">
         <button class="filter-btn active" onclick="filterReview('all', this)">すべて / Tất cả</button>
@@ -2529,6 +2615,24 @@ document.addEventListener('keydown', (e) => {
     if (e.key === '1' || e.key === 'o') selectAnswer(true);
     if (e.key === '2' || e.key === 'x') selectAnswer(false);
 });
+
+// ===== SAKURA PETALS =====
+function createPetals() {
+    const container = document.getElementById('sakuraContainer');
+    const count = window.innerWidth < 430 ? 12 : 20;
+    for (let i = 0; i < count; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        petal.style.left = Math.random() * 100 + '%';
+        petal.style.animationDuration = (8 + Math.random() * 12) + 's';
+        petal.style.animationDelay = (Math.random() * 15) + 's';
+        petal.style.width = (8 + Math.random() * 10) + 'px';
+        petal.style.height = petal.style.width;
+        petal.style.opacity = 0.2 + Math.random() * 0.35;
+        container.appendChild(petal);
+    }
+}
+createPetals();
 </script>
 
 </body>
