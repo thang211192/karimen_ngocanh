@@ -946,6 +946,68 @@
             }
         }
 
+        /* ===== MILESTONE TOAST ===== */
+        .milestone-toast {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            background: linear-gradient(135deg, #fff0f5, #fce4ec, #f8e8ff);
+            border: 2.5px solid var(--pink-light);
+            border-radius: 24px;
+            padding: 28px 36px;
+            text-align: center;
+            z-index: 9999;
+            box-shadow: 0 12px 48px rgba(184,92,138,0.3);
+            opacity: 0;
+            pointer-events: none;
+            animation: toastPop 2.8s cubic-bezier(.4,0,.2,1) forwards;
+        }
+        .milestone-toast .toast-emoji {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 8px;
+            animation: toastBounce 0.6s ease 0.3s;
+        }
+        .milestone-toast .toast-text {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--pink-deep);
+            line-height: 1.5;
+        }
+        .milestone-toast .toast-sub {
+            font-size: 14px;
+            color: #9a7b8e;
+            margin-top: 4px;
+            font-weight: 600;
+        }
+        .milestone-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.15);
+            z-index: 9998;
+            opacity: 0;
+            pointer-events: none;
+            animation: overlayFade 2.8s ease forwards;
+        }
+        @keyframes toastPop {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            15% { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+            25% { transform: translate(-50%, -50%) scale(1); }
+            75% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.9); }
+        }
+        @keyframes toastBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+        @keyframes overlayFade {
+            0% { opacity: 0; }
+            15% { opacity: 1; }
+            75% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
         /* Nav toggle - mobile only */
         .nav-toggle-wrap { display: none; }
         @media (max-width: 430px) {
@@ -3573,6 +3635,48 @@ let questions = [];
 let currentIndex = 0;
 let answers = {};
 let timerInterval = null;
+let correctCount = 0;
+
+// Sound effects using Web Audio API (no files needed)
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+function getAudioCtx() {
+    if (!audioCtx) audioCtx = new AudioCtx();
+    return audioCtx;
+}
+function playCorrectSound() {
+    try {
+        const ctx = getAudioCtx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.type = 'sine';
+        o.frequency.setValueAtTime(880, ctx.currentTime);
+        o.frequency.setValueAtTime(1175, ctx.currentTime + 0.08);
+        o.frequency.setValueAtTime(1397, ctx.currentTime + 0.16);
+        g.gain.setValueAtTime(0.18, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.35);
+        o.start(ctx.currentTime);
+        o.stop(ctx.currentTime + 0.35);
+    } catch(e) {}
+}
+function playWrongSound() {
+    try {
+        const ctx = getAudioCtx();
+        const o = ctx.createOscillator();
+        const g = ctx.createGain();
+        o.connect(g);
+        g.connect(ctx.destination);
+        o.type = 'sine';
+        o.frequency.setValueAtTime(400, ctx.currentTime);
+        o.frequency.setValueAtTime(300, ctx.currentTime + 0.15);
+        g.gain.setValueAtTime(0.13, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.3);
+        o.start(ctx.currentTime);
+        o.stop(ctx.currentTime + 0.3);
+    } catch(e) {}
+}
 let timeLeft = 30 * 60; // 30 minutes in seconds
 
 // ===== FUNCTIONS =====
@@ -3688,8 +3792,20 @@ function selectAnswer(isMaru) {
     document.getElementById('btnMaru').classList.add('disabled');
     document.getElementById('btnBatsu').classList.add('disabled');
 
+    // Play sound
+    if (isCorrect) playCorrectSound();
+    else playWrongSound();
+
     // Show inline explanation
     showInlineExplanation(q, isMaru, isCorrect);
+
+    // Track correct count and celebrate milestones
+    if (isCorrect) {
+        correctCount++;
+        if (correctCount % 5 === 0) {
+            showMilestoneToast(correctCount);
+        }
+    }
 
     updateQuestionNav();
     updateAnsweredCount();
@@ -3908,6 +4024,46 @@ function filterReview(filter, btn) {
             item.style.display = item.dataset.status === filter ? 'block' : 'none';
         }
     });
+}
+
+// Milestone celebration every 5 correct answers
+function showMilestoneToast(count) {
+    const milestones = [
+        { at: 5,  emoji: '🌸', text: '5 câu đúng rồi！', sub: 'Khởi đầu tuyệt vời Ngọc Anh ơi！' },
+        { at: 10, emoji: '💕', text: '10 câu đúng！Hay quá！', sub: 'Em đang rất tập trung đó nha！' },
+        { at: 15, emoji: '🔥', text: '15 câu đúng！On fire！', sub: 'Không ai cản được em đâu！' },
+        { at: 20, emoji: '⭐', text: '20 câu đúng！Nửa đường rồi！', sub: 'Cứ đà này là đỗ chắc luôn！' },
+        { at: 25, emoji: '🎯', text: '25 câu đúng！Quá nửa rồi！', sub: 'Em giỏi lắm, anh tự hào quá！' },
+        { at: 30, emoji: '🌟', text: '30 câu đúng！Xuất sắc！', sub: 'Gần đến đích rồi, cố lên nha！' },
+        { at: 35, emoji: '👑', text: '35 câu đúng！Queen！', sub: 'Em là nữ hoàng karimen luôn！' },
+        { at: 40, emoji: '🏆', text: '40 câu đúng！Siêu nhân！', sub: 'Chỉ còn 5 câu nữa là đỗ！Tin em！' },
+        { at: 45, emoji: '🎉', text: '45 câu đúng！ĐỦ ĐIỂM ĐỖ！', sub: 'NGỌC ANH ĐỖ RỒI！！！💕🌸🎊' },
+        { at: 50, emoji: '🏅', text: 'PERFECT 50/50！', sub: 'Trời ơi em perfect luôn！Anh yêu em！💕' },
+    ];
+
+    const m = milestones.find(m => m.at === count);
+    if (!m) return;
+
+    // Create overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'milestone-overlay';
+    document.body.appendChild(overlay);
+
+    // Create toast
+    const toast = document.createElement('div');
+    toast.className = 'milestone-toast';
+    toast.innerHTML = `
+        <span class="toast-emoji">${m.emoji}</span>
+        <div class="toast-text">${m.text}</div>
+        <div class="toast-sub">${m.sub}</div>
+    `;
+    document.body.appendChild(toast);
+
+    // Remove after animation
+    setTimeout(() => {
+        toast.remove();
+        overlay.remove();
+    }, 2900);
 }
 
 // Swipe gesture for mobile
