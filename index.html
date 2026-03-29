@@ -2237,6 +2237,1308 @@ const allQuestions = [
         answer: true,
         explanationJp: "一方通行の道路などで、左側に寄ると緊急自動車の通行を妨げる場合は、右側に寄って進路を譲ります。",
         explanationVi: "Trên đường một chiều, nếu tránh sang trái sẽ cản xe khẩn cấp thì tránh sang phải để nhường đường."
+    },
+    {
+        jp: "青信号であっても、交差点の先が詰まっているときは進入してはいけない。",
+        vi: "Dù đèn xanh, nếu phía trước giao lộ đang ùn thì không được đi vào.",
+        answer: true,
+        explanationJp: "青信号でも、交差点の先が詰まっている場合は進入してはいけません。交差点内で立ち往生すると、他の方向の交通を妨げることになります。",
+        explanationVi: "Đèn xanh không cho phép đi vào khi sẽ làm chắn giao lộ. Người lái vẫn phải bảo đảm không gây cản trở. Đèn xanh không có nghĩa là 'được đi bằng mọi giá'."
+    },
+    {
+        jp: "黄色信号に変わったとき、停止位置で安全に止まれるなら止まるべきである。",
+        vi: "Khi đèn chuyển vàng, nếu có thể dừng an toàn ở vạch dừng thì phải dừng.",
+        answer: true,
+        explanationJp: "黄色信号に変わったとき、安全に停止できる場合は停止線の手前で止まらなければなりません。安全に止まれない場合のみ、そのまま進むことができます。",
+        explanationVi: "Theo tài liệu của NPA, xe không được vượt quá điểm dừng khi đèn vàng, trừ trường hợp không thể dừng an toàn. Gặp đèn vàng, ưu tiên nghĩ đến việc dừng."
+    },
+    {
+        jp: "赤信号でも、左右に車や歩行者がいなければ進んでよい。",
+        vi: "Đèn đỏ thì nếu không có xe hay người đi bộ ở hai bên vẫn có thể đi tiếp.",
+        answer: false,
+        explanationJp: "赤信号は絶対に停止しなければなりません。周囲に車や歩行者がいなくても例外はありません。",
+        explanationVi: "Đèn đỏ bắt buộc phải dừng trước điểm dừng. Không có ngoại lệ chỉ vì 'đường vắng'. Câu có 'vẫn có thể đi' ở đèn đỏ hầu như là sai."
+    },
+    {
+        jp: "赤信号で交差点内に既に右折している車は、進路先の信号が赤でも進み切ることがある。",
+        vi: "Xe đã ở giữa giao lộ để rẽ phải thì có thể đi nốt dù tín hiệu phía trước đã đỏ.",
+        answer: true,
+        explanationJp: "交差点内で右折中に信号が赤に変わった場合、すでに交差点に進入している車は安全を確認しながら右折を完了することができます。",
+        explanationVi: "NPA nêu rằng xe đã ở trong quá trình rẽ có thể tiếp tục hoàn tất việc rẽ, miễn không cản xe đang được đèn xanh. Nhớ ngoại lệ này để tránh chọn sai máy móc."
+    },
+    {
+        jp: "赤信号では、常に左折だけは許される。",
+        vi: "Đèn đỏ thì luôn luôn được phép rẽ trái.",
+        answer: false,
+        explanationJp: "日本では赤信号で左折が許される一般規則はありません。「常に」という断定的な表現に注意しましょう。",
+        explanationVi: "Ở Nhật không có nguyên tắc mặc định cho phép rẽ trái khi đèn đỏ như ở một số nước khác. Từ 'luôn luôn' rất dễ là bẫy."
+    },
+    {
+        jp: "青の矢印信号が出ている方向には、他の本灯が赤でも進むことができる。",
+        vi: "Nếu có mũi tên xanh chỉ hướng đi thì có thể đi theo hướng đó dù đèn chính đang đỏ.",
+        answer: true,
+        explanationJp: "青の矢印信号が出ている場合、本灯が赤でもその矢印の方向に進むことができます。矢印信号は特定方向への進行許可です。",
+        explanationVi: "NPA quy định xe có thể đi theo hướng mũi tên xanh dù đèn chính đỏ hoặc vàng. Mũi tên xanh là quyền đi theo đúng hướng được chỉ."
+    },
+    {
+        jp: "点滅赤信号では、必ず一時停止してから安全を確かめて進む。",
+        vi: "Đèn đỏ nhấp nháy thì phải dừng hẳn rồi kiểm tra an toàn mới đi.",
+        answer: true,
+        explanationJp: "赤色点滅信号では、必ず一時停止してから安全を確認して進行しなければなりません。徐行だけでは不十分です。",
+        explanationVi: "NPA quy định xe phải dừng ở điểm dừng khi gặp tín hiệu đỏ nhấp nháy. Đỏ nhấp nháy = dừng hẳn, không phải chỉ giảm tốc."
+    },
+    {
+        jp: "信号が青でも、横断歩道上に歩行者がいればその通行を妨げてはいけない。",
+        vi: "Dù đèn xanh, nếu có người đi bộ trên vạch qua đường thì không được cản trở họ.",
+        answer: true,
+        explanationJp: "青信号でも横断歩道上の歩行者の通行を妨げてはいけません。歩行者の安全が最優先です。",
+        explanationVi: "Nguyên tắc cơ bản là nhường đường cho người đi bộ. Trong đề Nhật, người đi bộ thường được ưu tiên hơn suy nghĩ 'đèn xanh là mình được đi'."
+    },
+    {
+        jp: "黄色信号では、停止線を越えていなくても加速して通過するのがよい。",
+        vi: "Khi đèn vàng, nếu chưa qua vạch thì nên tăng tốc để vượt qua.",
+        answer: false,
+        explanationJp: "黄色信号で安全に停止できる場合は停止しなければなりません。加速して通過することは違反です。",
+        explanationVi: "Nếu dừng an toàn được thì phải dừng; chủ động tăng tốc để vượt đèn vàng là không đúng. Gặp từ 'tăng tốc để kịp qua' thường là sai."
+    },
+    {
+        jp: "信号待ちで停止するときは、停止線の手前で止まる。",
+        vi: "Khi chờ đèn, phải dừng trước vạch dừng.",
+        answer: true,
+        explanationJp: "信号待ちでは停止線の手前で停止します。停止線がない場合は交差点の直前で停止します。",
+        explanationVi: "Điểm dừng là ngay trước vạch dừng; nếu không có thì trước giao lộ hoặc trước vạch qua đường gần đó. Câu cơ bản nhưng rất hay có mặt."
+    },
+    {
+        jp: "青信号のとき、歩行者は必ず横断を開始しなければならない。",
+        vi: "Khi đèn xanh, người đi bộ bắt buộc phải bắt đầu sang đường.",
+        answer: false,
+        explanationJp: "青信号は横断を「許可」するものであり、「義務」ではありません。「必ず～しなければならない」という表現に注意しましょう。",
+        explanationVi: "Đèn xanh cho phép đi, không bắt buộc phải đi. Nhiều câu bẫy đổi 'được phép' thành 'bắt buộc'."
+    },
+    {
+        jp: "赤信号で停止中でも、緊急車両の接近に気づいたら周囲の安全に注意して進路を譲る必要がある場合がある。",
+        vi: "Ngay cả khi đang dừng đèn đỏ, khi phát hiện xe ưu tiên đến gần có thể cần nhường đường sau khi chú ý an toàn xung quanh.",
+        answer: true,
+        explanationJp: "赤信号で停止中でも、緊急車両が接近した場合は安全に注意しながら進路を譲る必要がある場合があります。",
+        explanationVi: "Nguyên tắc chung là không cản trở xe ưu tiên. Việc xử lý phải luôn dựa trên an toàn thực tế. Xe ưu tiên là nhóm câu hay ra theo hướng 'không được cản trở'."
+    },
+    {
+        jp: "黄色信号になった瞬間であれば、どの車もそのまま必ず進行できる。",
+        vi: "Ngay khi đèn chuyển vàng thì mọi xe đều chắc chắn có thể đi tiếp.",
+        answer: false,
+        explanationJp: "黄色信号では安全に停止できるなら停止しなければなりません。「どの車も必ず進行できる」は誤りです。",
+        explanationVi: "Chỉ khi không thể dừng an toàn mới được tiếp tục; không phải mọi xe đều được đi tiếp. Từ tuyệt đối như 'mọi xe đều' là tín hiệu nguy hiểm."
+    },
+    {
+        jp: "交差点内で右折待ちをするときも、歩行者の安全に注意しなければならない。",
+        vi: "Khi chờ rẽ phải trong giao lộ vẫn phải chú ý an toàn của người đi bộ.",
+        answer: true,
+        explanationJp: "交差点内で右折待ちをしているときも、常に歩行者の安全に注意する義務があります。",
+        explanationVi: "Hoàn tất việc rẽ không được cản trở người đi bộ hoặc xe đang được quyền đi. Rẽ phải/rẽ trái luôn đi kèm nghĩa vụ quan sát."
+    },
+    {
+        jp: "青信号で進行するとき、前の車が急停止する可能性は考えなくてよい。",
+        vi: "Khi đi lúc đèn xanh thì không cần tính đến khả năng xe trước phanh gấp.",
+        answer: false,
+        explanationJp: "青信号でも前方の車が急停止する可能性を常に考慮し、十分な車間距離を保つ必要があります。危険予測は常に重要です。",
+        explanationVi: "Dù đèn xanh vẫn phải giữ khoảng cách và dự liệu nguy hiểm. Đề thi Nhật ưu tiên 'dự đoán nguy hiểm'."
+    },
+    {
+        jp: "赤信号では、停止線がなくても交差点の直前など所定の位置で止まる。",
+        vi: "Đèn đỏ thì dù không có vạch dừng vẫn phải dừng ở vị trí quy định như ngay trước giao lộ.",
+        answer: true,
+        explanationJp: "赤信号では停止線がなくても、交差点の直前など所定の位置で停止しなければなりません。",
+        explanationVi: "NPA giải thích rõ điểm dừng khi không có vạch dừng. Không có vạch không có nghĩa là được dừng tùy ý."
+    },
+    {
+        jp: "信号が青でも、警察官の手信号が異なる指示をしているときは手信号に従う。",
+        vi: "Dù đèn xanh, nếu hiệu lệnh tay của cảnh sát khác thì phải theo hiệu lệnh tay.",
+        answer: true,
+        explanationJp: "警察官の手信号と信号機の表示が異なる場合は、警察官の手信号に従わなければなりません。",
+        explanationVi: "Hiệu lệnh của cảnh sát hoặc người điều khiển giao thông được ưu tiên thực hiện. Trong câu hỏi xung đột, ưu tiên theo người điều khiển giao thông."
+    },
+    {
+        jp: "信号のない交差点では、左右確認よりもまず加速して早く抜けることが大切である。",
+        vi: "Ở giao lộ không đèn, điều quan trọng là tăng tốc để ra khỏi đó nhanh hơn thay vì nhìn trái phải.",
+        answer: false,
+        explanationJp: "信号のない交差点では、まず左右の安全確認が最も重要です。加速して素早く通過するのは危険です。",
+        explanationVi: "Tại giao lộ không đèn, quan sát an toàn là ưu tiên hàng đầu. Câu nào đặt 'nhanh' lên trên 'an toàn' thường sai."
+    },
+    {
+        jp: "信号機のある交差点でも、周囲の状況次第では徐行や停止が必要になる。",
+        vi: "Ngay cả ở giao lộ có đèn tín hiệu, tùy tình huống xung quanh vẫn có thể phải đi chậm hoặc dừng.",
+        answer: true,
+        explanationJp: "信号機のある交差点でも、状況に応じて徐行や停止が必要になることがあります。信号だけに頼らず安全運転を心がけましょう。",
+        explanationVi: "Tín hiệu đèn không miễn trừ nghĩa vụ lái xe an toàn phù hợp hoàn cảnh. Tư duy cốt lõi: đèn chỉ là một phần, an toàn mới là gốc."
+    },
+    {
+        jp: "横断歩道に歩行者がいるときは、その直前で停止して通行を妨げてはいけない。",
+        vi: "Khi có người đi bộ trên vạch qua đường, phải dừng trước đó và không được cản trở họ.",
+        answer: true,
+        explanationJp: "横断歩道に歩行者がいるときは、横断歩道の直前で停止して歩行者の通行を妨げてはいけません。",
+        explanationVi: "JAF/NPA đều nhấn mạnh nguyên tắc nhường người đi bộ tại nơi qua đường. Người đi bộ ở vạch qua đường gần như luôn được ưu tiên."
+    },
+    {
+        jp: "横断歩道を渡ろうとしている歩行者が見えたら、車はその前で一時停止する。",
+        vi: "Nếu thấy người đi bộ chuẩn bị sang đường tại vạch, xe phải dừng trước đó.",
+        answer: true,
+        explanationJp: "横断歩道を渡ろうとしている歩行者がいる場合、車は横断歩道の手前で一時停止して歩行者に道を譲らなければなりません。",
+        explanationVi: "NPA nêu rõ khi người đi bộ đang qua hoặc sắp qua thì phải dừng và nhường đường. Từ khóa '渡ろうとしている' thường kéo đáp án đúng."
+    },
+    {
+        jp: "横断歩道の手前に人がいないように見えれば、減速しなくてもよい。",
+        vi: "Nếu trông có vẻ không có người trước vạch qua đường thì không cần giảm tốc.",
+        answer: false,
+        explanationJp: "横断歩道の手前では、歩行者がいないように見えても注意が必要です。視界が悪い場合や死角がある場合は減速すべきです。",
+        explanationVi: "Nếu tầm nhìn kém hoặc có nguy cơ người đi bộ xuất hiện, phải lái cẩn thận; câu khẳng định tuyệt đối này không đúng. 'Không cần' ở gần vạch qua đường rất dễ sai."
+    },
+    {
+        jp: "歩道を横切って出入りするときは、歩行者の通行を妨げないようにする。",
+        vi: "Khi cắt ngang vỉa hè để ra vào bãi đỗ hoặc cơ sở, không được cản trở người đi bộ.",
+        answer: true,
+        explanationJp: "歩道を横切って出入りする際は、歩行者の通行を妨げないようにしなければなりません。",
+        explanationVi: "Xe đi qua phần người đi bộ thường phải đặc biệt chú ý và nhường người đi bộ. Ra/vào bãi đỗ là nhóm câu bẫy rất hay ra."
+    },
+    {
+        jp: "高齢者や子供の近くでは、急な飛び出しを予測して速度を落とす。",
+        vi: "Gần người già hoặc trẻ em phải dự đoán họ có thể bất ngờ lao ra và giảm tốc.",
+        answer: true,
+        explanationJp: "通学路では特に子供の飛び出しに注意し、速度を落として慎重に運転する必要があります。",
+        explanationVi: "Nguyên tắc dự đoán nguy hiểm đặc biệt quan trọng với trẻ em và người cao tuổi. Thấy trẻ em/người già: chọn phương án an toàn hơn."
+    },
+    {
+        jp: "横断歩道の直前に停止車両があっても、歩行者が見えなければそのまま追い越してよい。",
+        vi: "Dù có xe đang dừng ngay trước vạch qua đường, nếu chưa thấy người đi bộ thì vẫn có thể vượt luôn.",
+        answer: false,
+        explanationJp: "横断歩道の直前に停止車両がある場合、その陰に歩行者がいる可能性があるため、そのまま追い越してはいけません。一時停止して確認が必要です。",
+        explanationVi: "Xe dừng trước vạch có thể đang nhường người đi bộ; đi tiếp ngay là rất nguy hiểm. Xe dừng trước vạch = nghi có người đi bộ khuất tầm nhìn."
+    },
+    {
+        jp: "道路の左側を歩いている歩行者が急に車道へ出ることはないと考えてよい。",
+        vi: "Có thể cho rằng người đi bộ đang đi bên trái đường sẽ không bất ngờ bước xuống lòng đường.",
+        answer: false,
+        explanationJp: "高齢者や身体障害者が歩いている場合は、特に注意して安全な間隔をとるか徐行しなければなりません。",
+        explanationVi: "Không được giả định như vậy; phải luôn dự đoán nguy cơ. Câu nào dựa trên sự chủ quan đều đáng ngờ."
+    },
+    {
+        jp: "歩行者用信号が青でも、車が右左折するときは歩行者に注意する。",
+        vi: "Dù tín hiệu dành cho xe cho phép rẽ, khi rẽ xe vẫn phải chú ý người đi bộ có đèn sang đường.",
+        answer: true,
+        explanationJp: "白い杖を持っている人や盲導犬を連れている人を見かけたら、一時停止するか徐行して安全を確保します。",
+        explanationVi: "Khi rẽ, xe không được cản trở người đi bộ đang được phép qua đường. Rẽ = phải nhìn người đi bộ và xe đạp cắt ngang."
+    },
+    {
+        jp: "横断歩道が近い場所では、歩行者の有無にかかわらず周囲をよく見る。",
+        vi: "Gần vạch qua đường, bất kể có thấy người đi bộ hay không vẫn phải quan sát kỹ xung quanh.",
+        answer: true,
+        explanationJp: "保護者がいない子供を見たら、急な飛び出しの可能性があるため、いつでも止まれるよう準備します。",
+        explanationVi: "Đây là cách lái phòng ngừa nguy hiểm chuẩn trong giáo trình. Câu thiên về phòng ngừa an toàn thường đúng."
+    },
+    {
+        jp: "歩行者が横断をやめたように見えたら、確認せずに進んでよい。",
+        vi: "Nếu có vẻ như người đi bộ đã thôi không sang đường nữa thì có thể đi luôn mà không cần xác nhận.",
+        answer: false,
+        explanationJp: "車いすの人も歩行者として扱われ、安全確保の義務があります。",
+        explanationVi: "Phải xác nhận rõ ràng an toàn trước khi đi; không được dựa vào phỏng đoán. 'Có vẻ như' là bẫy rất hay dùng."
+    },
+    {
+        jp: "車道外側線の外に人が立っていれば、まったく注意する必要はない。",
+        vi: "Nếu người đứng ngoài vạch mép đường thì hoàn toàn không cần chú ý.",
+        answer: false,
+        explanationJp: "障害者マークの車を見たら、通行を妨げないよう配慮します。幅寄せや割り込みは禁止です。",
+        explanationVi: "Người đó vẫn có thể bước ra đường; tài xế phải tiếp tục quan sát. Từ 'hoàn toàn không cần' là dấu hiệu sai."
+    },
+    {
+        jp: "見通しの悪い場所の横断歩道では、いつでも停止できるような速度で近づくのがよい。",
+        vi: "Ở vạch qua đường có tầm nhìn xấu, nên tiến đến với tốc độ có thể dừng ngay bất cứ lúc nào.",
+        answer: true,
+        explanationJp: "「歩行者専用」の標識がある道路では、許可車両以外は通行できません。",
+        explanationVi: "Đây là tư duy đúng theo nguyên tắc an toàn tại nơi có nguy cơ xuất hiện người đi bộ. Trong đề thi Nhật, 'có thể dừng ngay' thường là lựa chọn tốt."
+    },
+    {
+        jp: "歩行者が少ない深夜は、横断歩道での安全確認を簡単にしてよい。",
+        vi: "Đêm khuya ít người đi bộ thì có thể kiểm tra an toàn qua loa ở vạch qua đường.",
+        answer: false,
+        explanationJp: "バスが停留所で停車しているとき、乗客が降りて道路を横断する可能性があるため注意が必要です。",
+        explanationVi: "Ban đêm tầm nhìn kém hơn nên ngược lại càng phải chú ý. Ít người không đồng nghĩa được chủ quan."
+    },
+    {
+        jp: "学校や公園の近くでは、子供の飛び出しに備えて慎重に運転する。",
+        vi: "Gần trường học hay công viên phải lái cẩn thận để phòng trẻ em chạy vụt ra.",
+        answer: true,
+        explanationJp: "歩行者のそばを通るときは、安全な間隔をあけるか、徐行しなければなりません。",
+        explanationVi: "Trẻ em khó đoán hành vi, nên phải tăng mức cảnh giác. Trẻ em xuất hiện = tăng dự đoán nguy hiểm."
+    },
+    {
+        jp: "横断中の歩行者の後ろ側をすり抜ければ、接触しないので問題ない。",
+        vi: "Lách phía sau người đi bộ đang sang đường thì không va chạm nên không vấn đề gì.",
+        answer: false,
+        explanationJp: "歩行者に対して警音器を鳴らして道を空けさせることは、原則として禁止されています。",
+        explanationVi: "Xe không được cản trở hoặc gây nguy hiểm cho người đi bộ đang qua đường. Đừng bị lừa bởi lập luận 'không chạm là được'."
+    },
+    {
+        jp: "歩行者が傘を差している雨の日は、周囲の音や車に気づきにくいと考える。",
+        vi: "Ngày mưa khi người đi bộ che ô, cần nghĩ rằng họ khó nghe và khó nhận ra xe hơn.",
+        answer: true,
+        explanationJp: "「歩行者横断禁止」の標識があっても、実際に歩行者がいれば安全に注意する必要があります。",
+        explanationVi: "Tài xế phải tính đến việc người đi bộ bị hạn chế tầm nhìn/nghe nhìn. Mưa và ô che = mức độ nguy hiểm tăng."
+    },
+    {
+        jp: "歩行者が横断歩道から少し離れた場所にいても、飛び出しの可能性に注意する。",
+        vi: "Ngay cả khi người đi bộ đứng hơi xa vạch qua đường, vẫn phải chú ý khả năng họ bất ngờ lao ra.",
+        answer: true,
+        explanationJp: "路面に「止まれ」のペイントがある場合、標識と同様に一時停止の義務があります。",
+        explanationVi: "Thực tế hành vi người đi bộ không phải lúc nào cũng đúng chuẩn; lái xe phải phòng ngừa. Không chỉ nhìn đúng 'điểm hợp pháp', còn phải nhìn nguy cơ thực tế."
+    },
+    {
+        jp: "車の流れが速い道路では、歩行者がいても自分の速度を優先したほうがよい。",
+        vi: "Trên đường dòng xe đi nhanh, dù có người đi bộ cũng nên ưu tiên giữ tốc độ của mình.",
+        answer: false,
+        explanationJp: "「車両進入禁止」の標識は一方通行の出口などに設置され、すべての車両の進入を禁止します。",
+        explanationVi: "An toàn và nghĩa vụ nhường người đi bộ không bị xóa bỏ vì dòng xe nhanh. Bất cứ câu nào ưu tiên tốc độ hơn an toàn thường sai."
+    },
+    {
+        jp: "歩行者のそばを通るときは、水たまりのはねにも配慮する。",
+        vi: "Khi đi ngang người đi bộ phải chú ý cả việc nước bắn từ vũng nước vào họ.",
+        answer: true,
+        explanationJp: "「通行止め」の標識は車両と歩行者の両方の通行を禁止する標識です。車両だけでなく歩行者も通行できません。",
+        explanationVi: "JAF nhấn mạnh lái xe cần quan tâm tới người khác trên đường, không chỉ tránh va chạm. Một số câu đúng nói về phép lịch sự và chú ý tới người khác."
+    },
+    {
+        jp: "横断歩道付近では、前車が急に止まることを予測して車間距離をとる。",
+        vi: "Gần vạch qua đường, phải giữ khoảng cách vì xe trước có thể dừng đột ngột.",
+        answer: true,
+        explanationJp: "「指定方向外進行禁止」の標識は、矢印で示された方向以外への進行を禁止します。",
+        explanationVi: "Xe trước có thể dừng để nhường người đi bộ; giữ khoảng cách là cần thiết. Dự đoán hành vi xe trước là mẹo thi quan trọng."
+    },
+    {
+        jp: "一時停止の標識がある場所では、徐行ではなく必ず完全に停止する。",
+        vi: "Ở nơi có biển dừng, không phải chỉ đi chậm mà phải dừng hẳn.",
+        answer: true,
+        explanationJp: "一時停止の標識がある場所では、徐行ではなく完全に停止しなければなりません。",
+        explanationVi: "JAF quiz nêu rõ biển dừng yêu cầu dừng trước vạch dừng rồi mới đi tiếp. '一時停止' = dừng hẳn."
+    },
+    {
+        jp: "進入禁止の標識がある道路には、短時間だけなら入ってもよい。",
+        vi: "Đường có biển cấm vào thì vào một lúc ngắn thôi cũng được.",
+        answer: false,
+        explanationJp: "「最高速度」の標識は、その区間での最高速度を示します。標識の速度を超えて走行してはいけません。",
+        explanationVi: "Biển cấm vào không phụ thuộc thời gian vào lâu hay mau. Biển cấm không có ngoại lệ vì 'chỉ một lát'."
+    },
+    {
+        jp: "制限速度の標識があるときは、その数値以下で走る。",
+        vi: "Khi có biển giới hạn tốc độ thì phải chạy không vượt quá con số đó.",
+        answer: true,
+        explanationJp: "標識の最高速度は上限を示すものであり、必ずその速度で走ることを意味するものではありません。",
+        explanationVi: "JAF nêu rằng tốc độ tối đa được chỉ bằng biển báo hoặc vạch kẻ phải được tuân thủ. Biển tốc độ là giới hạn trên, không phải tốc độ khuyến nghị bắt buộc phải đạt."
+    },
+    {
+        jp: "標識の制限速度以内なら、道路状況に関係なく安全である。",
+        vi: "Miễn là trong giới hạn tốc độ trên biển thì luôn an toàn bất kể tình trạng đường.",
+        answer: false,
+        explanationJp: "「駐車禁止」の標識は駐車を禁止しますが、短時間の停車は認められます。「駐停車禁止」とは異なります。",
+        explanationVi: "Tốc độ còn phải phù hợp thời tiết, tầm nhìn và giao thông thực tế. Đề Nhật hay bẫy ở chữ 'luôn an toàn'."
+    },
+    {
+        jp: "通行区分を示す標識や標示があるときは、それに従って走行する。",
+        vi: "Khi có biển hoặc vạch chỉ làn/hướng đi thì phải chạy theo đó.",
+        answer: true,
+        explanationJp: "「駐停車禁止」の標識がある場所では、駐車も停車も禁止されています。",
+        explanationVi: "Người lái phải tuân thủ biển báo và vạch kẻ đường. Biển + vạch = căn cứ bắt buộc rất hay ra."
+    },
+    {
+        jp: "駐車禁止の場所では、少しの時間でも原則として駐車してはいけない。",
+        vi: "Ở nơi cấm đỗ xe, về nguyên tắc không được đỗ kể cả trong thời gian ngắn.",
+        answer: true,
+        explanationJp: "駐車禁止の場所では、たとえ短時間でも原則として駐車してはいけません。",
+        explanationVi: "Biển cấm đỗ cấm việc dừng/đỗ theo phạm vi hiệu lực của nó; thời gian ngắn không tự tạo ngoại lệ. Đừng để chữ 'chỉ một lúc' đánh lừa."
+    },
+    {
+        jp: "車両通行止めの標識は、自転車や原付には関係ない。",
+        vi: "Biển cấm xe qua lại thì không liên quan đến xe đạp hay xe gắn máy nhỏ.",
+        answer: false,
+        explanationJp: "「車両通行止め」の標識は自転車や原動機付自転車を含むすべての車両に適用されます。",
+        explanationVi: "Ý nghĩa cụ thể tùy loại biển nhưng câu khẳng định 'không liên quan' một cách tuyệt đối là sai. Khi chưa chắc, tránh chọn mệnh đề tuyệt đối."
+    },
+    {
+        jp: "標示された停止線は、信号や標識に従って止まる位置を示す。",
+        vi: "Vạch dừng kẻ trên đường cho biết vị trí phải dừng theo đèn hoặc biển báo.",
+        answer: true,
+        explanationJp: "「転回禁止」の標識がある場所ではUターンはできませんが、右左折は可能です。",
+        explanationVi: "NPA giải thích 'stopping point' là ngay trước vạch dừng. Vạch dừng là điểm tham chiếu quan trọng."
+    },
+    {
+        jp: "道路標示が薄くて見えにくくても、標識があれば標識に従う。",
+        vi: "Dù vạch đường mờ khó nhìn, nếu có biển báo thì vẫn phải theo biển báo.",
+        answer: true,
+        explanationJp: "補助標識は本標識の意味を補足するもので、時間帯や車種の限定などを示します。",
+        explanationVi: "Biển báo vẫn có hiệu lực; người lái phải quan sát để tuân thủ. Khi một yếu tố khó nhìn, vẫn phải dựa vào yếu tố còn hiệu lực."
+    },
+    {
+        jp: "標識がわかりにくいときは、自分に都合よく解釈して走ってよい。",
+        vi: "Khi khó hiểu biển báo thì có thể tự giải thích theo hướng tiện cho mình mà lái.",
+        answer: false,
+        explanationJp: "警戒標識は危険を事前に知らせるためのもので、すべてが禁止を意味するわけではありません。",
+        explanationVi: "Người lái phải giảm tốc, quan sát và xử lý an toàn, không được tự tiện suy diễn có lợi cho mình. Mọi câu cho phép 'tự tiện' thường sai."
+    },
+    {
+        jp: "追い越し禁止の標識がある区間では、急いでいても追い越してはいけない。",
+        vi: "Ở đoạn có biển cấm vượt thì dù đang vội cũng không được vượt.",
+        answer: true,
+        explanationJp: "追い越し禁止の標識がある区間では、理由に関係なく追い越しをしてはいけません。",
+        explanationVi: "Biển cấm không thay đổi vì lý do cá nhân của tài xế. 'Đang vội' không bao giờ là lý do hợp pháp."
+    },
+    {
+        jp: "道路標示の矢印は、見えづらければ無視してもよい。",
+        vi: "Mũi tên chỉ hướng trên mặt đường nếu khó nhìn thì có thể bỏ qua.",
+        answer: false,
+        explanationJp: "「一方通行」の標識は進行方向を示し、反対方向からの進入は「車両進入禁止」で規制されます。",
+        explanationVi: "Không được tự ý bỏ qua chỉ dẫn; phải quan sát và điều khiển xe cẩn thận. Không nhìn rõ thì càng phải chậm lại."
+    },
+    {
+        jp: "規制標識がなくても、危険があれば速度を落とすのが適切である。",
+        vi: "Ngay cả khi không có biển hạn chế, nếu nguy hiểm thì giảm tốc là phù hợp.",
+        answer: true,
+        explanationJp: "規制標識には時間帯による制限がある場合があり、補助標識で確認する必要があります。",
+        explanationVi: "Lái xe an toàn không chỉ dựa vào biển báo mà còn dựa vào tình huống thực tế. Câu 'an toàn theo hoàn cảnh' thường là đúng."
+    },
+    {
+        jp: "道路標識や標示は、地元の人だけが守ればよい。",
+        vi: "Biển báo và vạch đường chỉ người địa phương mới cần tuân thủ.",
+        answer: false,
+        explanationJp: "道路の形を示す案内標識は位置関係を理解するのに役立ちますが、優先関係を示すものではありません。",
+        explanationVi: "Mọi người tham gia giao thông đều phải tuân thủ. Bẫy kiểu phân biệt đối tượng rất dễ sai."
+    },
+    {
+        jp: "時間帯指定の規制標識がある場合は、その時間帯だけ規制に従う。",
+        vi: "Nếu biển cấm/quy định theo khung giờ thì phải theo quy định trong đúng khung giờ đó.",
+        answer: true,
+        explanationJp: "「自転車横断帯」の標識がある場所では、自転車はその部分を横断します。車は自転車に注意が必要です。",
+        explanationVi: "Biển phụ hoặc nội dung biển có thể giới hạn theo thời gian; tài xế phải đọc đúng điều kiện áp dụng. Phải nhìn cả biển phụ/ghi chú đi kèm."
+    },
+    {
+        jp: "道路工事中の仮設標識も、通常の標識と同じように従う必要がある。",
+        vi: "Biển tạm trong khu vực thi công cũng phải tuân thủ như biển bình thường.",
+        answer: true,
+        explanationJp: "標識が見えにくい場合でも、道路の状況や地形から注意すべき点を判断することが大切です。",
+        explanationVi: "Biển chỉ dẫn, điều tiết tạm thời vẫn có hiệu lực để bảo đảm an toàn giao thông. Biển tạm không phải 'tham khảo'."
+    },
+    {
+        jp: "標識の意味があいまいなときは、後ろの車に合わせて走ればよい。",
+        vi: "Nếu không chắc ý nghĩa biển thì cứ chạy theo xe phía sau là được.",
+        answer: false,
+        explanationJp: "「幅員減少」と「車線数減少」は異なる警告です。それぞれの意味を正しく理解しましょう。",
+        explanationVi: "Quyết định lái xe phải dựa trên hiểu biết luật và quan sát an toàn của chính mình. Theo xe khác một cách mù quáng là bẫy sai."
+    },
+    {
+        jp: "遮断機が上がっていても、前の車に続いて確認なしに進んではいけない。",
+        vi: "Dù barie đang mở, cũng không được đi theo xe trước mà không tự kiểm tra.",
+        answer: true,
+        explanationJp: "路面電車は停車位置が決まっており、安全地帯のない場合は乗客の乗り降りが終わるまで待ちます。",
+        explanationVi: "Người lái phải tự mình xác nhận an toàn, không được chỉ dựa vào xe trước. Không được 'đi theo quán tính'."
+    },
+    {
+        jp: "踏切内では、前方が詰まっていても一度入ったら止まって待てばよい。",
+        vi: "Trong đường ngang, dù phía trước bị ùn vẫn cứ vào rồi dừng chờ cũng được.",
+        answer: false,
+        explanationJp: "踏切内で前方が詰まっている場合、踏切内で停止すると非常に危険です。前方に十分な空間がなければ進入してはいけません。",
+        explanationVi: "Không được đi vào nếu có nguy cơ phải dừng trên đường ray. Tuyệt đối tránh bị kẹt trên đường ray."
+    },
+    {
+        jp: "踏切を通過するときは、変速操作に気を取られないよう注意する。",
+        vi: "Khi qua đường ray phải chú ý để không bị phân tâm bởi thao tác sang số.",
+        answer: true,
+        explanationJp: "踏切通過中はエンストを防ぐため、変速操作に気を取られないよう注意します。",
+        explanationVi: "Mục tiêu là qua nhanh, an toàn, không chết máy hoặc chần chừ trên đường ray. Nhóm câu về đường ray thường nhấn mạnh 'nhanh gọn nhưng an toàn'."
+    },
+    {
+        jp: "警報機が鳴り始めたら、踏切の手前で停止して入らない。",
+        vi: "Khi chuông cảnh báo bắt đầu kêu thì phải dừng trước đường ray và không đi vào.",
+        answer: true,
+        explanationJp: "警報機が鳴り始めたら、踏切に進入してはいけません。手前で安全に停止します。",
+        explanationVi: "Khi có dấu hiệu tàu sắp đến thì không được tiến vào khu vực giao cắt. Thấy cảnh báo là dừng, đừng cố vượt."
+    },
+    {
+        jp: "踏切の向こう側に十分な空間がないときは、遮断機が上がっていても進入しない。",
+        vi: "Nếu bên kia đường ray không có đủ chỗ thoát, dù barie mở cũng không đi vào.",
+        answer: true,
+        explanationJp: "踏切の向こう側に十分な空間がない場合、遮断機が上がっていても踏切内で停止する危険があるため進入してはいけません。",
+        explanationVi: "Không được vào nếu không thể thoát khỏi đường ray ngay. Giống quy tắc không chặn giao lộ."
+    },
+    {
+        jp: "踏切内でエンストしたときは、すぐに車外へ避難し、非常ボタンなどで知らせる。",
+        vi: "Nếu xe chết máy trên đường ray, phải rời xe ngay và báo động bằng nút khẩn cấp nếu có.",
+        answer: true,
+        explanationJp: "踏切内でエンストした場合は、すぐに車外に避難し、非常ボタンを押すなどして列車に知らせることが最優先です。",
+        explanationVi: "Ưu tiên bảo toàn tính mạng và nhanh chóng báo hiệu nguy hiểm cho tàu/cơ quan chức năng. Đây là tình huống khẩn cấp kinh điển."
+    },
+    {
+        jp: "踏切を渡る前は、窓を開けて音を確かめることが有効な場合がある。",
+        vi: "Trước khi qua đường ray, mở cửa kính để nghe âm thanh có thể là cách hữu ích trong một số trường hợp.",
+        answer: true,
+        explanationJp: "踏切を渡る前に窓を開けて列車の音を確認することは、安全確認の一つの方法として有効です。",
+        explanationVi: "Mục đích là tăng khả năng xác nhận tàu đến khi điều kiện quan sát nghe kém. Mẹo thi: câu tăng mức an toàn thường hay đúng."
+    },
+    {
+        jp: "大型車の後ろについたままでは踏切内の見通しが悪いことがあるので注意する。",
+        vi: "Bám ngay sau xe lớn khi qua đường ray có thể che khuất tầm nhìn nên phải cẩn thận.",
+        answer: true,
+        explanationJp: "大型車の後ろでは踏切の向こう側の状況が見えにくいことがあるため、十分な注意が必要です。",
+        explanationVi: "Xe lớn có thể làm giảm khả năng quan sát barie, tín hiệu và tình hình phía trước. Bị che tầm nhìn = giảm tốc, tăng khoảng cách."
+    },
+    {
+        jp: "踏切に進入した後で警報機が鳴り出したら、途中で止まるのが安全である。",
+        vi: "Nếu đã vào đường ray mà chuông bắt đầu kêu thì dừng giữa đường ray là an toàn hơn.",
+        answer: false,
+        explanationJp: "踏切内で警報機が鳴り出した場合は、途中で止まらずに速やかに踏切を通過する方が安全です。",
+        explanationVi: "Khi đã vào thì phải thoát ra khỏi đường ray càng nhanh càng tốt nếu an toàn. Ở đường ray: không dừng giữa chừng."
+    },
+    {
+        jp: "踏切の前で停止した車を、反対側からなら追い越してもよい。",
+        vi: "Có thể vượt xe đang dừng trước đường ray nếu vượt từ phía đối diện.",
+        answer: false,
+        explanationJp: "踏切の前後30メートル以内は追い越し禁止です。反対側からでも追い越しはできません。",
+        explanationVi: "Tình huống quanh đường ray cần đặc biệt thận trọng; ý tưởng vượt xe dừng ở đây là không phù hợp an toàn. Đừng bị lừa bởi chi tiết 'từ phía nào'."
+    },
+    {
+        jp: "踏切では、路面が悪いときほどいつもより慎重に通過する。",
+        vi: "Ở đường ray, khi mặt đường xấu thì càng phải đi qua cẩn thận hơn bình thường.",
+        answer: true,
+        explanationJp: "踏切の路面状態が悪い場合は、通常よりも慎重に通過する必要があります。",
+        explanationVi: "Mặt đường xấu làm tăng nguy cơ rung lắc, chết máy hoặc mất kiểm soát. Mưa, trơn, gồ ghề đều làm câu an toàn dễ đúng."
+    },
+    {
+        jp: "踏切手前の停止線では、前輪が少し越える程度なら問題ない。",
+        vi: "Ở vạch dừng trước đường ray, bánh trước lấn qua một chút cũng không sao.",
+        answer: false,
+        explanationJp: "踏切手前の停止線では、前輪が少しでも越えてはいけません。完全に停止線の手前で停止します。",
+        explanationVi: "Điểm dừng là trước vạch dừng, không phải đè lên hay vượt qua. 'Một chút thôi' vẫn thường là sai."
+    },
+    {
+        jp: "夜間の踏切では、昼間よりも標識や遮断機の確認がしづらいことを考える。",
+        vi: "Ban đêm ở đường ray phải nghĩ tới việc khó nhìn biển báo và barie hơn ban ngày.",
+        answer: true,
+        explanationJp: "夜間の踏切では視認性が低下するため、昼間以上に注意が必要です。",
+        explanationVi: "Tầm nhìn đêm hạn chế nên phải tăng mức cảnh giác. Ban đêm = không được chủ quan."
+    },
+    {
+        jp: "雪や雨で踏切付近が滑りやすいときは、急ブレーキや急加速を避ける。",
+        vi: "Khi gần đường ray mà trời mưa/tuyết trơn thì tránh phanh gấp hay tăng tốc gấp.",
+        answer: true,
+        explanationJp: "雪や雨で路面が滑りやすいときは、急ブレーキや急加速を避けて安全に通過します。",
+        explanationVi: "Thao tác đột ngột dễ gây mất kiểm soát ở khu vực nguy hiểm. Trời xấu -> thao tác mềm và sớm."
+    },
+    {
+        jp: "踏切では、前車が止まらなかったなら自分も止まらなくてよい。",
+        vi: "Ở đường ray, nếu xe trước không dừng thì mình cũng không cần dừng.",
+        answer: false,
+        explanationJp: "前車が止まらなかったとしても、自分は必ず一時停止して安全確認をしなければなりません。",
+        explanationVi: "Mỗi tài xế phải tự tuân thủ quy tắc dừng và kiểm tra an toàn. Đừng bao giờ chọn đáp án 'làm theo xe khác'."
+    },
+    {
+        jp: "踏切を渡るときに対向車線にはみ出すおそれがあるなら、無理に進まない。",
+        vi: "Nếu qua đường ray mà có nguy cơ lấn sang làn đối diện thì không nên cố đi.",
+        answer: true,
+        explanationJp: "踏切で対向車線にはみ出すおそれがある場合は、無理に進入せず安全を確認します。",
+        explanationVi: "Qua đường ray phải bảo đảm ổn định và an toàn toàn bộ lộ trình thoát ra. 'Không cố' là tư duy an toàn đúng."
+    },
+    {
+        jp: "遮断機が下り始めたら、まだ間に合いそうでも進入しない。",
+        vi: "Khi barie bắt đầu hạ, dù có vẻ còn kịp cũng không đi vào.",
+        answer: true,
+        explanationJp: "踏切直前での追い越しは非常に危険であり、法律で禁止されています。",
+        explanationVi: "Cố tranh thủ qua là hành vi nguy hiểm điển hình. Các câu kiểu 'còn kịp' rất hay là sai."
+    },
+    {
+        jp: "踏切付近では、オーディオの音が大きいほど危険に気づきにくい。",
+        vi: "Gần đường ray, mở âm thanh quá lớn khiến khó nhận ra nguy hiểm hơn.",
+        answer: true,
+        explanationJp: "踏切付近ではオーディオの音を下げ、列車の接近音を聞き取れるようにすることが大切です。",
+        explanationVi: "Nghe kém tín hiệu cảnh báo và môi trường xung quanh làm tăng rủi ro. Câu về giảm nhận biết khi lái thường đúng."
+    },
+    {
+        jp: "雨の日は路面が滑りやすく、制動距離が長くなるので速度を落とす。",
+        vi: "Ngày mưa mặt đường trơn và quãng đường phanh dài hơn nên phải giảm tốc.",
+        answer: true,
+        explanationJp: "自転車で踏切を渡るときは、レールに沿ってタイヤが取られないよう直角に渡ります。",
+        explanationVi: "JAF và tài liệu an toàn đều nhấn mạnh quãng đường dừng tăng khi mặt đường xấu. Mưa = giảm tốc + tăng khoảng cách."
+    },
+    {
+        jp: "乾いた道路では、車間距離をほとんど取らなくてもよい。",
+        vi: "Đường khô thì hầu như không cần giữ khoảng cách xe.",
+        answer: false,
+        explanationJp: "エンジンブレーキは下り坂やフットブレーキの過熱防止に有効です。低速ギアほど制動力が大きくなります。",
+        explanationVi: "Dù đường khô vẫn phải duy trì khoảng cách an toàn để phản ứng trước tình huống bất ngờ. Từ 'hầu như không cần' là bẫy."
+    },
+    {
+        jp: "坂道の下りでは、平地と同じ感覚で速度を保てば安全である。",
+        vi: "Xuống dốc mà giữ cảm giác tốc độ như đường bằng thì vẫn an toàn.",
+        answer: false,
+        explanationJp: "下り坂でフットブレーキを多用するとフェード現象やベーパーロック現象が起きる可能性があります。",
+        explanationVi: "Xuống dốc xe dễ tăng tốc nên phải kiểm soát tốc độ cẩn thận hơn. Xuống dốc = xe nhanh hơn cảm giác thường."
+    },
+    {
+        jp: "見通しの悪いカーブでは、対向車がはみ出してくる可能性も考える。",
+        vi: "Ở khúc cua khuất tầm nhìn phải tính đến khả năng xe đối diện lấn làn.",
+        answer: true,
+        explanationJp: "霧の中では速度を落とし、フォグランプを使用するなど視界確保に努めます。",
+        explanationVi: "Nguyên tắc dự đoán nguy hiểm yêu cầu tính trước tình huống xấu. Khúc cua khuất = luôn nâng mức cảnh giác."
+    },
+    {
+        jp: "凍結のおそれがある路面では、急ハンドルや急ブレーキを避ける。",
+        vi: "Khi có nguy cơ mặt đường đóng băng phải tránh đánh lái gấp hay phanh gấp.",
+        answer: true,
+        explanationJp: "凍結路面では急ハンドルや急ブレーキを避け、慎重な操作を心がけます。",
+        explanationVi: "Thao tác đột ngột trên mặt trơn rất dễ làm mất lái. Mặt trơn = mọi thao tác phải mềm."
+    },
+    {
+        jp: "濃霧のときは、見えにくいので前車にぴったりついて走ると安心である。",
+        vi: "Khi sương mù dày, bám sát xe trước sẽ yên tâm hơn.",
+        answer: false,
+        explanationJp: "雨天時は路面が滑りやすくなるため、速度を控えめにし車間距離を多めにとります。",
+        explanationVi: "Bám sát làm giảm thời gian phản ứng và tăng nguy cơ va chạm. 'Bám theo xe trước cho an tâm' là bẫy rất hay."
+    },
+    {
+        jp: "夜間は見える範囲が短くなるので、昼間より速度を控えめにする。",
+        vi: "Ban đêm tầm nhìn ngắn hơn nên phải chạy chậm hơn ban ngày.",
+        answer: true,
+        explanationJp: "夜間は見える範囲が限られるため、昼間より速度を控えめにして運転します。",
+        explanationVi: "Tài liệu an toàn của NPA/JAF đều nhấn mạnh rủi ro tăng khi trời tối. Ban đêm thường kéo theo đáp án an toàn hơn."
+    },
+    {
+        jp: "雨の日は歩行者や自転車が傘で周囲を見にくくなることに注意する。",
+        vi: "Ngày mưa phải chú ý rằng người đi bộ và xe đạp che ô sẽ khó quan sát xung quanh hơn.",
+        answer: true,
+        explanationJp: "タイヤの空気圧が低いと燃費が悪化し、操縦性も低下します。定期的な点検が重要です。",
+        explanationVi: "Đây là dự đoán nguy hiểm đúng trong thực tế giao thông. Câu nào tăng sự cảnh giác với người yếu thế thường đúng."
+    },
+    {
+        jp: "タイヤの状態がよければ、雨天でも乾燥時と同じ速度で構わない。",
+        vi: "Nếu lốp còn tốt thì trời mưa vẫn có thể đi như tốc độ lúc đường khô.",
+        answer: false,
+        explanationJp: "二輪車は体重移動で操縦するため、急な操作は転倒につながりやすく危険です。",
+        explanationVi: "Dù lốp tốt, điều kiện bám đường vẫn xấu hơn nên phải điều chỉnh tốc độ. Đừng để một yếu tố tốt làm quên điều kiện xấu chung."
+    },
+    {
+        jp: "向かい風や横風が強い橋の上では、ハンドルをしっかり保って慎重に走る。",
+        vi: "Trên cầu có gió ngược/gió ngang mạnh phải giữ vô lăng chắc và lái cẩn thận.",
+        answer: true,
+        explanationJp: "対向車のライトで目がくらんだときは、速度を落とし、視線をやや左前方にずらして対処します。",
+        explanationVi: "Gió mạnh có thể làm xe lệch hướng, nhất là trên cầu hoặc đường trống. Gió mạnh = tăng cảnh giác, giảm tốc."
+    },
+    {
+        jp: "雪道では、発進も停止も普段より時間がかかると考える。",
+        vi: "Trên đường tuyết phải nghĩ rằng cả việc khởi hành lẫn dừng lại đều tốn thời gian hơn bình thường.",
+        answer: true,
+        explanationJp: "長時間運転後は判断力が低下するため、適度な休憩を取ることが安全運転に不可欠です。",
+        explanationVi: "Độ bám giảm làm phản ứng xe chậm hơn theo ý muốn người lái. Câu thừa nhận khó khăn của điều kiện xấu thường đúng."
+    },
+    {
+        jp: "濡れた落ち葉の上は、見た目より滑りにくい。",
+        vi: "Lá ướt trên đường thực ra ít trơn hơn vẻ bề ngoài.",
+        answer: false,
+        explanationJp: "カーブの手前で十分に減速し、カーブ内ではブレーキを踏まないようにするのが安全です。",
+        explanationVi: "Lá ướt có thể rất trơn và gây mất kiểm soát. Đề thi hay ra các vật tưởng vô hại nhưng thực tế nguy hiểm."
+    },
+    {
+        jp: "夕暮れ時は人や自転車が見えにくくなるので早めのライト点灯が有効である。",
+        vi: "Lúc chập tối người và xe đạp khó thấy hơn nên bật đèn sớm là có ích.",
+        answer: true,
+        explanationJp: "水たまりを通過する際、歩行者に水をはねないよう減速するなどの配慮が必要です。",
+        explanationVi: "NPA có tài liệu riêng về tai nạn lúc trời nhá nhem; tăng khả năng nhìn thấy và được nhìn thấy là quan trọng. Chập tối = bật đèn sớm."
+    },
+    {
+        jp: "乾燥路で空いている道路なら、制限速度を少し超えても危険はない。",
+        vi: "Đường khô và vắng thì vượt giới hạn tốc độ một chút cũng không nguy hiểm.",
+        answer: false,
+        explanationJp: "長い下り坂でブレーキを踏み続けると、ブレーキの効きが悪くなるベーパーロック現象が起きることがあります。",
+        explanationVi: "Tốc độ phải tuân thủ quy định và tình huống; 'một chút' không làm hành vi đúng thành hợp pháp. 'Một chút thôi' thường là bẫy sai."
+    },
+    {
+        jp: "わだちにたまった水を高速で通過すると、ハンドルが取られることがある。",
+        vi: "Đi nhanh qua rãnh nước đọng có thể khiến vô lăng bị kéo lệch.",
+        answer: true,
+        explanationJp: "路面の水たまりを高速で通過すると、ハイドロプレーニング現象が起きてハンドルが取られることがあります。",
+        explanationVi: "Hiện tượng mất bám/nổi nước làm xe khó điều khiển hơn. Nước đọng sâu = nguy cơ mất bám."
+    },
+    {
+        jp: "下り坂で速度が出やすいときほど、前車との距離を十分にとる。",
+        vi: "Khi xuống dốc dễ tăng tốc thì càng phải giữ khoảng cách đủ với xe trước.",
+        answer: true,
+        explanationJp: "AT車ではブレーキを離すとゆっくり動くクリープ現象があります。駐車時はしっかりブレーキをかけます。",
+        explanationVi: "Quãng dừng tăng theo tốc độ và điều kiện đường, nên khoảng cách phải lớn hơn. Xuống dốc + gần xe trước = rất nguy hiểm."
+    },
+    {
+        jp: "強い雨で見通しが悪いときは、必要に応じて速度をかなり落とす。",
+        vi: "Khi mưa to tầm nhìn kém thì khi cần phải giảm tốc khá nhiều.",
+        answer: true,
+        explanationJp: "右折時は対向直進車や歩行者に注意し、無理な右折はしません。",
+        explanationVi: "Tốc độ phải phù hợp khả năng nhìn và dừng xe trong phạm vi quan sát được. Không có mức cố định, nhưng hướng an toàn là giảm mạnh."
+    },
+    {
+        jp: "路面が凍っていそうでも、ABSが付いていれば注意はあまり要らない。",
+        vi: "Dù mặt đường có vẻ đóng băng, nếu xe có ABS thì không cần chú ý nhiều.",
+        answer: false,
+        explanationJp: "交差点で自転車が信号無視する可能性も考慮し、防衛運転を心がけます。",
+        explanationVi: "ABS không xóa được rủi ro mất bám; lái xe vẫn phải cực kỳ cẩn thận. Thiết bị hỗ trợ không thay thế nguyên tắc an toàn."
+    },
+    {
+        jp: "カーブの手前では、曲がりながらではなく手前で速度を整えるのが基本である。",
+        vi: "Trước khúc cua, nguyên tắc là chỉnh tốc độ từ trước chứ không phải đang cua mới xử lý.",
+        answer: true,
+        explanationJp: "バスの陰から歩行者が飛び出す可能性があるため、バスの横を通過するときは注意が必要です。",
+        explanationVi: "Giảm tốc trước khi vào cua giúp xe ổn định hơn. Mẹo thi: xử lý sớm thường đúng hơn xử lý muộn."
+    },
+    {
+        jp: "夜間に対向車がないときは、前方確認のために上向きライトを基本にする。",
+        vi: "Ban đêm khi không có xe đối diện, nên dùng đèn pha làm cơ bản để nhìn phía trước tốt hơn.",
+        answer: true,
+        explanationJp: "夜間で対向車がいないときは、前方の視認性を高めるためにハイビームを基本にします。",
+        explanationVi: "JAF nêu ban đêm cơ bản là dùng high beam, trừ khi gây chói cho xe khác. Đây là kiến thức dễ bị nhầm với 'luôn dùng cos'."
+    },
+    {
+        jp: "運転中は、短い確認でもスマートフォンを手に持って操作してはいけない。",
+        vi: "Khi lái xe, không được cầm điện thoại thao tác dù chỉ kiểm tra rất ngắn.",
+        answer: true,
+        explanationJp: "フォグランプは霧などで視界が悪いときに使用し、晴天時に不必要に使うのは避けます。",
+        explanationVi: "NPA cảnh báo việc dùng smartphone khi lái là hành vi bị cấm và rất nguy hiểm. Điện thoại khi lái gần như luôn là câu sai nếu cho phép dùng."
+    },
+    {
+        jp: "ハンズフリーであれば、画面を長く見続けても問題ない。",
+        vi: "Nếu dùng hands-free thì nhìn màn hình lâu cũng không sao.",
+        answer: false,
+        explanationJp: "長い下り坂ではエンジンブレーキを活用し、フットブレーキへの負担を軽減します。",
+        explanationVi: "Điều nguy hiểm không chỉ là cầm máy mà còn là bị phân tâm bởi màn hình và thao tác. Bẫy: đổi 'không cầm tay' thành 'an toàn hoàn toàn'."
+    },
+    {
+        jp: "後部座席なら、一般道ではシートベルトをしなくてもよい。",
+        vi: "Ngồi ghế sau thì trên đường thường không cần thắt dây an toàn.",
+        answer: false,
+        explanationJp: "後部座席であっても、すべての道路でシートベルトの着用が必要です。",
+        explanationVi: "Nghĩa vụ thắt dây áp dụng cho mọi người ngồi trong xe, không chỉ trên cao tốc. Đề thi rất thích bẫy ở ghế sau."
+    },
+    {
+        jp: "子供が嫌がるときは、近距離ならチャイルドシートを使わなくてもよい。",
+        vi: "Nếu trẻ không thích, quãng đường gần thì có thể không dùng ghế trẻ em.",
+        answer: false,
+        explanationJp: "仮免許で路上練習をする際は、指導員が同乗し、「仮免許練習中」の表示が必要です。",
+        explanationVi: "Không có ngoại lệ chung chỉ vì đi gần hay trẻ quấy khóc. Khoảng cách ngắn không phải lý do miễn quy tắc."
+    },
+    {
+        jp: "体調が悪いときは、無理をしないことが安全運転につながる。",
+        vi: "Khi sức khỏe không tốt, không cố gắng lái xe là cách dẫn tới lái an toàn.",
+        answer: true,
+        explanationJp: "飲酒後は「少し休んだ」程度ではアルコールが完全に抜けないことがあります。",
+        explanationVi: "Tài xế phải tự quản lý tình trạng thể chất của mình. Câu khuyên dừng/không cố thường đúng."
+    },
+    {
+        jp: "運転中の喫煙や飲食で前方確認がおろそかになるのは危険である。",
+        vi: "Vừa lái vừa hút thuốc/ăn uống làm lơ là quan sát phía trước là nguy hiểm.",
+        answer: true,
+        explanationJp: "薬の副作用で眠気やめまいが出る場合、運転を避けるべきです。",
+        explanationVi: "Nguyên tắc là không làm việc khiến bị phân tâm khi lái. Mọi hành vi giảm chú ý khi lái đều đáng tránh."
+    },
+    {
+        jp: "少しなら眠くても、窓を開けて音楽を大きくすれば問題ない。",
+        vi: "Hơi buồn ngủ thì mở cửa sổ và bật nhạc to là không sao.",
+        answer: false,
+        explanationJp: "ハンドルの正しい持ち方は10時10分の位置で、肘にゆとりをもたせます。",
+        explanationVi: "Biện pháp này không thay thế nghỉ ngơi; buồn ngủ là nguy hiểm nghiêm trọng. Mẹo thi: 'không sao' khi đang có nguy cơ = thường sai."
+    },
+    {
+        jp: "発進前には、ミラーだけでなく目視でも周囲の安全を確認するのがよい。",
+        vi: "Trước khi khởi hành, ngoài gương còn nên nhìn trực tiếp để kiểm tra an toàn xung quanh.",
+        answer: true,
+        explanationJp: "車線変更の合図は、変更する3秒前に出さなければなりません。",
+        explanationVi: "Điểm mù không thể dựa hoàn toàn vào gương. Mirror + trực tiếp quan sát là combo đúng."
+    },
+    {
+        jp: "荷物が軽ければ、車内で動かないよう固定しなくてもよい。",
+        vi: "Nếu hành lý nhẹ thì không cần cố định trong xe.",
+        answer: false,
+        explanationJp: "後方の安全確認は、ミラーだけでなく目視でも確認することが大切です。",
+        explanationVi: "Đồ vật có thể văng ra khi phanh gấp; cần sắp xếp an toàn. Đừng bị lừa bởi chữ 'nhẹ'."
+    },
+    {
+        jp: "発進するときは、ドアが確実に閉まっていることも確認する。",
+        vi: "Khi xuất phát cũng phải xác nhận cửa đã đóng chắc chắn.",
+        answer: true,
+        explanationJp: "進路変更するときは、後方の車との距離や速度を十分に確認します。",
+        explanationVi: "Đây là một phần của kiểm tra an toàn trước khi lái. Các bước kiểm tra trước khi đi thường là đúng."
+    },
+    {
+        jp: "サンダルなど操作しにくい履物でも、慣れていれば運転してよい。",
+        vi: "Dép hoặc giày khó thao tác, nếu đã quen thì vẫn có thể lái.",
+        answer: false,
+        explanationJp: "狭い道でのすれ違いでは、お互いに譲り合いの精神が大切です。",
+        explanationVi: "Giày dép không phù hợp có thể cản trở thao tác điều khiển an toàn. Từ 'quen rồi' không biến hành vi nguy hiểm thành đúng."
+    },
+    {
+        jp: "エンジンをかけたらすぐ発進せず、メーターや警告灯も確認する。",
+        vi: "Sau khi nổ máy không nên đi ngay, mà còn nên kiểm tra đồng hồ và đèn cảnh báo.",
+        answer: true,
+        explanationJp: "坂道発進ではサイドブレーキを活用して後退を防ぎます。",
+        explanationVi: "Kiểm tra tình trạng xe là một phần của lái xe an toàn. Đề có thể hỏi kiến thức cơ bản về kiểm tra trước khi đi."
+    },
+    {
+        jp: "助手席の人に道案内を任せても、最終的な安全確認は運転者が行う。",
+        vi: "Dù nhờ người ngồi ghế phụ chỉ đường, việc kiểm tra an toàn cuối cùng vẫn là trách nhiệm của tài xế.",
+        answer: true,
+        explanationJp: "急な操作（急ハンドル・急ブレーキ・急加速）は事故の原因になります。",
+        explanationVi: "Người lái chịu trách nhiệm điều khiển xe an toàn. Không chuyển trách nhiệm an toàn cho người khác."
+    },
+    {
+        jp: "運転中は、カーナビの設定を走行しながら行うほうが時間を節約できる。",
+        vi: "Khi đang lái thì chỉnh định vị luôn sẽ tiết kiệm thời gian hơn.",
+        answer: false,
+        explanationJp: "荷物の積載は法令で定められた制限内で行い、安全に固定しなければなりません。",
+        explanationVi: "Điều chỉnh thiết bị khi xe đang chạy gây mất tập trung và nguy hiểm. Tiết kiệm thời gian không bao giờ ưu tiên hơn an toàn."
+    },
+    {
+        jp: "長時間運転では、適度に休憩を取ることが事故防止につながる。",
+        vi: "Lái đường dài thì nghỉ giải lao hợp lý giúp phòng tránh tai nạn.",
+        answer: true,
+        explanationJp: "二輪車は雨天時にマンホールや白線で滑りやすいため、注意が必要です。",
+        explanationVi: "Mệt mỏi tích lũy làm giảm khả năng chú ý và phản xạ. Câu khuyên nghỉ ngơi trong đường dài thường đúng."
+    },
+    {
+        jp: "同乗者がベルトを嫌がっても、走行中は着用させるようにする。",
+        vi: "Dù hành khách không thích, khi xe chạy vẫn phải yêu cầu họ thắt dây an toàn.",
+        answer: true,
+        explanationJp: "発進時には周囲の安全確認を十分に行います。特に後方の確認は重要です。",
+        explanationVi: "Dây an toàn bảo vệ cả hành khách và người khác trong xe. Tài xế cũng có trách nhiệm với sự an toàn của người ngồi cùng."
+    },
+    {
+        jp: "高速道路では、一般道路よりも車間距離を十分にとる必要がある。",
+        vi: "Trên cao tốc càng cần giữ khoảng cách xe đầy đủ hơn đường thường.",
+        answer: true,
+        explanationJp: "高速道路では速度が高いため、一般道路よりも十分な車間距離が必要です。",
+        explanationVi: "Tốc độ cao làm quãng đường dừng tăng mạnh. Cao tốc = khoảng cách lớn hơn."
+    },
+    {
+        jp: "高速道路では、速度が遅すぎても危険になることがある。",
+        vi: "Trên cao tốc, chạy quá chậm cũng có thể nguy hiểm.",
+        answer: true,
+        explanationJp: "高速道路では速度が遅すぎると後続車との速度差が危険を生むことがあります。",
+        explanationVi: "JAF nêu expressway có cả quy định tốc độ tối đa và trường hợp tốc độ quá chậm gây nguy hiểm. Đừng nghĩ chậm hơn luôn luôn an toàn."
+    },
+    {
+        jp: "高速道路では、疲れたら路肩に止めて眠ればよい。",
+        vi: "Trên cao tốc, mệt thì cứ dừng ở lề đường để ngủ là được.",
+        answer: false,
+        explanationJp: "高速道路で疲れた場合は、路肩ではなくサービスエリアやパーキングエリアで休憩します。",
+        explanationVi: "Lề đường chỉ dùng trong trường hợp khẩn cấp; cần vào khu vực nghỉ phù hợp. Đề Nhật rất hay cấm dừng tùy tiện trên cao tốc."
+    },
+    {
+        jp: "高速道路では、タイヤトラブルなど緊急時以外は路肩に停車しない。",
+        vi: "Trên cao tốc, ngoài trường hợp khẩn cấp như sự cố lốp thì không dừng ở lề đường.",
+        answer: true,
+        explanationJp: "高速道路の路肩は緊急時以外の停車には使用してはいけません。",
+        explanationVi: "Dừng xe trên lề cao tốc rất nguy hiểm nếu không thật sự cần thiết. Câu có 'trừ trường hợp khẩn cấp' thường chuẩn hơn."
+    },
+    {
+        jp: "高速道路で故障したときは、後続車にわかるよう表示を行うことが重要である。",
+        vi: "Nếu xe hỏng trên cao tốc thì điều quan trọng là phải báo cho xe sau nhận biết.",
+        answer: true,
+        explanationJp: "高速道路で故障した場合は、停止表示器材を車の後方に置いて後続車に知らせます。",
+        explanationVi: "Cảnh báo sớm giúp giảm nguy cơ bị tông từ phía sau. Sự cố trên cao tốc = báo hiệu thật sớm."
+    },
+    {
+        jp: "高速道路では、一般道路より視野が単調なので眠気に注意する。",
+        vi: "Trên cao tốc cảnh quan đơn điệu hơn nên phải chú ý buồn ngủ.",
+        answer: true,
+        explanationJp: "高速道路では単調な景色で眠気が起きやすいため、適度な休憩が重要です。",
+        explanationVi: "Lái lâu trên môi trường đơn điệu dễ làm giảm tỉnh táo. Cao tốc không chỉ nguy ở tốc độ, mà còn ở mệt mỏi."
+    },
+    {
+        jp: "高速道路の走行中に、地図を見るため少しの間だけ前方から目を離してもよい。",
+        vi: "Đang chạy cao tốc thì rời mắt khỏi phía trước một lúc để xem bản đồ cũng được.",
+        answer: false,
+        explanationJp: "高速道路走行中に前方から目を離すことは非常に危険です。地図を見る場合はSAやPAに停車してからにします。",
+        explanationVi: "Ở tốc độ cao, chỉ vài giây mất quan sát cũng rất nguy hiểm. Trên cao tốc, mọi sự mất tập trung càng nguy hiểm hơn."
+    },
+    {
+        jp: "高速道路では、むやみに車線変更を繰り返さないほうがよい。",
+        vi: "Trên cao tốc tốt hơn là không đổi làn liên tục một cách tùy tiện.",
+        answer: true,
+        explanationJp: "高速道路でむやみに車線変更を繰り返すと事故の危険が増します。",
+        explanationVi: "Đổi làn nhiều làm tăng nguy cơ va chạm. Câu khuyên ổn định làn trên cao tốc thường đúng."
+    },
+    {
+        jp: "合流地点では、本線を走る車の動きに注意しながら無理なく入る。",
+        vi: "Ở điểm nhập làn phải chú ý xe trên làn chính và nhập một cách không gượng ép.",
+        answer: true,
+        explanationJp: "けん引するときは、けん引する車とされる車の間隔を5メートル以内にし、ロープの見やすい位置に白い布をつけます。",
+        explanationVi: "Nhập làn là hành vi phối hợp, không phải ép xe khác nhường bằng mọi giá. Từ khóa: hòa dòng xe, không ép."
+    },
+    {
+        jp: "高速道路では、故障車を見つけても見物のために速度を落としすぎないよう注意する。",
+        vi: "Trên cao tốc, thấy xe hỏng cũng phải tránh giảm tốc quá mức chỉ để nhìn ngó.",
+        answer: true,
+        explanationJp: "高速道路で故障車を見物するための減速は、渋滞や追突事故の原因になります。",
+        explanationVi: "Giảm tốc bất thường vì tò mò có thể gây nguy hiểm cho xe phía sau. Đề Nhật cũng hỏi về hành vi 'xem tai nạn'."
+    },
+    {
+        jp: "高速道路のトンネル内では、前車との距離や速度にいっそう注意する。",
+        vi: "Trong hầm trên cao tốc phải chú ý hơn nữa tới tốc độ và khoảng cách với xe trước.",
+        answer: true,
+        explanationJp: "高速道路のトンネル内では前車との距離や速度に一層注意が必要です。",
+        explanationVi: "Tầm nhìn, âm thanh và cảm giác tốc độ trong hầm khác bình thường. Hầm = tăng cảnh giác."
+    },
+    {
+        jp: "高速道路では、路肩を追い越しのために使ってはいけない。",
+        vi: "Trên cao tốc không được dùng lề đường để vượt xe.",
+        answer: true,
+        explanationJp: "高速道路の路肩は追い越しに使用してはいけません。緊急時の停車用です。",
+        explanationVi: "Lề đường không phải làn chạy thông thường. Đề rất thích các câu về lề đường."
+    },
+    {
+        jp: "高速道路でのパンクは、急ブレーキよりもまず落ち着いて操作することが大切である。",
+        vi: "Bị nổ lốp trên cao tốc thì quan trọng là bình tĩnh xử lý chứ không phanh gấp trước tiên.",
+        answer: true,
+        explanationJp: "高速道路でパンクした場合は、急ブレーキではなく落ち着いてハンドルを保持し、徐々に減速します。",
+        explanationVi: "Thao tác đột ngột ở tốc độ cao làm xe mất ổn định. Sự cố tốc độ cao = tránh thao tác gắt."
+    },
+    {
+        jp: "高速道路では、標識や情報板で渋滞や事故の情報を確認することが役立つ。",
+        vi: "Trên cao tốc, xem bảng điện tử/biển báo về tắc đường hay tai nạn là hữu ích.",
+        answer: true,
+        explanationJp: "高速道路の情報板や標識で交通情報を確認することは安全運転に役立ちます。",
+        explanationVi: "Thông tin sớm giúp lái xe chuẩn bị giảm tốc và chọn hướng xử lý phù hợp. Thông tin giao thông là công cụ an toàn."
+    },
+    {
+        jp: "高速道路で非常電話や非常設備は、緊急時に利用するために設置されている。",
+        vi: "Điện thoại khẩn cấp và thiết bị khẩn trên cao tốc được lắp để dùng khi có tình huống khẩn cấp.",
+        answer: true,
+        explanationJp: "高速道路の非常電話や非常設備は、事故や故障などの緊急時に利用するために設置されています。",
+        explanationVi: "Đây là kiến thức an toàn cơ bản khi chạy expressway. Câu kiến thức an toàn nền tảng thường đúng."
+    },
+    {
+        jp: "高速道路では、一般道路と同じ感覚で短い車間距離でも対応できる。",
+        vi: "Trên cao tốc vẫn có thể xử lý được với khoảng cách ngắn như đường thường.",
+        answer: false,
+        explanationJp: "高速道路では速度が高いため、一般道路と同じ車間距離では対応できません。",
+        explanationVi: "Tốc độ cao làm khoảng cách ngắn trở nên đặc biệt nguy hiểm. Đừng mang thói quen đường thường lên cao tốc."
+    },
+    {
+        jp: "信号のない交差点では、左右の安全確認を十分に行う。",
+        vi: "Ở giao lộ không đèn phải kiểm tra an toàn hai bên đầy đủ.",
+        answer: true,
+        explanationJp: "合図は周囲に自分の意図を伝える重要な手段です。出すタイミングと消すタイミングを守りましょう。",
+        explanationVi: "Giao lộ không đèn là nơi cần chủ động quan sát nhiều hơn. Không đèn = quan sát kỹ."
+    },
+    {
+        jp: "見通しの悪い交差点では、すぐに止まれる速度で進む。",
+        vi: "Ở giao lộ khuất tầm nhìn phải đi với tốc độ có thể dừng ngay.",
+        answer: true,
+        explanationJp: "右左折の合図は30メートル手前、進路変更は3秒前に出します。",
+        explanationVi: "Đây là cách tiếp cận an toàn cơ bản tại điểm mù. 'Có thể dừng ngay' thường là lựa chọn tốt."
+    },
+    {
+        jp: "交差点内では、進路変更を急いで行うほうが安全である。",
+        vi: "Trong giao lộ, đổi hướng/làn thật nhanh sẽ an toàn hơn.",
+        answer: false,
+        explanationJp: "方向指示器が故障した場合は、手信号で周囲に意図を伝えます。",
+        explanationVi: "Thao tác gấp trong giao lộ làm tăng nguy cơ va chạm. Nhanh-gấp trong điểm nguy hiểm thường sai."
+    },
+    {
+        jp: "右左折するときは、交差道路を横断する歩行者や自転車に注意する。",
+        vi: "Khi rẽ phải/trái phải chú ý người đi bộ và xe đạp băng qua đường giao cắt.",
+        answer: true,
+        explanationJp: "合図を出していても、安全確認なしに進路変更してはいけません。",
+        explanationVi: "Người đi bộ và xe đạp là nhóm dễ bị cản trở khi xe rẽ. Rẽ = nhìn người đi bộ/xe đạp."
+    },
+    {
+        jp: "交差点では、自分の車線の信号だけ見れば十分である。",
+        vi: "Ở giao lộ chỉ cần nhìn đèn của làn mình là đủ.",
+        answer: false,
+        explanationJp: "合図の出し忘れや消し忘れは事故の原因になります。",
+        explanationVi: "Ngoài tín hiệu còn phải quan sát xe, người đi bộ và tình trạng phía trước giao lộ. Đề Nhật không cho phép chỉ nhìn một thứ."
+    },
+    {
+        jp: "対向車線の右折車や直進車の動きにも注意して交差点を通過する。",
+        vi: "Khi qua giao lộ cũng phải chú ý xe đối diện đang rẽ hoặc đi thẳng.",
+        answer: true,
+        explanationJp: "交差点では対向車の右折車や直進車の動きにも注意して安全に通過します。",
+        explanationVi: "Giao lộ là nơi nhiều hướng xe giao cắt nên phải quan sát tổng thể. Đừng chỉ chăm chăm nhìn phía trước mũi xe."
+    },
+    {
+        jp: "交差点の中で前方が詰まったら、後続車のために少しずつでも進むべきである。",
+        vi: "Nếu trong giao lộ phía trước bị ùn thì vẫn nên nhích từng chút để xe sau đi được.",
+        answer: false,
+        explanationJp: "優先道路を通行している場合でも、交差点では注意を怠らないようにします。",
+        explanationVi: "Không được đi vào hoặc tiếp tục làm ùn tắc giao lộ. 'Nhích một chút thôi' là bẫy phổ biến."
+    },
+    {
+        jp: "一時停止の交差点では、停止後に再度左右確認してから進む。",
+        vi: "Ở giao lộ có biển dừng, sau khi dừng phải lại nhìn trái phải rồi mới đi.",
+        answer: true,
+        explanationJp: "一時停止の交差点では、停止後に再度左右を確認してから安全に進行します。",
+        explanationVi: "Dừng rồi xác nhận lại an toàn là quy trình đúng. Không chỉ dừng cho có, mà còn phải nhìn lại."
+    },
+    {
+        jp: "左折時は、巻き込みを防ぐため車の左側後方にも注意する。",
+        vi: "Khi rẽ trái phải chú ý cả sau-trái của xe để tránh cuốn người/xe đạp vào gầm.",
+        answer: true,
+        explanationJp: "信号のない交差点では、道路の幅が広い方が優先されますが、安全確認は常に必要です。",
+        explanationVi: "Điểm mù bên trái rất quan trọng khi rẽ trái. Bẫy hay gặp: quên xe đạp ở bên trái."
+    },
+    {
+        jp: "交差点では、相手が止まるだろうと決めつけて進むのが効率的である。",
+        vi: "Ở giao lộ, cứ mặc định đối phương sẽ dừng thì đi sẽ hiệu quả hơn.",
+        answer: false,
+        explanationJp: "交差点で左折する車と直進する車が出会った場合、直進車が優先です。",
+        explanationVi: "Không được dựa vào suy đoán chủ quan về hành vi người khác. Từ 'mặc định đối phương sẽ...' gần như sai."
+    },
+    {
+        jp: "渋滞中の交差点では、信号が変わっても前の車が進めないなら待つ。",
+        vi: "Khi kẹt xe ở giao lộ, dù đèn đổi mà xe trước chưa thoát được thì vẫn phải chờ.",
+        answer: true,
+        explanationJp: "交差点で左から来る車がある場合、左方優先の原則に従います。",
+        explanationVi: "Không được đi vào khi chưa có chỗ thoát khỏi giao lộ. Nguyên tắc này rất hay được hỏi."
+    },
+    {
+        jp: "小さな交差点でも、ミラーだけでなく目視で死角を補う。",
+        vi: "Dù là giao lộ nhỏ vẫn phải dùng cả nhìn trực tiếp để bù điểm mù chứ không chỉ gương.",
+        answer: true,
+        explanationJp: "緊急車両が近づいてきたら、道路の左側に寄って進路を譲ります。交差点内では交差点を避けてから譲ります。",
+        explanationVi: "Điểm mù có thể che người đi bộ/xe đạp ở giao lộ nhỏ. Giao lộ nhỏ không đồng nghĩa nguy hiểm nhỏ."
+    },
+    {
+        jp: "交差点手前での急な車線変更は、なるべく避ける。",
+        vi: "Gần giao lộ nên tránh đổi làn đột ngột.",
+        answer: true,
+        explanationJp: "渋滞しているとき、交差点内に入ると交差点をふさいでしまう可能性があるため、手前で待ちます。",
+        explanationVi: "Đây là khu vực có nhiều thông tin và đối tượng giao cắt, đổi làn gấp làm tăng nguy cơ. Gần giao lộ = thao tác sớm, nhẹ."
+    },
+    {
+        jp: "交差点では、クラクションを鳴らせば安全確認の代わりになる。",
+        vi: "Ở giao lộ, bấm còi có thể thay cho việc kiểm tra an toàn.",
+        answer: false,
+        explanationJp: "クラクションは安全確認の代わりにはなりません。必ず目視で確認します。",
+        explanationVi: "Còi không thay thế quan sát và phán đoán an toàn. Không có thiết bị nào thay thế được quan sát."
+    },
+    {
+        jp: "右折待ち中は、後続車に急かされても無理に曲がらない。",
+        vi: "Khi đang chờ rẽ phải, dù xe sau thúc ép cũng không được cố rẽ liều.",
+        answer: true,
+        explanationJp: "右折待ち中に後続車に急かされても、安全が確認できるまで無理に曲がってはいけません。",
+        explanationVi: "Quyết định rẽ phải phải dựa vào khoảng trống an toàn thực tế. 'Bị thúc' không phải lý do phạm lỗi."
+    },
+    {
+        jp: "見通しの悪い交差点では、徐行しながら音にも注意する。",
+        vi: "Ở giao lộ khuất tầm nhìn nên đi chậm và chú ý cả âm thanh xung quanh.",
+        answer: true,
+        explanationJp: "見通しの悪い交差点では徐行し、音にも注意して安全を確認します。",
+        explanationVi: "Âm thanh có thể giúp nhận ra xe/xe đạp chưa nhìn thấy được. Câu tăng thêm một lớp an toàn thường đúng."
+    },
+    {
+        jp: "交差点で歩行者を見失ったら、たぶんもう安全だと考えて進んでよい。",
+        vi: "Ở giao lộ, nếu mất dấu người đi bộ thì cứ cho là đã an toàn và đi tiếp.",
+        answer: false,
+        explanationJp: "「止まれ」の標識は、停止線で完全に止まる義務があります。見通しがよくても徐行だけでは不十分です。",
+        explanationVi: "Khi mất dấu đối tượng nguy hiểm phải càng thận trọng hơn, không phải bớt thận trọng. Mất nhìn thấy = tăng nghi ngờ, không phải giảm."
+    },
+    {
+        jp: "交差点内に入ってから進路を考えるより、手前で進行方向を確認しておくほうがよい。",
+        vi: "Tốt hơn là xác định hướng đi trước giao lộ thay vì vào trong rồi mới nghĩ.",
+        answer: true,
+        explanationJp: "路面電車のそばを通るときは、乗り降りする人に注意し、安全地帯がない場合は一時停止することもあります。",
+        explanationVi: "Chuẩn bị sớm giúp giảm thao tác đột ngột và mất tập trung trong giao lộ. Chuẩn bị sớm = đáp án đẹp."
+    },
+    {
+        jp: "交差点で対向車の陰から二輪車が出てくることも予測する。",
+        vi: "Ở giao lộ phải dự đoán cả việc xe hai bánh có thể lao ra từ điểm khuất sau xe đối diện.",
+        answer: true,
+        explanationJp: "交差点で大型車の死角に入ると、巻き込み事故の危険があります。",
+        explanationVi: "Xe máy/xe đạp dễ bị che khuất hơn ô tô. Điểm khuất sau xe lớn/xe đối diện là chỗ hay ra câu bẫy."
+    },
+    {
+        jp: "交差点は事故が多い場所なので、いつもより慎重に通行する。",
+        vi: "Giao lộ là nơi dễ xảy ra tai nạn nên phải đi cẩn thận hơn bình thường.",
+        answer: true,
+        explanationJp: "上り坂では下りの車に道を譲り、お互いに安全に通行できるようにします。",
+        explanationVi: "Đây là kiến thức tổng quát nhưng rất đúng trong giáo trình an toàn. Câu tổng quát đúng vì phản ánh quy tắc thực hành an toàn."
+    },
+    {
+        jp: "前車を追い越す前には、前方・後方・対向車線の安全を十分に確認する。",
+        vi: "Trước khi vượt xe trước phải kiểm tra kỹ an toàn phía trước, phía sau và làn đối diện.",
+        answer: true,
+        explanationJp: "見通しの悪いカーブでは対向車がはみ出してくる可能性を考慮します。",
+        explanationVi: "Vượt xe là thao tác nguy hiểm nên cần xác nhận tổng thể. Vượt xe = nhìn trước, sau, đối diện."
+    },
+    {
+        jp: "追い越しは、急いでいるときほど短時間で済むので安全である。",
+        vi: "Khi đang vội thì vượt xe sẽ xong nhanh hơn nên an toàn.",
+        answer: false,
+        explanationJp: "追い越しは慎重に行うべきであり、急いでいるからといって安全になるわけではありません。",
+        explanationVi: "Tâm lý vội vàng làm tăng nguy cơ phán đoán sai. 'Đang vội nên an toàn hơn' luôn rất đáng nghi."
+    },
+    {
+        jp: "車線変更するときは、ミラーだけでなく目視で死角を確認する。",
+        vi: "Khi đổi làn phải nhìn trực tiếp để kiểm tra điểm mù chứ không chỉ xem gương.",
+        answer: true,
+        explanationJp: "自転車は不安定で予想外の動きをすることがあるため、十分な間隔をとります。",
+        explanationVi: "Gương không bao phủ toàn bộ khu vực bên hông xe. Đổi làn = gương + ngoái nhìn."
+    },
+    {
+        jp: "合図を出したら、すぐに周囲を見ずに車線変更してよい。",
+        vi: "Bật xi-nhan rồi có thể đổi làn ngay mà không cần nhìn thêm.",
+        answer: false,
+        explanationJp: "二輪車は車体が小さく見落としやすいため、交差点では特に注意します。",
+        explanationVi: "Xi-nhan là để báo ý định, không thay thế kiểm tra an toàn. Xi-nhan không cho bạn 'quyền ưu tiên'."
+    },
+    {
+        jp: "二輪車や自転車は死角に入りやすいので、車線変更時に特に注意する。",
+        vi: "Xe máy và xe đạp dễ lọt vào điểm mù nên khi đổi làn phải đặc biệt chú ý.",
+        answer: true,
+        explanationJp: "前車が左に寄って右折の合図を出しているときは、その車の左側を通行できます。",
+        explanationVi: "Đối tượng nhỏ khó thấy hơn nên dễ bị bỏ sót. Nhỏ = dễ khuất = tăng cảnh giác."
+    },
+    {
+        jp: "前の車が遅いだけなら、禁止を気にせず追い越してよい。",
+        vi: "Chỉ cần xe trước đi chậm thì có thể bỏ qua cấm đoán để vượt.",
+        answer: false,
+        explanationJp: "追い越し禁止区間では、前車が遅くても追い越してはいけません。",
+        explanationVi: "Không được vì lý do cá nhân mà vi phạm quy tắc an toàn hay biển báo. 'Xe trước chậm' không tự tạo quyền vượt."
+    },
+    {
+        jp: "進路変更は、できるだけ早めに意思表示して余裕をもって行う。",
+        vi: "Đổi làn nên báo hiệu sớm và thực hiện với dư địa an toàn.",
+        answer: true,
+        explanationJp: "バスの発進を妨げないようにしましょう。バスが発進の合図を出したら、できるだけ譲ります。",
+        explanationVi: "Chuẩn bị sớm giúp người khác dự đoán được hành vi của bạn. Thao tác sớm, mượt thường là đúng."
+    },
+    {
+        jp: "対向車が遠くに見えても、追い越しに十分な距離があるか慎重に判断する。",
+        vi: "Dù xe đối diện trông còn xa, vẫn phải phán đoán cẩn thận liệu có đủ khoảng cách để vượt hay không.",
+        answer: true,
+        explanationJp: "対向車が遠くに見えても、追い越しに必要な距離を慎重に判断する必要があります。",
+        explanationVi: "Khoảng cách nhìn thấy dễ bị đánh giá sai, nhất là khi tốc độ cao. Đừng tin vào cảm giác 'chắc kịp'."
+    },
+    {
+        jp: "ウインカーを出していれば、後続車は必ず譲るので確認は不要である。",
+        vi: "Nếu đã bật xi-nhan thì xe sau chắc chắn sẽ nhường nên không cần kiểm tra.",
+        answer: false,
+        explanationJp: "夜間にすれ違うときは、ハイビームからロービームに切り替えて相手の目を眩ませないようにします。",
+        explanationVi: "Không được giả định người khác sẽ nhường; phải tự xác nhận an toàn. Câu 'người khác chắc chắn sẽ...' gần như sai."
+    },
+    {
+        jp: "幅寄せしながらの追い越しは、相手に意図が伝わるのでよい。",
+        vi: "Ép sát khi vượt sẽ giúp đối phương hiểu ý định nên là tốt.",
+        answer: false,
+        explanationJp: "幅寄せしながらの追い越しは非常に危険であり、してはいけません。",
+        explanationVi: "Đây là hành vi nguy hiểm, dễ gây va chạm. Các câu cổ vũ hành vi ép buộc thường sai."
+    },
+    {
+        jp: "追い越した後に元の車線へ戻るときも、十分な間隔をとる。",
+        vi: "Sau khi vượt xong, khi trở lại làn cũ cũng phải chừa khoảng cách đủ.",
+        answer: true,
+        explanationJp: "追い越した後に元の車線に戻るときは、十分な間隔をとってから安全に戻ります。",
+        explanationVi: "Cắt đầu xe khác quá sớm rất nguy hiểm. Không chỉ lúc bắt đầu vượt, lúc về làn cũng quan trọng."
+    },
+    {
+        jp: "車線変更を繰り返すと、速く着けることが多いので積極的に行う。",
+        vi: "Đổi làn liên tục thường đến nhanh hơn nên nên làm tích cực.",
+        answer: false,
+        explanationJp: "駐車車両のドアが急に開くことがあるため、横を通るときは十分な間隔をとります。",
+        explanationVi: "Đổi làn nhiều làm tăng rủi ro và không bảo đảm lợi ích thực tế. Tốc độ/nhanh hơn không phải tiêu chí của đề an toàn."
+    },
+    {
+        jp: "渋滞時でも、自転車やバイクが横をすり抜けてくることがあるので注意する。",
+        vi: "Dù đang ùn, vẫn phải chú ý xe đạp hay xe máy có thể lách lên bên cạnh.",
+        answer: true,
+        explanationJp: "渋滞時は自転車やバイクが横をすり抜けてくることがあるため注意が必要です。",
+        explanationVi: "Phương tiện nhỏ thường xuất hiện ở bên hông xe trong lúc tắc đường. Tắc đường không có nghĩa là nguy hiểm giảm."
+    },
+    {
+        jp: "対向車線にはみ出す必要がある追い越しは、状況次第で非常に危険である。",
+        vi: "Vượt xe mà phải lấn sang làn đối diện thì tùy tình huống có thể rất nguy hiểm.",
+        answer: true,
+        explanationJp: "対向車線にはみ出す追い越しは、対向車との正面衝突の危険があり非常に危険です。",
+        explanationVi: "Cần khoảng cách, tầm nhìn và thời gian đầy đủ; nhiều tình huống không nên vượt. Bất cứ gì dính đến làn đối diện đều phải nghiêm túc hơn."
+    },
+    {
+        jp: "前車の右ウインカーが出ているのに、右側から追い越してよい。",
+        vi: "Xe trước đang bật xi-nhan phải mà vẫn có thể vượt bên phải.",
+        answer: false,
+        explanationJp: "前車が右ウインカーを出しているときは、右側から追い越してはいけません。左側から通行します。",
+        explanationVi: "Khi xe trước chuẩn bị rẽ/phối hợp hướng đi, vượt thiếu thận trọng là nguy hiểm. Tín hiệu của xe trước luôn phải được tôn trọng."
+    },
+    {
+        jp: "路線バスの発進や進路変更には、周囲の状況に注意して配慮する。",
+        vi: "Khi xe buýt khởi hành hoặc đổi hướng phải chú ý và nhường phù hợp theo tình huống.",
+        answer: true,
+        explanationJp: "「速度を出す＝早く着く」ではなく、安全に到着することが最も重要です。",
+        explanationVi: "Xe buýt lớn cần không gian; tài xế phải quan sát và xử lý hợp lý để an toàn. Xe lớn/bus thường cần được chú ý đặc biệt."
+    },
+    {
+        jp: "車線の中央を保てないほど疲れているなら、運転を続けるべきではない。",
+        vi: "Nếu mệt đến mức khó giữ xe ở giữa làn thì không nên tiếp tục lái.",
+        answer: true,
+        explanationJp: "車線の中央を保てないほど疲れている場合は、すぐに運転を中止して休憩すべきです。",
+        explanationVi: "Đây là dấu hiệu khả năng lái xe đã giảm rõ rệt. Câu khuyên dừng lái khi thể trạng xấu thường đúng."
+    },
+    {
+        jp: "追い越しの途中で危険を感じたら、無理をせず中止する判断も必要である。",
+        vi: "Nếu đang vượt mà thấy nguy hiểm thì cần có quyết định hủy bỏ thay vì cố làm bằng được.",
+        answer: true,
+        explanationJp: "追い越しの途中で危険を感じたら、無理をせずに追い越しを中止する判断も大切です。",
+        explanationVi: "An toàn quan trọng hơn việc hoàn tất thao tác đã bắt đầu. 'Có thể bỏ' là tư duy an toàn tốt."
+    },
+    {
+        jp: "大型車の後ろから追い越すときは、前方の見通しが悪いことに注意する。",
+        vi: "Khi vượt từ sau xe lớn phải chú ý rằng tầm nhìn phía trước rất kém.",
+        answer: true,
+        explanationJp: "交差点付近で対向車線の様子が見えにくい場合は、速度を落として注意します。",
+        explanationVi: "Xe lớn che khuất tình hình đường và xe đối diện. Xe lớn = điểm mù lớn."
+    },
+    {
+        jp: "少しでも迷いがある追い越しは、しないほうが安全である。",
+        vi: "Nếu còn phân vân dù chỉ một chút về việc vượt xe thì không vượt sẽ an toàn hơn.",
+        answer: true,
+        explanationJp: "追い越しに少しでも迷いがある場合は、無理をせずやめた方が安全です。",
+        explanationVi: "Đây là nguyên tắc thực tế rất phù hợp với tư duy phòng ngừa tai nạn. Không chắc = đừng cố."
+    },
+    {
+        jp: "駐停車するときは、他の車や歩行者の通行の妨げにならない場所を選ぶ。",
+        vi: "Khi dừng/đỗ phải chọn nơi không cản trở xe khác hay người đi bộ.",
+        answer: true,
+        explanationJp: "駐停車する場合は、他の車や歩行者の通行を妨げない場所を選びます。",
+        explanationVi: "Chọn vị trí dừng đỗ an toàn là nguyên tắc cơ bản. Dừng/đỗ luôn hỏi về 'không cản trở'."
+    },
+    {
+        jp: "少しの荷物の積み下ろしなら、どこに止めてもよい。",
+        vi: "Chỉ bốc dỡ ít đồ thì dừng ở đâu cũng được.",
+        answer: false,
+        explanationJp: "駐車中も周囲への配慮が必要です。同乗者がドアを開ける際の安全確認も大切です。",
+        explanationVi: "Dừng/đỗ vẫn phải tuân thủ nơi cho phép và không gây cản trở. 'Chỉ một chút' là bẫy cổ điển."
+    },
+    {
+        jp: "坂道で駐車するときは、車が動き出さないよう配慮する。",
+        vi: "Khi đỗ ở dốc phải có biện pháp để xe không tự trôi.",
+        answer: true,
+        explanationJp: "坂道で駐車するときは、ギアを入れサイドブレーキを確実にかけるなど、車が動き出さない対策をします。",
+        explanationVi: "Mục tiêu là ngăn xe dịch chuyển ngoài ý muốn. Câu về chống xe trôi thường đúng."
+    },
+    {
+        jp: "車を離れるときは、短時間でも不用意に発進しないよう措置する。",
+        vi: "Khi rời xe dù trong thời gian ngắn cũng phải để xe không thể tự chạy đi một cách ngoài ý muốn.",
+        answer: true,
+        explanationJp: "路側帯がある道路に駐停車する場合は、路側帯の幅に応じた方法で停車します。",
+        explanationVi: "Người lái phải bảo đảm xe an toàn trước khi rời vị trí điều khiển. Không có ngoại lệ vì 'đi chút thôi'."
+    },
+    {
+        jp: "エンジンをかけたまま車を離れても、近くなら問題ない。",
+        vi: "Rời xe mà vẫn nổ máy, nếu ở gần thì không vấn đề gì.",
+        answer: false,
+        explanationJp: "交通整理の行われている交差点に入る場合は、先の状況を確認してから進入します。",
+        explanationVi: "Đây là hành vi nguy hiểm và bất cẩn. Đề thi thường không chấp nhận kiểu 'ở gần nên được'."
+    },
+    {
+        jp: "駐車するときは、ドアを開ける前に後方から来る自転車などにも注意する。",
+        vi: "Khi đỗ xe, trước khi mở cửa phải chú ý cả xe đạp đi tới từ phía sau.",
+        answer: true,
+        explanationJp: "歩道に乗り上げて駐車することは原則として禁止されています。",
+        explanationVi: "Mở cửa bất cẩn có thể gây tai nạn với xe đạp, xe máy. Mở cửa xe cũng là tình huống thi hay ra."
+    },
+    {
+        jp: "夜間に駐車するときは、周囲から見えやすいよう配慮することが大切である。",
+        vi: "Khi đỗ xe ban đêm, điều quan trọng là phải chú ý để xe dễ được người khác nhìn thấy.",
+        answer: true,
+        explanationJp: "夜間に駐車するときは、ハザードランプや駐車灯をつけるなど、周囲から見えやすくします。",
+        explanationVi: "Khả năng nhận biết của xe khác giảm vào ban đêm. Ban đêm = phải nghĩ đến 'được nhìn thấy'."
+    },
+    {
+        jp: "消火栓や横断歩道の近くでも、すぐ戻るなら停車してよい。",
+        vi: "Ngay gần trụ cứu hỏa hay vạch qua đường, nếu quay lại ngay thì vẫn dừng được.",
+        answer: false,
+        explanationJp: "消火栓や横断歩道の近くは駐停車禁止です。「すぐ戻る」は理由になりません。",
+        explanationVi: "Các khu vực nhạy cảm không được xử lý tùy tiện chỉ vì dừng ngắn. Đừng để 'quay lại ngay' đánh lừa."
+    },
+    {
+        jp: "駐停車中でも、車体がはみ出して交通を妨げないようにする。",
+        vi: "Kể cả khi đang dừng/đỗ, cũng phải bảo đảm thân xe không lấn gây cản trở giao thông.",
+        answer: true,
+        explanationJp: "駐停車中でも、車体が道路にはみ出して交通を妨げないようにします。",
+        explanationVi: "Xe dừng đỗ sai vị trí dễ làm hẹp đường và tăng nguy cơ va chạm. Bản chất câu đúng là 'không cản trở'."
+    },
+    {
+        jp: "二重駐車は、短時間でも危険や迷惑を生じやすい。",
+        vi: "Đỗ xe hàng đôi dù ngắn vẫn dễ gây nguy hiểm và phiền toái.",
+        answer: true,
+        explanationJp: "エンジンをかけたまま放置する駐車は、事故や盗難の危険があります。",
+        explanationVi: "Đây là hành vi làm cản trở giao thông và che khuất tầm nhìn. Double parking là nhóm câu thường sai nếu bị cho phép."
+    },
+    {
+        jp: "下車するときは、サイドミラーだけでなく直接後方も確認すると安全である。",
+        vi: "Khi xuống xe, ngoài gương còn nên nhìn trực tiếp phía sau để an toàn hơn.",
+        answer: true,
+        explanationJp: "荷物の積み下ろしでも、周囲の安全に配慮することが必要です。",
+        explanationVi: "Giúp phát hiện xe đạp, xe máy, người đi bộ đang đến gần. Mở cửa/ra khỏi xe = nhìn trực tiếp."
+    },
+    {
+        jp: "交差点のすぐ近くは、駐停車に適した場所とはいえない。",
+        vi: "Ngay sát giao lộ không phải là nơi phù hợp để dừng/đỗ.",
+        answer: true,
+        explanationJp: "交差点のすぐ近くは見通しが悪くなり危険なため、駐停車に適していません。",
+        explanationVi: "Khu vực giao lộ cần giữ tầm nhìn và không gian cho xe rẽ. Cạnh giao lộ, vạch qua đường, đường ray đều nên cảnh giác."
+    },
+    {
+        jp: "トンネル内では、故障など特別な事情がなければ駐停車しない。",
+        vi: "Trong hầm, nếu không có sự cố đặc biệt thì không dừng/đỗ.",
+        answer: true,
+        explanationJp: "トンネル内では、故障など特別な事情がなければ駐停車してはいけません。",
+        explanationVi: "Dừng xe trong hầm rất nguy hiểm vì không gian hẹp và tầm nhìn đặc thù. Hầm = tránh dừng nếu không khẩn cấp."
+    },
+    {
+        jp: "車を降りるとき、後続車が来ていても急いでいればすぐドアを開けてよい。",
+        vi: "Khi xuống xe, dù có xe sau tới gần, nếu đang vội vẫn có thể mở cửa ngay.",
+        answer: false,
+        explanationJp: "坂道での駐車は、下り坂ではハンドルを左に、上り坂ではハンドルを右に切っておくと安全です。",
+        explanationVi: "Mở cửa phải bảo đảm không gây nguy hiểm cho xe và người phía sau. 'Đang vội' không làm giảm nghĩa vụ an toàn."
+    },
+    {
+        jp: "停車中に荷物を取るためでも、子供を車内に残すと危険な場合がある。",
+        vi: "Ngay cả chỉ để lấy đồ, để trẻ ở lại trong xe vẫn có thể nguy hiểm.",
+        answer: true,
+        explanationJp: "停車中でも子供を車内に残すと、熱中症やいたずらなどの危険があります。",
+        explanationVi: "Nhiệt độ và các nguy cơ khác có thể gây hậu quả nghiêm trọng. Đây là câu an toàn đời thường nhưng hợp logic phòng ngừa."
+    },
+    {
+        jp: "駐車時は、発進するときに周囲を見やすい向きも考えるとよい。",
+        vi: "Khi đỗ xe, nên nghĩ cả hướng đỗ sao cho lúc xuất phát dễ quan sát xung quanh.",
+        answer: true,
+        explanationJp: "大型車のそばに駐車すると、お互いの視界を妨げることがあります。",
+        explanationVi: "Chuẩn bị cho lần xuất phát sau là một phần của đỗ xe an toàn. Câu có tính chuẩn bị trước thường đúng."
+    },
+    {
+        jp: "見通しの悪い場所での駐停車は、周囲の確認をより慎重に行う。",
+        vi: "Dừng/đỗ ở nơi tầm nhìn kém thì càng phải kiểm tra xung quanh cẩn thận hơn.",
+        answer: true,
+        explanationJp: "見通しの悪い場所での駐停車は、周囲の確認をより慎重に行う必要があります。",
+        explanationVi: "Điểm mù làm tăng rủi ro với người đi bộ và phương tiện khác. Tầm nhìn xấu = tăng mức kiểm tra."
+    },
+    {
+        jp: "駐車枠に入っていれば、周囲への迷惑は考えなくてよい。",
+        vi: "Miễn là xe nằm trong ô đỗ thì không cần nghĩ đến việc có gây phiền cho xung quanh hay không.",
+        answer: false,
+        explanationJp: "駐車場内でも安全運転の意識を持ち、歩行者や他の車に注意します。",
+        explanationVi: "Ngay cả trong ô đỗ vẫn phải chú ý người đi bộ, cửa xe, tầm nhìn và lối đi. Ô đỗ không miễn mọi nghĩa vụ."
+    },
+    {
+        jp: "車を止めるときは、ハザードランプなどで周囲に知らせることが有効な場合がある。",
+        vi: "Khi dừng xe, có trường hợp việc bật đèn cảnh báo để báo cho xung quanh là hữu ích.",
+        answer: true,
+        explanationJp: "パーキングメーターの使用方法を守り、指定時間を超えて駐車しないようにします。",
+        explanationVi: "Báo hiệu giúp xe khác nhận biết sớm hành vi của bạn. Báo trước cho người khác thường là hướng an toàn."
+    },
+    {
+        jp: "道路が狭い場所では、少しの時間でも他の車が通れるか考えて停車する。",
+        vi: "Ở nơi đường hẹp, dù dừng ngắn cũng phải nghĩ xem xe khác còn đi qua được không.",
+        answer: true,
+        explanationJp: "狭い道路では短時間でも他の車が通れるか考慮して停車位置を決めます。",
+        explanationVi: "Nguyên tắc là không làm cản trở dòng giao thông. Đường hẹp + dừng xe = luôn phải nghĩ tới người khác."
     }
 ];
 
