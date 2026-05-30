@@ -6,6 +6,9 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
     <meta name="theme-color" content="#b85c8a">
 
     <!-- Open Graph / Facebook / Zalo / LINE -->
@@ -1111,6 +1114,57 @@
         /* Hazard nav buttons */
         .question-nav .nav-btn.nav-hazard { border-color: var(--purple); color: var(--purple); }
         .question-nav .nav-btn.answered-hz { background: var(--purple); color: #fff; border-color: var(--purple); }
+
+        /* ===== READABILITY BOOST — làm câu hỏi & giải thích rõ, dễ đọc hơn ===== */
+        :root {
+            --font: "Be Vietnam Pro", "Noto Sans JP", "Hiragino Kaku Gothic ProN",
+                    "Yu Gothic", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+        }
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+        /* Câu hỏi tiếng Nhật (Karimen) / câu hỏi chính */
+        .question-text-jp {
+            font-size: 22px;
+            line-height: 1.9;
+            color: #2b1f2d;
+            font-weight: 600;
+            letter-spacing: .005em;
+        }
+        /* Câu hỏi / phần dịch tiếng Việt — rõ, không nghiêng, tương phản cao */
+        .question-text-vi {
+            font-size: 18px;
+            line-height: 1.85;
+            color: #574455;
+            font-weight: 500;
+            font-style: normal;
+        }
+        /* Tình huống 危険予測 (Honmen) */
+        .hazard-scene { line-height: 1.85; }
+        .hazard-sub .hs-text {
+            font-size: 18px;
+            line-height: 1.85;
+            color: #2b1f2d;
+            font-weight: 600;
+        }
+        /* Giải thích hiện ngay sau khi chọn */
+        .inline-explain-jp { font-size: 16px; line-height: 1.85; color: #3a2c3a; }
+        .inline-explain-vi { font-size: 15.5px; line-height: 1.85; color: #463747; }
+        /* Màn hình xem lại */
+        .review-question-jp { font-size: 17px; color: #2b1f2d; line-height: 1.7; }
+        .review-question-vi { font-size: 15px; color: #6a5868; line-height: 1.7; }
+        .review-explanation .explanation-jp,
+        .review-explanation .explanation-vi { font-size: 14.5px; line-height: 1.8; }
+
+        @media (max-width: 600px) {
+            .question-text-jp { font-size: 20px; line-height: 1.85; }
+            .question-text-vi { font-size: 17px; line-height: 1.8; }
+            .hazard-sub .hs-text { font-size: 17px; line-height: 1.8; }
+            .inline-explain-jp { font-size: 15px; }
+            .inline-explain-vi { font-size: 14.5px; }
+        }
     </style>
 </head>
 <body>
