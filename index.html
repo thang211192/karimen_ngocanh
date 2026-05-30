@@ -1036,6 +1036,81 @@
                 padding-top: calc(15px + env(safe-area-inset-top, 0px));
             }
         }
+
+        /* ===== HOME / MODE SELECT SCREEN ===== */
+        .home-screen {
+            max-width: 700px; margin: 0 auto; padding: 40px 20px 60px;
+            text-align: center; position: relative; z-index: 1;
+        }
+        .home-screen h2 {
+            font-size: 28px;
+            background: linear-gradient(135deg, #b85c8a, #e8628a);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px; font-weight: 800;
+        }
+        .home-sub { font-size: 15px; color: #b06a8a; margin-bottom: 28px; font-weight: 600; }
+        .mode-cards { display: flex; flex-direction: column; gap: 18px; margin-top: 10px; }
+        .mode-card {
+            background: var(--card-bg); backdrop-filter: blur(8px);
+            border: 2px solid rgba(232,98,138,0.18); border-radius: 22px;
+            padding: 24px 22px; cursor: pointer; text-align: left;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+            display: flex; align-items: center; gap: 18px;
+        }
+        .mode-card:hover, .mode-card:active {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(184,92,138,0.22); border-color: var(--pink);
+        }
+        .mode-card.honmen { border-color: rgba(155,89,182,0.2); }
+        .mode-card.honmen:hover { border-color: var(--purple); }
+        .mode-card .mc-emoji { font-size: 44px; flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(232,98,138,0.3)); }
+        .mode-card .mc-title { font-size: 20px; font-weight: 800; color: var(--pink-deep); margin-bottom: 4px; }
+        .mode-card.honmen .mc-title { color: var(--purple); }
+        .mode-card .mc-jp { font-size: 13px; color: #b06a8a; font-weight: 600; margin-bottom: 6px; }
+        .mode-card .mc-desc { font-size: 13px; color: #7a5c6a; line-height: 1.6; }
+        .mode-card .mc-badge {
+            display: inline-block; margin-top: 8px; font-size: 12px; font-weight: 700;
+            color: #fff; background: var(--pink); padding: 3px 12px; border-radius: 50px;
+        }
+        .mode-card.honmen .mc-badge { background: var(--purple); }
+
+        /* ===== BACK BUTTON ===== */
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 6px;
+            background: rgba(255,255,255,0.7); border: 1.5px solid rgba(232,98,138,0.25);
+            color: var(--pink-deep); padding: 8px 18px; border-radius: 50px;
+            cursor: pointer; font-weight: 700; font-size: 14px; font-family: var(--font);
+            margin-bottom: 18px; transition: background 0.2s;
+        }
+        .back-btn:hover { background: #fff; }
+
+        /* ===== HAZARD (危険予測) QUESTION ===== */
+        .hazard-scene {
+            background: linear-gradient(135deg, #f3e5f5, #fce7f3);
+            border: 2px dashed var(--purple); border-radius: 16px;
+            padding: 18px 20px; margin-bottom: 8px; font-size: 15.5px;
+            color: #5a3a6a; line-height: 1.75; font-weight: 500;
+        }
+        .hazard-scene .hz-label {
+            display: inline-block; font-size: 12px; font-weight: 800; color: #fff;
+            background: var(--purple); padding: 3px 12px; border-radius: 50px; margin-bottom: 10px;
+        }
+        .hazard-hint { font-size: 13px; color: #9b7bab; margin: 10px 2px 0; font-weight: 600; }
+        .hazard-sub {
+            background: white; border: 2px solid #f0e0ec; border-radius: 16px;
+            padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 10px rgba(184,92,138,0.06);
+        }
+        .hazard-sub .hs-num { font-size: 13px; font-weight: 800; color: var(--purple); margin-bottom: 8px; }
+        .hazard-sub .hs-text { font-size: 15px; color: #4a3548; line-height: 1.65; margin-bottom: 14px; font-weight: 500; }
+        .hazard-sub .answer-btn { padding: 14px; }
+        .hazard-sub .answer-btn .symbol { font-size: 30px; line-height: 1; }
+        .hazard-sub .inline-explanation { margin-top: 14px; }
+
+        /* Hazard nav buttons */
+        .question-nav .nav-btn.nav-hazard { border-color: var(--purple); color: var(--purple); }
+        .question-nav .nav-btn.answered-hz { background: var(--purple); color: #fff; border-color: var(--purple); }
     </style>
 </head>
 <body>
@@ -1043,8 +1118,43 @@
 <!-- ===== FLOATING SAKURA ===== -->
 <div class="sakura-container" id="sakuraContainer"></div>
 
-<!-- ===== START SCREEN ===== -->
-<div class="start-screen" id="startScreen">
+<!-- ===== HOME / MODE SELECT SCREEN ===== -->
+<div class="home-screen" id="homeScreen">
+    <div style="font-size: 52px; margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(232,98,138,0.3));">🌸</div>
+    <h2>Ngọc Anh ơi, chọn đề thi nha 💕</h2>
+    <div class="home-sub">日本の運転免許学科試験 · Luyện thi bằng lái xe Nhật Bản</div>
+
+    <div class="mode-cards">
+        <div class="mode-card" onclick="chooseKarimen()">
+            <div class="mc-emoji">🚗</div>
+            <div>
+                <div class="mc-title">Karimen — Bằng tạm</div>
+                <div class="mc-jp">仮免許学科試験</div>
+                <div class="mc-desc">50 câu Đúng/Sai · 30 phút · đỗ 45/50.<br>Song ngữ Nhật–Việt, có giải thích đầy đủ.</div>
+                <span class="mc-badge">50 câu · Nhật–Việt</span>
+            </div>
+        </div>
+
+        <div class="mode-card honmen" onclick="chooseHonmen()">
+            <div class="mc-emoji">🏆</div>
+            <div>
+                <div class="mc-title">Honmen — Bằng chính thức</div>
+                <div class="mc-jp">本免許学科試験</div>
+                <div class="mc-desc">95 câu · 50 phút · đỗ 90/100 điểm.<br>90 câu Đúng/Sai + 5 câu dự đoán nguy hiểm. Tiếng Việt.</div>
+                <span class="mc-badge">95 câu · Tiếng Việt</span>
+            </div>
+        </div>
+    </div>
+
+    <p style="color: #a89ba5; font-size: 13px; margin-top: 26px; font-weight: 600; line-height: 1.8;">
+        Honmen là kỳ thi sau khi đã có bằng tạm (karimen).<br>
+        Câu hỏi khó hơn và nhiều hơn — cố lên nha em！🌸
+    </p>
+</div>
+
+<!-- ===== START SCREEN (KARIMEN) ===== -->
+<div class="start-screen" id="startScreen" style="display:none;">
+    <button class="back-btn" onclick="goHome()">◀ Chọn đề khác</button>
     <div style="font-size: 52px; margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(232,98,138,0.3));">🌸</div>
     <h2>仮免許学科試験</h2>
     <div class="exam-title-jp">Thi thử bằng lái xe Karimen</div>
@@ -1148,15 +1258,83 @@
         ※ Câu hỏi sẽ được xáo trộn ngẫu nhiên mỗi lần thi.
     </p>
 
-    <button class="start-btn" onclick="startExam()">🌸 Em sẵn sàng thi rồi！/ 試験開始</button>
+    <button class="start-btn" onclick="startExam('karimen')">🌸 Em sẵn sàng thi rồi！/ 試験開始</button>
+</div>
+
+<!-- ===== START SCREEN (HONMEN) ===== -->
+<div class="start-screen" id="honmenStartScreen" style="display:none;">
+    <button class="back-btn" onclick="goHome()">◀ Chọn đề khác</button>
+    <div style="font-size: 52px; margin-bottom: 8px; filter: drop-shadow(0 2px 4px rgba(155,89,182,0.3));">🏆</div>
+    <h2 style="background: linear-gradient(135deg, #7a5c8a, #9b59b6); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">Honmen — Bằng chính thức</h2>
+    <div class="exam-title-jp">本免許学科試験 · Thi thử bằng lái chính thức</div>
+
+    <div class="love-message">
+        <p style="font-size: 18px; color: #8a4ca3; font-weight: 800; margin-bottom: 8px;">
+            💜 Ngọc Anh giỏi lắm rồi！
+        </p>
+        <p style="font-size: 14px; color: #9a7b8e; line-height: 1.9;">
+            Đây là kỳ thi cuối để lấy bằng thật đó em 🚗<br>
+            Khó hơn karimen một chút, nhưng em làm được mà！<br>
+            <span style="color: #8a4ca3; font-weight: 700;">あと少し！ゴックアイン、ファイト！💪✨</span>
+        </p>
+    </div>
+
+    <div class="tips-box">
+        <h3 style="color: var(--purple); margin-bottom: 14px; font-size: 16px; font-weight: 800;">💡 Mẹo thi Honmen</h3>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #9b59b6; font-size: 14px; margin-bottom: 4px;">🖼️ Phần dự đoán nguy hiểm (5 câu cuối):</p>
+            <ul style="font-size: 13px; color: #5a4a58; line-height: 1.9; padding-left: 20px;">
+                <li>Mỗi câu mô tả một <strong>tình huống lái xe</strong>, có <strong>3 ý nhỏ</strong> phải trả lời Đúng/Sai</li>
+                <li>Phải <strong>đúng cả 3 ý</strong> mới được <strong>2 điểm</strong>, sai 1 ý là mất cả câu</li>
+                <li>Nguyên tắc: luôn <strong>dự đoán điều xấu nhất</strong> → giảm tốc, chuẩn bị phanh thường là Đúng</li>
+                <li>Câu nào nói <strong>"chắc chắn an toàn", "cứ đi bình thường"</strong> khi có nguy cơ → thường là Sai</li>
+            </ul>
+        </div>
+
+        <div style="margin-bottom: 14px;">
+            <p style="font-weight: bold; color: #e8628a; font-size: 14px; margin-bottom: 4px;">🔴 Từ khóa bẫy:</p>
+            <ul style="font-size: 13px; color: #5a4a58; line-height: 1.9; padding-left: 20px;">
+                <li><strong>"nhất định", "luôn luôn", "tuyệt đối", "tất cả"</strong> → thường là <strong style="color:#ff6b6b;">Sai</strong></li>
+                <li><strong>"có trường hợp", "cũng có lúc", "tùy tình huống"</strong> → thường là <strong style="color:#4ecdc4;">Đúng</strong></li>
+            </ul>
+        </div>
+
+        <div>
+            <p style="font-weight: bold; color: #7a5c8a; font-size: 14px; margin-bottom: 4px;">🔢 Số cần nhớ thêm (so với karimen):</p>
+            <ul style="font-size: 13px; color: #5a4a58; line-height: 1.9; padding-left: 20px;">
+                <li>Cao tốc: ô tô thường tối đa <strong>100km/h</strong>, tối thiểu <strong>50km/h</strong></li>
+                <li>Khoảng cách an toàn ≈ <strong>tốc độ − 15</strong> (m), trời mưa thì gấp đôi</li>
+                <li>Nồng độ cồn: <strong>0.15mg/L</strong> khí thở trở lên là vi phạm (Nhật xử lý rất nặng)</li>
+                <li>Mệt/buồn ngủ, dùng thuốc gây buồn ngủ → <strong>không được lái</strong></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="exam-rules">
+        <h3 style="color: var(--purple);">📋 Hướng dẫn thi Honmen</h3>
+        <table>
+            <tr><td>Số câu hỏi</td><td><strong>95 câu</strong> (90 câu Đúng/Sai + 5 câu dự đoán nguy hiểm)</td></tr>
+            <tr><td>Thời gian</td><td><strong>50 phút</strong></td></tr>
+            <tr><td>Điểm đạt</td><td><strong>90/100 điểm trở lên (90%)</strong></td></tr>
+            <tr><td>Điểm mỗi câu</td><td>Câu Đúng/Sai: <strong>1 điểm</strong> · Câu nguy hiểm: <strong>2 điểm</strong> (đúng cả 3 ý)</td></tr>
+            <tr><td>Cách trả lời</td><td>○（Đúng）hoặc ×（Sai）</td></tr>
+        </table>
+    </div>
+
+    <p style="color: #a89ba5; font-size: 13px; margin-top: 15px; font-weight: 600;">
+        ※ Câu hỏi được xáo trộn ngẫu nhiên mỗi lần thi.
+    </p>
+
+    <button class="start-btn" style="background: linear-gradient(135deg, #8a4ca3, #9b59b6);" onclick="startExam('honmen')">💜 Em thi Honmen đây！</button>
 </div>
 
 <!-- ===== HEADER (hidden until exam starts) ===== -->
 <div class="header" id="examHeader" style="display:none;">
-    <h1>🌸 Ngọc Anh の仮免許学科試験</h1>
+    <h1 id="examTitle">🌸 Ngọc Anh の仮免許学科試験</h1>
     <div class="header-info">
         <div>⏱ 残り時間: <span class="timer" id="timerDisplay">30:00</span></div>
-        <div>📝 回答済: <span class="score-display" id="answeredCount">0</span>/50</div>
+        <div>📝 回答済: <span class="score-display" id="answeredCount">0</span>/<span id="totalCount">50</span></div>
     </div>
     <div class="progress-bar">
         <div class="progress" id="progressBar" style="width: 0%"></div>
@@ -1174,25 +1352,35 @@
 
     <div class="question-card" id="questionCard">
         <div class="question-number" id="questionNumber"></div>
-        <div class="question-image" id="questionImage" style="display:none;"></div>
-        <div class="question-text-jp" id="questionTextJp"></div>
-        <div class="question-text-vi" id="questionTextVi"></div>
-        <div class="answer-buttons">
-            <button class="answer-btn maru" id="btnMaru" onclick="selectAnswer(true)">
-                ○
-                <span class="label">正しい / Đúng</span>
-            </button>
-            <button class="answer-btn batsu" id="btnBatsu" onclick="selectAnswer(false)">
-                ×
-                <span class="label">誤り / Sai</span>
-            </button>
+
+        <!-- Hazard scene (危険予測) -->
+        <div class="hazard-scene" id="hazardScene" style="display:none;"></div>
+
+        <!-- Normal ○× question block -->
+        <div id="oxBlock">
+            <div class="question-image" id="questionImage" style="display:none;"></div>
+            <div class="question-text-jp" id="questionTextJp"></div>
+            <div class="question-text-vi" id="questionTextVi"></div>
+            <div class="answer-buttons">
+                <button class="answer-btn maru" id="btnMaru" onclick="selectAnswer(true)">
+                    ○
+                    <span class="label">正しい / Đúng</span>
+                </button>
+                <button class="answer-btn batsu" id="btnBatsu" onclick="selectAnswer(false)">
+                    ×
+                    <span class="label">誤り / Sai</span>
+                </button>
+            </div>
+            <div class="inline-explanation" id="inlineExplanation">
+                <div class="inline-result" id="inlineResult"></div>
+                <div class="inline-correct-answer" id="inlineCorrectAnswer"></div>
+                <div class="inline-explain-jp" id="inlineExplainJp"></div>
+                <div class="inline-explain-vi" id="inlineExplainVi"></div>
+            </div>
         </div>
-        <div class="inline-explanation" id="inlineExplanation">
-            <div class="inline-result" id="inlineResult"></div>
-            <div class="inline-correct-answer" id="inlineCorrectAnswer"></div>
-            <div class="inline-explain-jp" id="inlineExplainJp"></div>
-            <div class="inline-explain-vi" id="inlineExplainVi"></div>
-        </div>
+
+        <!-- Hazard sub-questions (3 ý nhỏ) -->
+        <div id="hazardSubs" style="display:none;"></div>
     </div>
 
     <div class="nav-controls">
@@ -1279,8 +1467,8 @@ const allQuestions = [
         jp: "踏切を通過するときは、踏切の直前で一時停止し、安全を確認しなければならない。",
         vi: "Khi qua đường ray, phải dừng tạm ngay trước đường ray và xác nhận an toàn.",
         answer: true,
-        explanationJp: "踏切の直前で必ず一時停止し、左右の安全確認をしてから通過します。信号機がある踏切でも一時停止が必要です。",
-        explanationVi: "Phải dừng tạm ngay trước đường ray, xác nhận an toàn trái phải rồi mới qua. Dù đường ray có đèn tín hiệu cũng phải dừng tạm."
+        explanationJp: "踏切の直前で一時停止し、左右の安全を確認してから通過するのが原則です。（ただし、信号機のある踏切で青信号のときは、一時停止せず安全を確認して通過できます。）",
+        explanationVi: "Về nguyên tắc phải dừng tạm ngay trước đường ray, xác nhận an toàn trái phải rồi mới qua. (Ngoại lệ: nếu đường ray có đèn tín hiệu giao thông và đèn đang xanh thì không cần dừng tạm, chỉ cần xác nhận an toàn rồi đi qua.)"
     },
     {
         jp: "一方通行の道路では、道路の右側部分にはみ出して通行することができる。",
@@ -2264,11 +2452,11 @@ const allQuestions = [
         explanationVi: "Đi guốc gỗ hoặc dép xăng-đan khi lái xe làm thao tác phanh không chắc chắn, rất nguy hiểm."
     },
     {
-        jp: "踏切の信号が青のときは、一時停止しないで通過できる。",
-        vi: "Khi đèn tín hiệu đường ray xanh, có thể đi qua mà không cần dừng tạm.",
-        answer: false,
-        explanationJp: "踏切では、信号が青でも一時停止して安全を確認するのが原則です。",
-        explanationVi: "Ở đường ray, dù đèn xanh vẫn phải dừng tạm và xác nhận an toàn theo nguyên tắc."
+        jp: "信号機のある踏切で、その信号が青のときは、一時停止しないで通過することができる。",
+        vi: "Ở đường ray có đèn tín hiệu giao thông, khi đèn đó đang xanh thì có thể đi qua mà không cần dừng tạm.",
+        answer: true,
+        explanationJp: "道路交通法第33条のただし書きにより、信号機のある踏切で青信号に従うときは、一時停止せず安全を確認して通過できます。（信号機のない踏切では必ず一時停止が必要です。）",
+        explanationVi: "Theo điều 33 Luật giao thông, ở đường ray có đèn tín hiệu giao thông mà đèn đang xanh thì được đi qua không cần dừng tạm (chỉ cần xác nhận an toàn). Còn đường ray KHÔNG có đèn tín hiệu thì luôn phải dừng tạm."
     },
     {
         jp: "車両総重量が750キログラム以下の車をけん引するときは、けん引免許は必要ない。",
@@ -3630,12 +3818,249 @@ const allQuestions = [
     }
 ];
 
+// ===== HONMEN QUESTION BANK (本免許 · chỉ tiếng Việt) =====
+// Câu Đúng/Sai (○×) — mỗi câu 1 điểm
+const honmenOX = [
+    // --- Tín hiệu & người điều khiển giao thông ---
+    { vi: "Khi đèn tín hiệu xanh, ô tô được đi thẳng, rẽ trái và rẽ phải.", answer: true, explanationVi: "Đèn xanh cho phép ô tô đi thẳng, rẽ trái hoặc rẽ phải (sau khi xác nhận an toàn). Riêng xe máy nhỏ và xe thô sơ ở một số ngã tư phải rẽ phải hai giai đoạn." },
+    { vi: "Đèn vàng có nghĩa là tăng tốc để vượt qua ngã tư trước khi chuyển sang đỏ.", answer: false, explanationVi: "Đèn vàng nghĩa là về nguyên tắc phải dừng lại trước vạch dừng. Chỉ được đi tiếp khi đã quá gần vạch, nếu phanh gấp sẽ nguy hiểm." },
+    { vi: "Đèn đỏ nhấp nháy có ý nghĩa giống biển báo \"Dừng lại\" (一時停止).", answer: true, explanationVi: "Gặp đèn đỏ nhấp nháy phải dừng hẳn trước vạch, xác nhận an toàn trái phải rồi mới đi tiếp." },
+    { vi: "Đèn vàng nhấp nháy buộc tất cả các xe phải dừng lại.", answer: false, explanationVi: "Đèn vàng nhấp nháy chỉ yêu cầu chú ý quan sát an toàn rồi đi tiếp, không bắt buộc dừng." },
+    { vi: "Khi đèn tín hiệu và hiệu lệnh của cảnh sát mâu thuẫn nhau, phải tuân theo hiệu lệnh của cảnh sát.", answer: true, explanationVi: "Hiệu lệnh của người điều khiển giao thông luôn được ưu tiên hơn đèn tín hiệu." },
+    { vi: "Khi đèn chính màu đỏ nhưng có đèn mũi tên xanh chỉ về bên trái, xe được rẽ trái.", answer: true, explanationVi: "Dù đèn chính đỏ, xe vẫn được đi theo hướng mà đèn mũi tên xanh chỉ tới." },
+    { vi: "Khi cảnh sát giơ tay ngang sang hai bên, xe đi tới từ hướng song song với thân người cảnh sát phải dừng lại như gặp đèn đỏ.", answer: false, explanationVi: "Khi cảnh sát giơ tay ngang, hướng song song với thân người tương đương đèn XANH (được đi); hướng đối diện mặt/lưng mới là đèn đỏ." },
+
+    // --- Biển báo & vạch kẻ đường ---
+    { vi: "Biển \"車両進入禁止\" (cấm đi vào) và biển \"車両通行止め\" (cấm lưu thông) có ý nghĩa giống hệt nhau.", answer: false, explanationVi: "\"Cấm đi vào\" chỉ cấm chiều đi vào (thường ở lối ra của đường một chiều); \"cấm lưu thông\" cấm xe đi cả hai chiều." },
+    { vi: "Vạch tim đường màu vàng liền nghĩa là cấm lấn sang phần đường ngược chiều để vượt xe.", answer: true, explanationVi: "Vạch vàng liền cấm vượt bằng cách lấn sang phần đường ngược chiều." },
+    { vi: "Biển báo phụ (補助標識) gắn dưới biển chính dùng để bổ sung, làm rõ nội dung cho biển chính.", answer: true, explanationVi: "Biển phụ ghi rõ phạm vi, đối tượng, thời gian... áp dụng cho biển chính." },
+    { vi: "Gặp biển \"一時停止\" (dừng lại), nếu nhìn rõ không có xe nào đến thì không cần dừng hẳn.", answer: false, explanationVi: "Phải luôn dừng hẳn trước vạch dừng, bất kể có xe hay không, rồi mới xác nhận an toàn và đi." },
+    { vi: "Biển báo cảnh báo (警戒標識) ở Nhật thường có nền màu vàng.", answer: true, explanationVi: "Biển cảnh báo nền vàng dùng để báo trước nguy hiểm phía trước." },
+    { vi: "Nơi có biển \"徐行\" (đi chậm), xe phải giảm xuống tốc độ có thể dừng lại ngay lập tức.", answer: true, explanationVi: "Đi chậm (徐行) là tốc độ dừng được ngay trong khoảng 1m, khoảng dưới 10km/h." },
+
+    // --- Tốc độ & khoảng cách ---
+    { vi: "Khi không có biển báo tốc độ, tốc độ tối đa của ô tô thường trên đường thông thường là 60km/h.", answer: true, explanationVi: "Tốc độ luật định của ô tô thường trên đường thông thường (không có biển) là 60km/h." },
+    { vi: "Trên đường cao tốc, tốc độ tối đa theo luật của ô tô thường là 100km/h khi không có biển quy định khác.", answer: true, explanationVi: "Tốc độ luật định trên cao tốc của ô tô thường là 100km/h; một số tuyến có biển cho phép tới 120km/h." },
+    { vi: "Khi biển báo quy định tốc độ thấp hơn tốc độ luật định, phải tuân theo biển báo.", answer: true, explanationVi: "Tốc độ chỉ định bằng biển báo được ưu tiên áp dụng, kể cả khi thấp hơn tốc độ luật định." },
+    { vi: "Khoảng cách dừng (停止距離) bằng khoảng cách phản ứng (空走距離) cộng với khoảng cách phanh (制動距離).", answer: true, explanationVi: "Khoảng cách dừng = quãng đường xe đi trong lúc phản ứng + quãng đường phanh cho đến khi dừng." },
+    { vi: "Khi tốc độ tăng gấp đôi thì khoảng cách phanh cũng chỉ tăng gấp đôi.", answer: false, explanationVi: "Khoảng cách phanh tỉ lệ với bình phương tốc độ, nên khi tốc độ gấp đôi thì khoảng cách phanh tăng khoảng 4 lần." },
+    { vi: "Mặt đường ướt làm khoảng cách phanh dài hơn so với mặt đường khô.", answer: true, explanationVi: "Đường ướt làm giảm độ bám, khiến khoảng cách phanh dài hơn; cần giảm tốc và tăng khoảng cách." },
+    { vi: "Trời mưa hoặc đường trơn thì nên giữ khoảng cách với xe phía trước lớn hơn bình thường.", answer: true, explanationVi: "Vì khoảng cách phanh dài hơn, phải tăng khoảng cách an toàn khi trời mưa/đường trơn." },
+    { vi: "Tốc độ tối thiểu trên làn chính của đường cao tốc là 50km/h.", answer: true, explanationVi: "Trên làn chính cao tốc, tốc độ tối thiểu là 50km/h (trừ trường hợp bất khả kháng)." },
+    { vi: "Lái xe quá chậm gây cản trở giao thông cũng có thể bị coi là vi phạm.", answer: true, explanationVi: "Đi chậm bất hợp lý gây cản trở dòng xe là hành vi vi phạm." },
+
+    // --- Vượt xe ---
+    { vi: "Nguyên tắc khi vượt xe là vượt về phía bên phải của xe phía trước.", answer: true, explanationVi: "Vượt xe về nguyên tắc thực hiện ở bên phải xe phía trước." },
+    { vi: "Khi xe phía trước đang ra tín hiệu rẽ phải, ta vượt nó về phía bên trái.", answer: true, explanationVi: "Ngoại lệ: khi xe trước đang rẽ phải (đã dịch ra giữa đường), được vượt về bên trái." },
+    { vi: "Được phép vượt xe khác ngay trên vạch sang đường cho người đi bộ.", answer: false, explanationVi: "Cấm vượt trên vạch sang đường và trong phạm vi 30m trước đó." },
+    { vi: "Trong đường hầm (không có làn phân chia) thì cấm vượt xe.", answer: true, explanationVi: "Trong hầm không có vạch phân làn là nơi cấm vượt." },
+    { vi: "Gần đỉnh dốc và ở đoạn đường cong tầm nhìn kém thì được phép vượt xe.", answer: false, explanationVi: "Đỉnh dốc, dốc xuống gấp và đoạn cong tầm nhìn kém là nơi cấm vượt." },
+    { vi: "Vượt một xe đang vượt xe khác (vượt kép - 二重追い越し) là bị cấm.", answer: true, explanationVi: "Vượt kép rất nguy hiểm nên bị cấm." },
+    { vi: "Tại ngã tư và trong phạm vi 30m trước ngã tư (trừ khi đang đi trên đường ưu tiên) thì cấm vượt.", answer: true, explanationVi: "Khu vực ngã tư và 30m trước đó là nơi cấm vượt, trừ trường hợp đi trên đường ưu tiên." },
+    { vi: "\"追い越し\" (vượt) là đổi làn để vượt lên trước xe khác, còn \"追い抜き\" (qua mặt) là vượt lên mà không đổi làn.", answer: true, explanationVi: "Vượt (追い越し) có đổi làn rồi quay lại; qua mặt (追い抜き) không đổi làn." },
+
+    // --- Dừng đỗ xe ---
+    { vi: "Trong phạm vi 5m tính từ ngã tư, cấm cả dừng và đỗ xe.", answer: true, explanationVi: "Ngã tư và trong 5m từ mép ngã tư là nơi cấm dừng và đỗ xe." },
+    { vi: "Trong phạm vi 10m hai bên đường ray (踏切), cấm cả dừng và đỗ xe.", answer: true, explanationVi: "Đường ray và 10m trước/sau là nơi cấm dừng và đỗ xe." },
+    { vi: "Trong đường hầm, cấm cả dừng và đỗ xe.", answer: true, explanationVi: "Trong hầm là nơi cấm cả dừng lẫn đỗ xe." },
+    { vi: "Gần đỉnh dốc và đoạn dốc xuống gấp, cấm cả dừng và đỗ xe.", answer: true, explanationVi: "Đỉnh dốc và dốc xuống gấp tầm nhìn kém nên cấm dừng và đỗ." },
+    { vi: "Trong phạm vi 5m quanh trụ nước cứu hỏa (消火栓), cấm đỗ xe.", answer: true, explanationVi: "Trụ cứu hỏa và họng lấy nước chữa cháy: cấm đỗ trong phạm vi 5m." },
+    { vi: "Trong phạm vi 1m quanh hộp báo cháy (火災報知機), cấm đỗ xe.", answer: true, explanationVi: "Cấm đỗ xe trong phạm vi 1m quanh hộp báo cháy." },
+    { vi: "Trong phạm vi 3m từ lối ra vào của gara hoặc bãi đỗ xe, cấm đỗ xe.", answer: true, explanationVi: "Cấm đỗ trong phạm vi 3m từ lối ra vào dành cho xe của gara/bãi đỗ." },
+    { vi: "Trong giờ hoạt động, trong phạm vi 10m quanh biển báo trạm dừng xe buýt, cấm đỗ xe.", answer: true, explanationVi: "Cấm đỗ trong 10m quanh biển trạm xe buýt (trong giờ buýt hoạt động) để xe buýt ra vào." },
+    { vi: "Việc dừng xe ngắn để khách lên xuống được gọi là \"đỗ xe\" (駐車).", answer: false, explanationVi: "Đó là \"dừng xe\" (停車). Đỗ xe (駐車) là dừng lâu hoặc tài xế rời xe không thể di chuyển ngay." },
+    { vi: "Trên đường không có vỉa hè, khi đỗ xe phải đỗ sát mép trái của đường.", answer: true, explanationVi: "Nguyên tắc đỗ sát mép trái để không cản trở giao thông." },
+
+    // --- Ngã tư & quyền ưu tiên ---
+    { vi: "Khi rẽ phải ở ngã tư, phải đi sát vào giữa đường từ trước và đi chậm qua phía trong tâm ngã tư.", answer: true, explanationVi: "Đây là cách rẽ phải an toàn theo quy định." },
+    { vi: "Khi rẽ trái ở ngã tư, phải đi sát vào mép trái đường từ trước.", answer: true, explanationVi: "Rẽ trái phải áp sát lề trái để tránh cuốn xe đạp/người đi bộ vào bên trái (巻き込み)." },
+    { vi: "Ở ngã tư không có đèn và không có biển ưu tiên, khi hai đường rộng bằng nhau, phải nhường xe đến từ bên trái.", answer: true, explanationVi: "Ngã tư đồng cấp: nhường đường cho xe đến từ phía bên trái của mình." },
+    { vi: "Khi đi từ đường nhỏ ra đường lớn (đường ưu tiên), xe trên đường ưu tiên được đi trước.", answer: true, explanationVi: "Phải nhường đường cho xe đang chạy trên đường ưu tiên." },
+    { vi: "Khi phía trước ngã tư đang ùn tắc, dù đèn xanh cũng không được tiến vào ngã tư nếu có nguy cơ bị kẹt lại trong đó.", answer: true, explanationVi: "Không được vào ngã tư nếu sẽ bị kẹt lại làm cản trở giao thông cắt ngang." },
+
+    // --- Bảo vệ người đi bộ ---
+    { vi: "Khi có người đi bộ đang qua hoặc chuẩn bị qua vạch sang đường, xe phải dừng lại nhường đường.", answer: true, explanationVi: "Người đi bộ trên vạch sang đường được ưu tiên tuyệt đối; xe phải dừng nhường." },
+    { vi: "Khi đi gần trẻ em, người già, người khiếm thị cầm gậy trắng hoặc người dùng xe lăn, xe phải tạm dừng hoặc đi chậm để đảm bảo an toàn.", answer: true, explanationVi: "Phải tạm dừng hoặc đi chậm để bảo vệ những người cần được bảo vệ này." },
+    { vi: "Khi đi gần người đi bộ mà không giữ được khoảng cách an toàn, xe phải đi chậm.", answer: true, explanationVi: "Nếu không giữ đủ khoảng cách an toàn với người đi bộ thì bắt buộc phải đi chậm." },
+    { vi: "Có thể bấm còi để buộc người đi bộ trên vạch sang đường nhường đường cho xe.", answer: false, explanationVi: "Không được dùng còi để giành đường với người đi bộ; người đi bộ luôn được ưu tiên." },
+
+    // --- Xe khẩn cấp ---
+    { vi: "Khi xe khẩn cấp đến gần lúc đang ở trong ngã tư, phải nhanh chóng đi ra khỏi ngã tư rồi tấp vào lề trái nhường đường.", answer: true, explanationVi: "Trong ngã tư: ra khỏi ngã tư rồi tấp trái và dừng nhường đường cho xe khẩn cấp." },
+    { vi: "Khi xe khẩn cấp đến gần ở ngoài ngã tư, phải tấp vào lề trái và nhường đường.", answer: true, explanationVi: "Ngoài ngã tư: tấp trái, giảm tốc hoặc dừng để nhường (nếu tấp trái gây cản trở thì tấp phải)." },
+    { vi: "Trên đường một chiều, nếu tấp vào lề trái sẽ cản trở xe khẩn cấp, thì có thể tấp sang lề phải để nhường đường.", answer: true, explanationVi: "Trên đường một chiều, nếu tấp trái gây cản trở thì được tấp phải để nhường xe khẩn cấp." },
+
+    // --- Đường cao tốc ---
+    { vi: "Trên đường cao tốc, cấm lùi xe, quay đầu và đi ngược chiều.", answer: true, explanationVi: "Cao tốc cấm tuyệt đối lùi, quay đầu, đi ngược chiều vì cực kỳ nguy hiểm." },
+    { vi: "Khi xe hỏng buộc phải dừng trên cao tốc, phải đặt biển/đèn cảnh báo (停止表示器材) phía sau xe.", answer: true, explanationVi: "Phải đặt tam giác phản quang cảnh báo và bật đèn hazard, đưa người ra nơi an toàn." },
+    { vi: "Được phép dừng xe trên làn khẩn cấp của cao tốc để nghỉ ngơi khi buồn ngủ.", answer: false, explanationVi: "Làn khẩn cấp chỉ dùng khi sự cố; muốn nghỉ phải vào trạm dừng nghỉ (PA/SA)." },
+    { vi: "Khi vào cao tốc từ làn tăng tốc, phải tăng đủ tốc độ rồi nhập vào làn chính sau khi xác nhận an toàn.", answer: true, explanationVi: "Dùng làn tăng tốc để đạt tốc độ phù hợp rồi hòa nhập an toàn vào làn chính." },
+    { vi: "Trước khi lên cao tốc nên kiểm tra nhiên liệu, lốp và nước làm mát vì khó dừng dọc đường.", answer: true, explanationVi: "Cao tốc khó dừng nên cần kiểm tra xe kỹ trước khi đi." },
+    { vi: "Hết xăng giữa đường cao tốc không bị coi là vi phạm vì đó là sự cố ngoài ý muốn.", answer: false, explanationVi: "Hết xăng trên cao tốc bị coi là vi phạm vì lẽ ra phải đổ đủ nhiên liệu trước khi đi." },
+
+    // --- Lái xe an toàn (hiện tượng vật lý) ---
+    { vi: "Khi xuống dốc dài, dùng phanh động cơ (エンジンブレーキ) kết hợp với phanh chân giúp an toàn hơn.", answer: true, explanationVi: "Phanh động cơ giúp giảm tải cho phanh chân, tránh hiện tượng phanh mất tác dụng." },
+    { vi: "Dùng phanh chân liên tục khi xuống dốc dài có thể gây hiện tượng phanh mất tác dụng (フェード hoặc ベーパーロック).", answer: true, explanationVi: "Phanh nóng lên (fade) hoặc dầu phanh sôi (vapor lock) làm phanh kém/mất tác dụng." },
+    { vi: "Hiện tượng \"hydroplaning\" (ハイドロプレーニング) xảy ra khi chạy nhanh trên đường ướt, lốp trượt trên màng nước và mất bám.", answer: true, explanationVi: "Chạy nhanh trên mặt nước khiến lốp nổi trên màng nước, mất khả năng điều khiển." },
+    { vi: "Lốp non hơi khi chạy tốc độ cao có thể gây hiện tượng sóng đứng (スタンディングウェーブ) làm hỏng/nổ lốp.", answer: true, explanationVi: "Lốp thiếu hơi biến dạng dạng sóng ở tốc độ cao, dễ nổ; cần bơm đủ áp suất." },
+    { vi: "Hiện tượng \"creep\" (クリープ) ở xe số tự động là khi để cần số ở D mà không đạp ga, xe vẫn tự bò tới.", answer: true, explanationVi: "Xe AT có hiện tượng tự bò khi ở D/R không đạp ga; cần giữ phanh." },
+    { vi: "Ban đêm, mắt người nhìn xa kém hơn ban ngày nên cần giảm tốc độ.", answer: true, explanationVi: "Tầm nhìn ban đêm hạn chế, phải giảm tốc và chú ý nhiều hơn." },
+    { vi: "Khi gặp xe ngược chiều hoặc đi sau xe khác vào ban đêm, nên hạ đèn pha (giảm độ chói).", answer: true, explanationVi: "Phải chuyển đèn cốt/hạ pha để không làm chói mắt người lái xe khác." },
+
+    // --- Tín hiệu xe (合図) ---
+    { vi: "Khi rẽ trái, rẽ phải hoặc quay đầu, phải ra tín hiệu (xi-nhan) từ khoảng 30m trước điểm rẽ.", answer: true, explanationVi: "Tín hiệu rẽ/quay đầu phải bật trước 30m." },
+    { vi: "Khi chuyển làn, phải ra tín hiệu trước khoảng 3 giây.", answer: true, explanationVi: "Đổi làn phải bật xi-nhan trước khoảng 3 giây rồi mới chuyển." },
+    { vi: "Sau khi đã rẽ hoặc chuyển làn xong thì phải tắt tín hiệu.", answer: true, explanationVi: "Tắt xi-nhan sau khi hoàn thành thao tác để tránh gây hiểu nhầm cho xe khác." },
+
+    // --- Còi & đèn ---
+    { vi: "Còi xe (警音器) chỉ được dùng ở nơi có biển báo yêu cầu bấm còi hoặc khi cần thiết để tránh nguy hiểm.", answer: true, explanationVi: "Không được bấm còi tùy tiện; chỉ dùng nơi có biển \"警笛鳴らせ\" hoặc để tránh tai nạn." },
+    { vi: "Vào ban đêm, trong hầm, hoặc khi trời mưa to sương mù khó nhìn, phải bật đèn xe.", answer: true, explanationVi: "Phải bật đèn khi trời tối, trong hầm, hoặc khi tầm nhìn kém." },
+
+    // --- Bằng lái & nghĩa vụ ---
+    { vi: "Khi lái xe, luôn phải mang theo giấy phép lái xe.", answer: true, explanationVi: "Lái xe mà không mang theo bằng là vi phạm (không trình diện được bằng)." },
+    { vi: "Bằng lái xe thường (普通免許) lấy sau ngày 12/3/2017 cho phép lái xe có tổng trọng lượng dưới 3.5 tấn.", answer: true, explanationVi: "Tổng trọng lượng dưới 3.5 tấn, tải trọng dưới 2 tấn, số chỗ ngồi 10 người trở xuống." },
+    { vi: "Bằng lái có thời hạn; phải gia hạn (đổi bằng) trong thời gian quy định quanh ngày sinh nhật.", answer: true, explanationVi: "Bằng có thời hạn 3 hoặc 5 năm; phải đi gia hạn đúng hạn nếu không sẽ mất hiệu lực." },
+    { vi: "Người có bằng lái xe thường (普通免許) đương nhiên được lái cả xe tải lớn (大型車).", answer: false, explanationVi: "Lái xe tải lớn cần bằng riêng (大型免許); bằng thường không lái được." },
+    { vi: "Bằng lái tạm (仮免許) có thời hạn hiệu lực 6 tháng.", answer: true, explanationVi: "Bằng tạm có hiệu lực 6 tháng kể từ ngày cấp." },
+
+    // --- Chở hàng & kéo xe ---
+    { vi: "Chiều cao chở hàng (tính từ mặt đất) của ô tô thường tối đa là 3.8m.", answer: true, explanationVi: "Giới hạn chiều cao chở hàng tính từ mặt đất là 3.8m (trừ trường hợp được cấp phép đặc biệt)." },
+    { vi: "Hàng hóa được phép nhô ra phía sau xe không quá 1/10 chiều dài của xe.", answer: true, explanationVi: "Phần nhô ra phía sau không vượt quá 1/10 chiều dài xe; phần nhô cần gắn vải/đèn báo." },
+    { vi: "Chở hàng quá tải trọng cho phép vẫn được, miễn là buộc chặt và lái cẩn thận.", answer: false, explanationVi: "Chở quá tải trọng quy định là vi phạm, ảnh hưởng phanh và độ ổn định của xe." },
+    { vi: "Khi kéo một xe khác bằng dây/cáp, khoảng cách giữa hai xe phải trong 5m và treo vải trắng (khoảng 0.3m vuông) ở giữa dây kéo.", answer: true, explanationVi: "Khoảng cách kéo trong 5m, có vải trắng cảnh báo ở giữa để xe khác nhận biết." },
+
+    // --- Thiết bị an toàn & kiểm tra xe ---
+    { vi: "Tài xế và tất cả hành khách (kể cả ghế sau) đều phải thắt dây an toàn.", answer: true, explanationVi: "Mọi vị trí ngồi đều phải thắt dây an toàn, kể cả ghế sau." },
+    { vi: "Trẻ em dưới 6 tuổi khi ngồi trên ô tô phải dùng ghế trẻ em (チャイルドシート).", answer: true, explanationVi: "Trẻ dưới 6 tuổi bắt buộc dùng ghế trẻ em phù hợp." },
+    { vi: "Kiểm tra hàng ngày (日常点検) trước khi lái là trách nhiệm của người sử dụng xe.", answer: true, explanationVi: "Người lái/người dùng xe có nghĩa vụ kiểm tra tình trạng xe trước khi vận hành." },
+    { vi: "Lốp xe mòn hết rãnh (gai lốp) vẫn an toàn miễn là chưa thủng.", answer: false, explanationVi: "Lốp mòn hết rãnh giảm bám đường rất nguy hiểm, đặc biệt khi đường ướt; phải thay." },
+    { vi: "Kiểm định xe (車検) lần đầu của xe con tư nhân là sau 3 năm, các lần sau là mỗi 2 năm.", answer: true, explanationVi: "Xe con cá nhân: kiểm định lần đầu sau 3 năm, sau đó định kỳ 2 năm/lần." },
+    { vi: "Bảo hiểm trách nhiệm dân sự bắt buộc (自賠責保険) là điều kiện bắt buộc để xe được lưu hành.", answer: true, explanationVi: "Mọi xe phải có bảo hiểm bắt buộc 自賠責保険 mới được lưu hành." },
+
+    // --- Rượu bia, mệt mỏi, điện thoại ---
+    { vi: "Tuyệt đối không được lái xe sau khi uống rượu bia, dù chỉ một chút.", answer: true, explanationVi: "Lái xe sau khi uống rượu bị xử lý rất nặng tại Nhật, không có ngưỡng \"chút ít\" được phép." },
+    { vi: "Người đưa xe hoặc mời rượu cho người sẽ lái xe cũng có thể bị xử phạt.", answer: true, explanationVi: "Người cung cấp rượu, giao xe, hoặc đi nhờ xe của người say cũng bị xử phạt." },
+    { vi: "Vẫn còn dư âm say rượu từ hôm trước (\"say sáng hôm sau\") thì vẫn không được lái xe.", answer: true, explanationVi: "Nếu còn nồng độ cồn trong người thì vẫn là lái xe khi say, bị cấm." },
+    { vi: "Khi quá mệt, buồn ngủ hoặc đang dùng thuốc gây buồn ngủ thì không nên lái xe.", answer: true, explanationVi: "Mệt mỏi, buồn ngủ, thuốc gây buồn ngủ làm giảm khả năng lái, không được lái." },
+    { vi: "Được phép cầm điện thoại nghe gọi khi đang lái xe nếu chạy chậm.", answer: false, explanationVi: "Cấm cầm điện thoại nghe gọi/nhìn màn hình khi đang lái, kể cả chạy chậm." },
+
+    // --- Sơ cứu & môi trường ---
+    { vi: "Khi gặp tai nạn, trước tiên phải dừng xe, cứu giúp người bị nạn và báo cho cảnh sát.", answer: true, explanationVi: "Người liên quan tai nạn phải dừng xe, sơ cứu người bị thương và báo cảnh sát." },
+    { vi: "Khởi động và tăng tốc nhẹ nhàng, giữ tốc độ ổn định giúp tiết kiệm nhiên liệu và bảo vệ môi trường.", answer: true, explanationVi: "Lái xe sinh thái (eco): tăng tốc êm, giữ đều tốc độ, giảm phanh gấp giúp tiết kiệm xăng." },
+    { vi: "Nẹt ga, rồ máy mạnh không cần thiết khi dừng đỗ là hành vi nên tránh.", answer: true, explanationVi: "Rồ ga vô ích gây ồn, ô nhiễm và tốn nhiên liệu, nên tránh." },
+
+    // --- Xe hai bánh (二輪) ---
+    { vi: "Khi đi xe máy, nên dùng kết hợp cả phanh trước và phanh sau.", answer: true, explanationVi: "Phanh xe máy hiệu quả và an toàn nhất khi dùng đồng thời phanh trước và sau." },
+    { vi: "Người lái xe máy không bắt buộc đội mũ bảo hiểm nếu chạy chậm trong khu dân cư.", answer: false, explanationVi: "Đội mũ bảo hiểm là bắt buộc khi đi xe máy, không có ngoại lệ theo tốc độ." },
+    { vi: "Xe gắn máy nhỏ (原付) có tốc độ tối đa theo luật là 30km/h.", answer: true, explanationVi: "Xe 原付 (≤50cc) bị giới hạn tốc độ tối đa 30km/h." },
+
+    // --- Tổng hợp / tình huống ---
+    { vi: "Trên đường có nhiều làn cùng chiều, về nguyên tắc nên đi ở làn bên trái, để làn bên phải cho việc vượt.", answer: true, explanationVi: "Làn ngoài cùng bên phải dành cho vượt; bình thường đi làn bên trái." },
+    { vi: "Khi qua đường ray (踏切) có lắp đèn tín hiệu giao thông và đèn đang xanh, vẫn bắt buộc phải dừng tạm rồi mới được đi qua.", answer: false, explanationVi: "Về nguyên tắc qua đường ray phải dừng tạm và xác nhận an toàn. NHƯNG theo Luật giao thông (điều 33), nếu đường ray có đèn tín hiệu giao thông và đèn đang XANH thì KHÔNG cần dừng tạm — chỉ cần xác nhận an toàn rồi đi qua. (Lưu ý: chuông/đèn cảnh báo đường ray 踏切警報機 đang kêu thì tuyệt đối cấm vào.)" },
+    { vi: "Khi đường ray có rào chắn đang hạ hoặc đang đóng, tuyệt đối không được cố vượt qua.", answer: true, explanationVi: "Cấm vượt qua đường ray khi rào đang hạ/đóng hoặc chuông đang kêu." },
+    { vi: "Khi tầm nhìn kém do sương mù dày, nên bật đèn và giảm tốc độ, giữ khoảng cách lớn hơn.", answer: true, explanationVi: "Sương mù làm giảm tầm nhìn; cần bật đèn, giảm tốc và tăng khoảng cách." },
+    { vi: "Khi vào đoạn đường cong, nên giảm tốc trước khi vào cua chứ không phanh gấp giữa cua.", answer: true, explanationVi: "Giảm tốc trước cua an toàn hơn; phanh gấp giữa cua dễ trượt." },
+    { vi: "Lực ly tâm khi vào cua tăng lên khi tốc độ càng cao.", answer: true, explanationVi: "Lực ly tâm tỉ lệ với bình phương tốc độ; vào cua nhanh dễ văng ra ngoài." },
+    { vi: "Khi trẻ em đang đi một mình hoặc chơi gần đường mà xe không giữ được khoảng cách an toàn, phải tạm dừng hoặc đi chậm.", answer: true, explanationVi: "Trẻ em khó đoán hành vi; phải tạm dừng hoặc đi chậm để bảo vệ." },
+    { vi: "Khi xe buýt đang bật xi-nhan rời khỏi trạm dừng, trong khu vực quy định, xe phía sau phải giảm tốc nhường cho xe buýt nhập làn.", answer: true, explanationVi: "Phải nhường xe buýt rời trạm khi nó ra tín hiệu (trong khu vực quy định), trừ khi phải phanh gấp nguy hiểm." },
+    { vi: "Khi gặp người đi bộ đang băng qua đường ở nơi không có vạch sang đường thì xe không cần nhường vì họ sai luật.", answer: false, explanationVi: "Vẫn phải đảm bảo an toàn cho người đi bộ, không được gây nguy hiểm cho họ." },
+    { vi: "Khi đỗ xe trên dốc, nên kéo phanh tay và đánh lái bánh trước về phía lề để phòng xe trôi.", answer: true, explanationVi: "Kéo phanh tay, vào số (hoặc P) và đánh lái về lề để xe không trôi tự do." },
+    { vi: "Khi lốp trước bị nổ lúc đang chạy, nên đạp phanh thật mạnh ngay lập tức để dừng nhanh.", answer: false, explanationVi: "Nổ lốp thì phải giữ chắc vô lăng, nhả ga, phanh từ từ; phanh gấp dễ mất lái." },
+    { vi: "Khi buồn ngủ lúc lái xe, giải pháp an toàn là dừng vào nơi an toàn để nghỉ.", answer: true, explanationVi: "Buồn ngủ phải dừng nghỉ; cố lái tiếp rất dễ gây tai nạn." },
+    { vi: "Khi đèn giao thông bị hỏng (không sáng) ở ngã tư, cứ coi như mình được ưu tiên đi thẳng qua.", answer: false, explanationVi: "Đèn hỏng thì phải giảm tốc, xác nhận an toàn và áp dụng quy tắc nhường đường thông thường." },
+    { vi: "Trên đường trơn trượt (băng tuyết), nên dùng lốp mùa đông hoặc xích, và thao tác phanh/ga/lái đều phải nhẹ nhàng.", answer: true, explanationVi: "Đường băng tuyết cần lốp phù hợp và thao tác êm để tránh trượt." },
+    { vi: "Khi tầm nhìn bị che khuất bởi xe đỗ bên đường, nên giảm tốc đề phòng người bước ra bất ngờ.", answer: true, explanationVi: "Sau xe đỗ có thể có người băng ra; phải giảm tốc và quan sát." },
+    { vi: "Khi vào khu vực có biển trường học hoặc khu dân cư đông trẻ em, phải đặc biệt chú ý và sẵn sàng giảm tốc.", answer: true, explanationVi: "Trẻ em hành động khó lường; phải chú ý và sẵn sàng dừng." },
+    { vi: "Khi mở cửa xe sau khi đỗ, phải xác nhận phía sau không có xe đạp/xe máy đang tới.", answer: true, explanationVi: "Mở cửa bất cẩn có thể gây tai nạn cho xe đạp/xe máy phía sau." },
+    { vi: "Khi lùi xe, phải xác nhận an toàn phía sau, nếu cần thì nhờ người hỗ trợ quan sát.", answer: true, explanationVi: "Lùi xe có nhiều điểm mù; phải xác nhận kỹ phía sau, có thể nhờ người hỗ trợ." },
+    { vi: "Người mới lấy bằng (初心者) trong 1 năm đầu phải dán nhãn người mới lái (初心者マーク).", answer: true, explanationVi: "Trong 1 năm đầu, người mới lái xe thường phải dán nhãn 初心者マーク." },
+    { vi: "Khi gặp đèn xanh nhưng cảnh sát ra hiệu dừng, cứ đi tiếp vì đèn đang xanh.", answer: false, explanationVi: "Phải tuân theo cảnh sát; hiệu lệnh người điều khiển ưu tiên hơn đèn." },
+    { vi: "Khi muốn quay đầu xe (U-turn), phải xác nhận an toàn và không quay đầu ở nơi có biển cấm quay đầu.", answer: true, explanationVi: "Chỉ quay đầu nơi cho phép và sau khi xác nhận an toàn." },
+    { vi: "Trên đường một chiều, được phép đi lấn sang phần bên phải của đường khi cần.", answer: true, explanationVi: "Đường một chiều không có xe ngược chiều nên được dùng cả phần bên phải." },
+    { vi: "Khi xe phía trước dừng lại để nhường người đi bộ qua đường, xe phía sau không được vượt lên.", answer: true, explanationVi: "Cấm vượt khi xe trước dừng nhường người đi bộ — rất nguy hiểm cho người qua đường." },
+    { vi: "Đi chậm (徐行) chỉ đơn giản là đi từ từ, không cần phải dừng được ngay.", answer: false, explanationVi: "Đi chậm là tốc độ dừng được ngay trong khoảng 1m (khoảng dưới 10km/h)." },
+    { vi: "Khi đường bị ngập nước sâu, nên tránh đi vào vì nước có thể làm chết máy và cuốn trôi xe.", answer: true, explanationVi: "Nước sâu gây chết máy, hỏng xe và nguy hiểm; nên tránh." },
+    { vi: "Khi rời xe để đi lâu, nên tắt máy, kéo phanh tay và rút chìa khóa.", answer: true, explanationVi: "Rời xe phải tắt máy, kéo phanh tay, khóa xe để đảm bảo an toàn." },
+    { vi: "Khi nhập làn hoặc chuyển làn, phải xác nhận gương và cả điểm mù (góc khuất) bằng mắt.", answer: true, explanationVi: "Gương không thấy hết điểm mù; phải quay nhìn xác nhận trực tiếp." },
+    { vi: "Tốc độ phù hợp là tốc độ vừa đúng luật vừa an toàn với tình hình đường, thời tiết và mật độ xe.", answer: true, explanationVi: "Ngay cả khi dưới tốc độ tối đa, vẫn phải chạy chậm hơn nếu điều kiện đòi hỏi." },
+    { vi: "Khi đèn vàng bật lúc xe đã quá gần vạch dừng, dừng gấp sẽ nguy hiểm thì được phép đi tiếp.", answer: true, explanationVi: "Nếu không thể dừng an toàn trước vạch khi đèn vàng, được đi tiếp qua." },
+    { vi: "Khi nắng chói làm lóa mắt, có thể dùng tấm che nắng và kính râm, đồng thời giảm tốc nếu khó nhìn.", answer: true, explanationVi: "Chống lóa và giảm tốc khi tầm nhìn bị ảnh hưởng là cần thiết." },
+    { vi: "Vạch phân làn màu trắng đứt nét cho phép chuyển làn khi an toàn.", answer: true, explanationVi: "Vạch trắng đứt nét cho phép chuyển làn nếu đảm bảo an toàn." },
+    { vi: "Trên cầu vượt hoặc hầm chui dành riêng cho người đi bộ, xe cơ giới không được đi vào.", answer: true, explanationVi: "Công trình dành riêng cho người đi bộ thì xe cơ giới không được đi vào." },
+    { vi: "Khi đang đi mà thấy biển báo tốc độ tối đa 40, có thể chạy 50 nếu đường vắng.", answer: false, explanationVi: "Phải tuân thủ tốc độ tối đa do biển quy định, không được vượt dù đường vắng." },
+    { vi: "Khi vượt xe đạp, phải giữ khoảng cách bên an toàn hoặc đi chậm.", answer: true, explanationVi: "Xe đạp dễ loạng choạng; vượt phải chừa khoảng cách an toàn hoặc đi chậm." },
+    { vi: "Khi đi qua khu vực đang thi công, phải tuân theo người điều khiển và biển báo công trường, giảm tốc.", answer: true, explanationVi: "Khu thi công cần đi chậm và tuân theo chỉ dẫn để an toàn." },
+    { vi: "Đèn phanh và đèn xi-nhan hỏng cũng không sao vì vẫn lái được bình thường.", answer: false, explanationVi: "Đèn phanh/xi-nhan hỏng khiến xe sau không hiểu ý định, rất nguy hiểm và là vi phạm; phải sửa." },
+    { vi: "Khi chở trẻ nhỏ, nên khóa cửa và bật khóa an toàn trẻ em để trẻ không tự mở cửa.", answer: true, explanationVi: "Dùng khóa an toàn trẻ em để tránh trẻ mở cửa khi xe đang chạy." }
+];
+
+// Câu dự đoán nguy hiểm (危険予測) — mỗi câu mô tả 1 tình huống + 3 ý nhỏ. Đúng cả 3 ý mới được 2 điểm.
+const honmenHazards = [
+    { type: 'hazard', scene: "Bạn đang lái xe trong khu dân cư với tốc độ vừa phải. Bỗng một quả bóng từ bên trái lăn ra giữa đường, ngay phía trước xe bạn.", subs: [
+        { vi: "Có thể có trẻ em chạy theo quả bóng ra đường, nên cần giảm tốc và sẵn sàng phanh.", answer: true, explanationVi: "Bóng lăn ra thường kéo theo trẻ em; phải dự đoán và giảm tốc, sẵn sàng dừng." },
+        { vi: "Vì chỉ là một quả bóng nên cứ giữ nguyên tốc độ đi qua.", answer: false, explanationVi: "Không được chủ quan; nguy cơ có trẻ chạy ra là rất cao." },
+        { vi: "Bấm còi thật to rồi tăng tốc vượt qua thật nhanh.", answer: false, explanationVi: "Tăng tốc qua chỗ nguy hiểm là sai; phải giảm tốc và sẵn sàng dừng." }
+    ]},
+    { type: 'hazard', scene: "Phía trước bên trái có một xe buýt đang dừng ở trạm, đang bật đèn xi-nhan chuẩn bị rời trạm.", subs: [
+        { vi: "Có thể có người đi bộ băng qua đường từ phía trước hoặc phía sau xe buýt, nên cần giảm tốc.", answer: true, explanationVi: "Hành khách xuống xe buýt hay băng qua đường; phải giảm tốc đề phòng." },
+        { vi: "Trong khu vực quy định, phải giảm tốc nhường cho xe buýt rời trạm nhập làn.", answer: true, explanationVi: "Phải nhường xe buýt rời trạm khi nó ra tín hiệu (trừ khi phải phanh gấp nguy hiểm)." },
+        { vi: "Tăng tốc vượt qua xe buýt trước khi nó kịp chạy là an toàn nhất.", answer: false, explanationVi: "Vượt vội rất nguy hiểm vì tầm nhìn bị xe buýt che khuất." }
+    ]},
+    { type: 'hazard', scene: "Trời đang mưa, mặt đường ướt trơn. Phía trước là ngã tư đèn xanh nhưng dòng xe bên kia ngã tư đang ùn ứ.", subs: [
+        { vi: "Đường trơn nên cần giảm tốc và tăng khoảng cách với xe trước.", answer: true, explanationVi: "Đường ướt làm khoảng cách phanh dài hơn; phải giảm tốc, giữ khoảng cách." },
+        { vi: "Đèn đang xanh nên cứ tiến vào ngã tư dù phía trước đang kẹt.", answer: false, explanationVi: "Không được vào ngã tư nếu có nguy cơ bị kẹt lại trong đó gây cản trở." },
+        { vi: "Khi trời mưa, phanh thật gấp là cách an toàn nhất.", answer: false, explanationVi: "Phanh gấp trên đường ướt dễ trượt; phải phanh sớm và nhẹ nhàng." }
+    ]},
+    { type: 'hazard', scene: "Một em nhỏ đang đứng ở mép vỉa hè bên phải, nhìn chăm chú sang phía bên kia đường, trong khi xe bạn đang tiến tới gần.", subs: [
+        { vi: "Trẻ em có thể đột ngột băng qua đường, nên cần giảm tốc và quan sát kỹ.", answer: true, explanationVi: "Trẻ em khó đoán; phải dự đoán khả năng băng qua bất ngờ." },
+        { vi: "Vì trẻ chưa bước xuống đường nên cứ chạy với tốc độ bình thường.", answer: false, explanationVi: "Không được chủ quan; trẻ có thể chạy ra bất cứ lúc nào." },
+        { vi: "Chuẩn bị phanh và sẵn sàng dừng hẳn nếu trẻ bước ra.", answer: true, explanationVi: "Sẵn sàng phanh/dừng là xử lý đúng để bảo vệ trẻ." }
+    ]},
+    { type: 'hazard', scene: "Bạn đang lái xe trên đường phố vào ban đêm. Bên lề phải phía trước có một người đi bộ mặc quần áo màu tối.", subs: [
+        { vi: "Ban đêm khó nhìn rõ người đi bộ nên cần giảm tốc.", answer: true, explanationVi: "Người mặc đồ tối ban đêm rất khó thấy; phải giảm tốc đề phòng." },
+        { vi: "Dùng đèn hợp lý và chú ý quan sát lề đường.", answer: true, explanationVi: "Quan sát kỹ lề đường và dùng đèn phù hợp giúp phát hiện sớm." },
+        { vi: "Vì có đèn đường nên không cần lo lắng về người đi bộ.", answer: false, explanationVi: "Đèn đường không đảm bảo nhìn rõ; vẫn phải chú ý và giảm tốc." }
+    ]},
+    { type: 'hazard', scene: "Bạn đang chuẩn bị rẽ trái ở ngã tư. Phía trước bên trái có một xe đạp đang đi cùng chiều, hơi chậm hơn xe bạn.", subs: [
+        { vi: "Khi rẽ trái phải chú ý tránh cuốn xe đạp/người đi bộ vào bên trái (巻き込み).", answer: true, explanationVi: "Tai nạn cuốn vào (巻き込み) khi rẽ trái rất phổ biến; phải đặc biệt chú ý." },
+        { vi: "Xe đạp chậm nên cứ rẽ trái nhanh vượt lên trước nó.", answer: false, explanationVi: "Rẽ cắt đầu xe đạp rất nguy hiểm; phải nhường và quan sát." },
+        { vi: "Giảm tốc, xác nhận gương trái và điểm mù rồi mới rẽ.", answer: true, explanationVi: "Xác nhận gương và điểm mù trước khi rẽ trái là xử lý đúng." }
+    ]},
+    { type: 'hazard', scene: "Trên đường cao tốc, phía trước cùng làn có một chiếc xe đang chạy chậm bất thường và bật đèn cảnh báo nguy hiểm (hazard).", subs: [
+        { vi: "Xe đó có thể đang gặp sự cố, nên cần giảm tốc và tăng khoảng cách.", answer: true, explanationVi: "Đèn hazard báo bất thường; phải giảm tốc và giữ khoảng cách." },
+        { vi: "Quan sát và chuẩn bị chuyển sang làn khác một cách an toàn để vượt.", answer: true, explanationVi: "Sau khi xác nhận an toàn, chuyển làn để tránh xe sự cố là hợp lý." },
+        { vi: "Bám sát đuôi xe đó để ép nó chạy nhanh hơn.", answer: false, explanationVi: "Bám đuôi (煽り運転) rất nguy hiểm và là hành vi vi phạm." }
+    ]},
+    { type: 'hazard', scene: "Bạn đang đi qua khu vực có biển báo trường học, đúng giờ tan học và có nhiều học sinh ở hai bên đường.", subs: [
+        { vi: "Cần đi chậm (徐行) và quan sát kỹ xung quanh.", answer: true, explanationVi: "Khu trường học giờ tan học phải đi chậm, quan sát kỹ." },
+        { vi: "Học sinh có thể bất ngờ chạy ra đường, nên phải đề phòng.", answer: true, explanationVi: "Trẻ em hành động khó lường; phải sẵn sàng dừng." },
+        { vi: "Bấm còi liên tục để học sinh tự tránh đường rồi chạy nhanh qua.", answer: false, explanationVi: "Bấm còi hối thúc và chạy nhanh là sai; phải đi chậm và nhường." }
+    ]},
+    { type: 'hazard', scene: "Bạn đi trên đường khá hẹp, bên trái phía trước có một xe ô tô đang đỗ che khuất một phần tầm nhìn.", subs: [
+        { vi: "Có thể có người bước ra từ phía trước hoặc sau xe đỗ, nên cần giảm tốc.", answer: true, explanationVi: "Sau xe đỗ là điểm mù; người có thể bước ra bất ngờ." },
+        { vi: "Cần giữ khoảng cách với xe đỗ để đề phòng cửa xe bất ngờ mở.", answer: true, explanationVi: "Cửa xe đỗ có thể mở đột ngột; phải chừa khoảng cách." },
+        { vi: "Tăng tốc để vượt nhanh qua chỗ bị che khuất.", answer: false, explanationVi: "Tăng tốc qua điểm khuất tầm nhìn rất nguy hiểm." }
+    ]},
+    { type: 'hazard', scene: "Phía trước trên cùng làn, xe ô tô đi trước bạn bất ngờ sáng đèn phanh và giảm tốc nhanh.", subs: [
+        { vi: "Giữ khoảng cách an toàn từ trước giúp bạn có đủ thời gian xử lý.", answer: true, explanationVi: "Khoảng cách an toàn là yếu tố then chốt để tránh va chạm phía sau." },
+        { vi: "Lập tức đánh lái sang làn bên cạnh mà không cần quan sát.", answer: false, explanationVi: "Chuyển làn không quan sát rất nguy hiểm; phải kiểm tra gương và điểm mù." },
+        { vi: "Quan sát gương rồi phanh giảm tốc theo một cách bình tĩnh.", answer: true, explanationVi: "Phanh giảm tốc có kiểm soát và quan sát phía sau là xử lý đúng." }
+    ]}
+];
+
 // ===== EXAM STATE =====
 let questions = [];
 let currentIndex = 0;
 let answers = {};
 let timerInterval = null;
 let correctCount = 0;
+let examMode = 'karimen';
+
+const EXAM_CONFIG = {
+    karimen: { oxCount: 50, hazardCount: 0, time: 30 * 60, pass: 45, total: 50,
+        bilingual: true, title: '🌸 Ngọc Anh の仮免許学科試験' },
+    honmen:  { oxCount: 90, hazardCount: 5, time: 50 * 60, pass: 90, total: 100,
+        bilingual: false, title: '🏆 Ngọc Anh の本免許学科試験 (Honmen)' }
+};
 
 // Sound effects using Web Audio API (no files needed)
 const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -3689,19 +4114,64 @@ function shuffleArray(arr) {
     return shuffled;
 }
 
-function startExam() {
-    questions = shuffleArray(allQuestions).slice(0, 50);
-    if (questions.length < 50) {
-        // If not enough questions, repeat some
-        while (questions.length < 50) {
-            const extra = shuffleArray(allQuestions);
-            questions.push(...extra.slice(0, 50 - questions.length));
-        }
+function chooseKarimen() {
+    document.getElementById('homeScreen').style.display = 'none';
+    document.getElementById('startScreen').style.display = 'block';
+    window.scrollTo({ top: 0 });
+}
+function chooseHonmen() {
+    document.getElementById('homeScreen').style.display = 'none';
+    document.getElementById('honmenStartScreen').style.display = 'block';
+    window.scrollTo({ top: 0 });
+}
+function goHome() {
+    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('honmenStartScreen').style.display = 'none';
+    document.getElementById('homeScreen').style.display = 'block';
+    window.scrollTo({ top: 0 });
+}
+
+function pickRandom(pool, n) {
+    let out = shuffleArray(pool).slice(0, n);
+    while (out.length < n && pool.length > 0) {
+        out = out.concat(shuffleArray(pool).slice(0, n - out.length));
+    }
+    return out;
+}
+
+function startExam(mode) {
+    examMode = mode || 'karimen';
+    const cfg = EXAM_CONFIG[examMode];
+
+    if (examMode === 'honmen') {
+        const ox = pickRandom(honmenOX, cfg.oxCount);
+        const hz = pickRandom(honmenHazards, cfg.hazardCount);
+        questions = [...ox, ...hz];
+    } else {
+        questions = pickRandom(allQuestions, cfg.oxCount);
     }
 
+    answers = {};
+    currentIndex = 0;
+    correctCount = 0;
+    timeLeft = cfg.time;
+
+    document.getElementById('homeScreen').style.display = 'none';
     document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('honmenStartScreen').style.display = 'none';
     document.getElementById('examHeader').style.display = 'block';
     document.getElementById('examContainer').style.display = 'block';
+    document.getElementById('resultScreen').style.display = 'none';
+
+    document.getElementById('examTitle').textContent = cfg.title;
+    document.getElementById('totalCount').textContent = questions.length;
+    document.getElementById('timerDisplay').classList.remove('warning');
+
+    // Answer button labels
+    const maruLabel = cfg.bilingual ? '正しい / Đúng' : 'Đúng';
+    const batsuLabel = cfg.bilingual ? '誤り / Sai' : 'Sai';
+    document.querySelector('#btnMaru .label').textContent = maruLabel;
+    document.querySelector('#btnBatsu .label').textContent = batsuLabel;
 
     buildQuestionNav();
     showQuestion(0);
@@ -3713,62 +4183,136 @@ function buildQuestionNav() {
     nav.innerHTML = '';
     for (let i = 0; i < questions.length; i++) {
         const btn = document.createElement('button');
-        btn.className = 'nav-btn';
+        btn.className = 'nav-btn' + (questions[i].type === 'hazard' ? ' nav-hazard' : '');
         btn.textContent = i + 1;
         btn.onclick = () => showQuestion(i);
         nav.appendChild(btn);
     }
 }
 
+function isHazardDone(i) {
+    const q = questions[i];
+    const a = answers[i];
+    return q.type === 'hazard' && a && a.filter(x => x !== undefined).length === q.subs.length;
+}
+
 function updateQuestionNav() {
     const buttons = document.querySelectorAll('.question-nav .nav-btn');
     buttons.forEach((btn, i) => {
+        const q = questions[i];
         btn.className = 'nav-btn';
+        if (q && q.type === 'hazard') {
+            btn.classList.add('nav-hazard');
+            if (isHazardDone(i)) btn.classList.add('answered-hz');
+        } else {
+            if (answers[i] === true) btn.classList.add('answered-maru');
+            if (answers[i] === false) btn.classList.add('answered-batsu');
+        }
         if (i === currentIndex) btn.classList.add('current');
-        if (answers[i] === true) btn.classList.add('answered-maru');
-        if (answers[i] === false) btn.classList.add('answered-batsu');
     });
 }
 
 function showQuestion(index) {
     currentIndex = index;
     const q = questions[index];
+    const cfg = EXAM_CONFIG[examMode];
+    const numLabel = examMode === 'honmen' ? 'Câu' : '問題';
+    document.getElementById('questionNumber').textContent = `${numLabel} ${index + 1} / ${questions.length}`;
 
-    document.getElementById('questionNumber').textContent = `問題 ${index + 1} / 50`;
-    document.getElementById('questionTextJp').textContent = q.jp;
-    document.getElementById('questionTextVi').textContent = q.vi;
+    const oxBlock = document.getElementById('oxBlock');
+    const hazardScene = document.getElementById('hazardScene');
+    const hazardSubs = document.getElementById('hazardSubs');
 
-    // Reset button states
-    document.getElementById('btnMaru').classList.remove('selected', 'disabled');
-    document.getElementById('btnBatsu').classList.remove('selected', 'disabled');
-    hideInlineExplanation();
+    if (q.type === 'hazard') {
+        oxBlock.style.display = 'none';
+        hazardScene.style.display = 'block';
+        hazardSubs.style.display = 'block';
+        hazardScene.innerHTML = '<span class="hz-label">🖼️ Dự đoán nguy hiểm</span>'
+            + q.scene
+            + '<div class="hazard-hint">Trả lời Đúng/Sai cho cả 3 ý bên dưới. Đúng cả 3 ý mới được 2 điểm.</div>';
+        renderHazardSubs(q, index);
+    } else {
+        hazardScene.style.display = 'none';
+        hazardSubs.style.display = 'none';
+        oxBlock.style.display = 'block';
 
-    // Show selected answer if exists
-    if (answers[index] !== undefined) {
-        if (answers[index] === true) {
-            document.getElementById('btnMaru').classList.add('selected');
+        const jpEl = document.getElementById('questionTextJp');
+        if (cfg.bilingual && q.jp) {
+            jpEl.style.display = 'block';
+            jpEl.textContent = q.jp;
         } else {
-            document.getElementById('btnBatsu').classList.add('selected');
+            jpEl.style.display = 'none';
         }
-        // Disable buttons and show explanation for already answered questions
-        document.getElementById('btnMaru').classList.add('disabled');
-        document.getElementById('btnBatsu').classList.add('disabled');
-        const isCorrect = (answers[index] === q.answer);
-        showInlineExplanation(q, answers[index], isCorrect);
+        document.getElementById('questionTextVi').textContent = q.vi;
+
+        const m = document.getElementById('btnMaru');
+        const b = document.getElementById('btnBatsu');
+        m.classList.remove('selected', 'disabled');
+        b.classList.remove('selected', 'disabled');
+        hideInlineExplanation();
+
+        if (answers[index] !== undefined) {
+            (answers[index] ? m : b).classList.add('selected');
+            m.classList.add('disabled');
+            b.classList.add('disabled');
+            showInlineExplanation(q, answers[index], answers[index] === q.answer);
+        }
     }
 
-    // Update nav
     updateQuestionNav();
 
-    // Update prev/next buttons
     document.getElementById('prevBtn').disabled = index === 0;
     document.getElementById('nextBtn').disabled = index === questions.length - 1;
 
-    // Scroll to top of question (offset for sticky header on mobile)
     const card = document.getElementById('questionCard');
     const headerH = document.getElementById('examHeader').offsetHeight || 0;
     const y = card.getBoundingClientRect().top + window.pageYOffset - headerH - 10;
     window.scrollTo({ top: y, behavior: 'smooth' });
+}
+
+function renderHazardSubs(q, index) {
+    const container = document.getElementById('hazardSubs');
+    container.innerHTML = '';
+    const stored = answers[index];
+    q.subs.forEach((sub, si) => {
+        const answered = stored && stored[si] !== undefined;
+        const userAns = answered ? stored[si] : undefined;
+        const isCorrect = userAns === sub.answer;
+
+        const div = document.createElement('div');
+        div.className = 'hazard-sub';
+        div.innerHTML = `
+            <div class="hs-num">Ý ${si + 1}</div>
+            <div class="hs-text">${sub.vi}</div>
+            <div class="answer-buttons">
+                <button class="answer-btn maru ${answered && userAns ? 'selected' : ''} ${answered ? 'disabled' : ''}" data-si="${si}" data-val="1"><span class="symbol">○</span><span class="label">Đúng</span></button>
+                <button class="answer-btn batsu ${answered && userAns === false ? 'selected' : ''} ${answered ? 'disabled' : ''}" data-si="${si}" data-val="0"><span class="symbol">×</span><span class="label">Sai</span></button>
+            </div>
+            <div class="inline-explanation ${isCorrect ? 'correct' : 'wrong'}" style="display:${answered ? 'block' : 'none'};">
+                <div class="inline-result ${isCorrect ? 'correct' : 'wrong'}">${answered ? (isCorrect ? '✅ Đúng rồi！' : '❌ Chưa đúng nha') : ''}</div>
+                <div class="inline-correct-answer">Đáp án đúng: <strong>${sub.answer ? '○ Đúng' : '× Sai'}</strong></div>
+                <div class="inline-explain-vi">🇻🇳 ${sub.explanationVi}</div>
+            </div>
+        `;
+        container.appendChild(div);
+    });
+    container.querySelectorAll('.answer-btn').forEach(btn => {
+        btn.onclick = () => selectHazardSub(parseInt(btn.dataset.si, 10), btn.dataset.val === '1');
+    });
+}
+
+function selectHazardSub(si, isMaru) {
+    const q = questions[currentIndex];
+    if (!answers[currentIndex]) answers[currentIndex] = [];
+    if (answers[currentIndex][si] !== undefined) return; // locked once chosen
+    answers[currentIndex][si] = isMaru;
+
+    const isCorrect = isMaru === q.subs[si].answer;
+    if (isCorrect) playCorrectSound(); else playWrongSound();
+
+    renderHazardSubs(q, currentIndex);
+    updateQuestionNav();
+    updateAnsweredCount();
 }
 
 function selectAnswer(isMaru) {
@@ -3799,8 +4343,8 @@ function selectAnswer(isMaru) {
     // Show inline explanation
     showInlineExplanation(q, isMaru, isCorrect);
 
-    // Track correct count and celebrate milestones
-    if (isCorrect) {
+    // Track correct count and celebrate milestones (karimen only)
+    if (isCorrect && examMode === 'karimen') {
         correctCount++;
         if (correctCount % 5 === 0) {
             showMilestoneToast(correctCount);
@@ -3844,10 +4388,17 @@ function showInlineExplanation(q, userAnswer, isCorrect) {
         resultEl.innerHTML = encourageWrong[Math.floor(Math.random() * encourageWrong.length)];
     }
 
-    const correctAnswerText = q.answer ? '○（正しい / Đúng）' : '×（誤り / Sai）';
-    correctEl.innerHTML = '正解 / Đáp án đúng: <strong>' + correctAnswerText + '</strong>';
-    jpEl.innerHTML = '📖 ' + q.explanationJp;
-    viEl.innerHTML = '🇻🇳 ' + q.explanationVi;
+    if (examMode === 'honmen') {
+        correctEl.innerHTML = 'Đáp án đúng: <strong>' + (q.answer ? '○ Đúng' : '× Sai') + '</strong>';
+        jpEl.style.display = 'none';
+        viEl.innerHTML = '🇻🇳 ' + q.explanationVi;
+    } else {
+        const correctAnswerText = q.answer ? '○（正しい / Đúng）' : '×（誤り / Sai）';
+        correctEl.innerHTML = '正解 / Đáp án đúng: <strong>' + correctAnswerText + '</strong>';
+        jpEl.style.display = 'block';
+        jpEl.innerHTML = '📖 ' + q.explanationJp;
+        viEl.innerHTML = '🇻🇳 ' + q.explanationVi;
+    }
 
     el.style.display = 'block';
 }
@@ -3869,8 +4420,20 @@ function prevQuestion() {
     }
 }
 
+function countAnswered() {
+    let count = 0;
+    questions.forEach((q, i) => {
+        if (q.type === 'hazard') {
+            if (isHazardDone(i)) count++;
+        } else if (answers[i] !== undefined) {
+            count++;
+        }
+    });
+    return count;
+}
+
 function updateAnsweredCount() {
-    const count = Object.keys(answers).length;
+    const count = countAnswered();
     document.getElementById('answeredCount').textContent = count;
     document.getElementById('progressBar').style.width = (count / questions.length * 100) + '%';
 }
@@ -3900,62 +4463,87 @@ function updateTimerDisplay() {
 }
 
 function submitExam() {
-    const unanswered = questions.length - Object.keys(answers).length;
+    const cfg = EXAM_CONFIG[examMode];
+    const unanswered = questions.length - countAnswered();
     if (unanswered > 0) {
-        if (!confirm(`まだ${unanswered}問未回答です。提出しますか？\nCòn ${unanswered} câu chưa trả lời. Bạn có muốn nộp bài?`)) {
-            return;
-        }
+        const msg = examMode === 'honmen'
+            ? `Còn ${unanswered} câu chưa trả lời. Em có chắc muốn nộp bài không?`
+            : `まだ${unanswered}問未回答です。提出しますか？\nCòn ${unanswered} câu chưa trả lời. Bạn có muốn nộp bài?`;
+        if (!confirm(msg)) return;
     }
 
     clearInterval(timerInterval);
 
-    // Calculate results
-    let correct = 0;
-    let wrong = 0;
-    let unansweredCount = 0;
+    // Calculate results (points + per-question units)
+    let points = 0, correct = 0, wrong = 0, unansweredCount = 0;
 
     questions.forEach((q, i) => {
-        if (answers[i] === undefined) {
-            unansweredCount++;
-        } else if (answers[i] === q.answer) {
-            correct++;
+        if (q.type === 'hazard') {
+            const a = answers[i];
+            const done = a ? a.filter(x => x !== undefined).length : 0;
+            if (done === 0) { unansweredCount++; return; }
+            const allCorrect = q.subs.every((s, si) => a[si] === s.answer);
+            if (allCorrect) { points += 2; correct++; } else { wrong++; }
         } else {
-            wrong++;
+            if (answers[i] === undefined) { unansweredCount++; }
+            else if (answers[i] === q.answer) { points += 1; correct++; }
+            else { wrong++; }
         }
     });
 
-    const passed = correct >= 45;
+    const passed = points >= cfg.pass;
 
-    // Show result screen
     document.getElementById('examHeader').style.display = 'none';
     document.getElementById('examContainer').style.display = 'none';
     document.getElementById('resultScreen').style.display = 'block';
 
-    if (passed) {
-        document.getElementById('resultPass').innerHTML = '🎉🌸 Ngọc Anh ĐỖ RỒI！合格おめでとう！🌸🎉';
+    const passEl = document.getElementById('resultPass');
+    if (examMode === 'honmen') {
+        passEl.innerHTML = passed
+            ? '🎉💜 Ngọc Anh ĐỖ HONMEN RỒI！Sắp có bằng thật rồi đó em！🎊'
+            : '💪 Chưa đỗ Honmen lần này, nhưng đừng nản nha Ngọc Anh！<br><span style="font-size:16px; color:#888;">Honmen khó hơn, luyện thêm rồi thi lại là đỗ thôi！💜</span>';
+        document.getElementById('resultScore').innerHTML = `${points}<span> / ${cfg.total} điểm</span>`;
     } else {
-        document.getElementById('resultPass').innerHTML = '💪 Chưa đỗ lần này, nhưng Ngọc Anh đừng nản nha！<br><span style="font-size:16px; color:#888;">Luyện thêm rồi thi lại, nhất định sẽ đỗ thôi！🌸</span>';
+        passEl.innerHTML = passed
+            ? '🎉🌸 Ngọc Anh ĐỖ RỒI！合格おめでとう！🌸🎉'
+            : '💪 Chưa đỗ lần này, nhưng Ngọc Anh đừng nản nha！<br><span style="font-size:16px; color:#888;">Luyện thêm rồi thi lại, nhất định sẽ đỗ thôi！🌸</span>';
+        document.getElementById('resultScore').innerHTML = `${points}<span> / 50点</span>`;
     }
-    document.getElementById('resultPass').className = 'result-pass ' + (passed ? 'pass' : 'fail');
-    document.getElementById('resultScore').innerHTML = `${correct}<span> / 50点</span>`;
+    passEl.className = 'result-pass ' + (passed ? 'pass' : 'fail');
     document.getElementById('resultCorrect').textContent = correct;
     document.getElementById('resultWrong').textContent = wrong;
     document.getElementById('resultUnanswered').textContent = unansweredCount;
 
     // Personalized motivation message
     const motEl = document.getElementById('resultMotivation');
-    if (correct >= 50) {
-        motEl.innerHTML = '🏆 <strong>Trời ơi 50/50！</strong> Ngọc Anh perfect luôn！Em là thiên tài！Anh tự hào về em lắm！💕🌸';
-    } else if (correct >= 48) {
-        motEl.innerHTML = '🌟 <strong>Xuất sắc quá Ngọc Anh！</strong> Gần perfect rồi！Em giỏi lắm luôn á！💕';
-    } else if (correct >= 45) {
-        motEl.innerHTML = '🎉 <strong>Đỗ rồi nè！</strong> Ngọc Anh cố gắng nhiều quá, kết quả xứng đáng lắm！Anh tin em！💕🌸';
-    } else if (correct >= 40) {
-        motEl.innerHTML = '💪 <strong>Gần đỗ lắm rồi！</strong> Chỉ còn thiếu ' + (45 - correct) + ' câu nữa thôi！Ôn lại mấy câu sai rồi thi lại là đỗ ngay！Em cố lên nha！🌸';
-    } else if (correct >= 30) {
-        motEl.innerHTML = '📚 <strong>Ngọc Anh đang tiến bộ！</strong> Lần sau sẽ tốt hơn thôi！Đọc kỹ phần giải thích bên dưới rồi thi lại nha！Anh luôn ủng hộ em！💕';
+    if (examMode === 'honmen') {
+        if (points >= 100) {
+            motEl.innerHTML = '🏆 <strong>PERFECT 100 điểm！</strong> Trời ơi Ngọc Anh giỏi quá đi！Em là số một！💜🎊';
+        } else if (points >= 95) {
+            motEl.innerHTML = '🌟 <strong>Xuất sắc luôn！</strong> Gần như tuyệt đối！Ngọc Anh chắc chắn đỗ bằng thật rồi！💜';
+        } else if (points >= 90) {
+            motEl.innerHTML = '🎉 <strong>Đỗ Honmen rồi nè！</strong> Em cố gắng nhiều lắm, kết quả này xứng đáng！Tự hào về em！💜🌸';
+        } else if (points >= 80) {
+            motEl.innerHTML = '💪 <strong>Sát nút rồi！</strong> Chỉ còn thiếu ' + (90 - points) + ' điểm nữa thôi！Ôn lại mấy câu sai rồi thi lại là đỗ ngay！🌸';
+        } else if (points >= 60) {
+            motEl.innerHTML = '📚 <strong>Ngọc Anh đang tiến bộ！</strong> Honmen khó hơn karimen mà！Đọc kỹ giải thích bên dưới rồi luyện tiếp nha！💜';
+        } else {
+            motEl.innerHTML = '🌱 <strong>Không sao đâu em！</strong> Honmen cần luyện nhiều hơn một chút thôi！Đọc giải thích từng câu, mỗi ngày một chút, nhất định em sẽ đỗ！💜🌸';
+        }
     } else {
-        motEl.innerHTML = '🌱 <strong>Không sao đâu Ngọc Anh！</strong> Ai cũng phải bắt đầu từ đầu mà！Đọc giải thích từng câu, luyện thêm mỗi ngày, nhất định em sẽ đỗ！Anh tin em！💕🌸';
+        if (points >= 50) {
+            motEl.innerHTML = '🏆 <strong>Trời ơi 50/50！</strong> Ngọc Anh perfect luôn！Em là thiên tài！Anh tự hào về em lắm！💕🌸';
+        } else if (points >= 48) {
+            motEl.innerHTML = '🌟 <strong>Xuất sắc quá Ngọc Anh！</strong> Gần perfect rồi！Em giỏi lắm luôn á！💕';
+        } else if (points >= 45) {
+            motEl.innerHTML = '🎉 <strong>Đỗ rồi nè！</strong> Ngọc Anh cố gắng nhiều quá, kết quả xứng đáng lắm！Anh tin em！💕🌸';
+        } else if (points >= 40) {
+            motEl.innerHTML = '💪 <strong>Gần đỗ lắm rồi！</strong> Chỉ còn thiếu ' + (45 - points) + ' câu nữa thôi！Ôn lại mấy câu sai rồi thi lại là đỗ ngay！Em cố lên nha！🌸';
+        } else if (points >= 30) {
+            motEl.innerHTML = '📚 <strong>Ngọc Anh đang tiến bộ！</strong> Lần sau sẽ tốt hơn thôi！Đọc kỹ phần giải thích bên dưới rồi thi lại nha！Anh luôn ủng hộ em！💕';
+        } else {
+            motEl.innerHTML = '🌱 <strong>Không sao đâu Ngọc Anh！</strong> Ai cũng phải bắt đầu từ đầu mà！Đọc giải thích từng câu, luyện thêm mỗi ngày, nhất định em sẽ đỗ！Anh tin em！💕🌸';
+        }
     }
 
     // Build review list
@@ -3967,44 +4555,89 @@ function submitExam() {
 function buildReviewList() {
     const list = document.getElementById('reviewList');
     list.innerHTML = '';
+    const numLabel = examMode === 'honmen' ? 'Câu' : '問題';
 
     questions.forEach((q, i) => {
-        const userAnswer = answers[i];
-        let status, statusLabel;
+        const item = document.createElement('div');
 
-        if (userAnswer === undefined) {
-            status = 'unanswered';
-            statusLabel = '未回答 / Chưa trả lời';
-        } else if (userAnswer === q.answer) {
-            status = 'correct';
-            statusLabel = '正解 / Đúng';
-        } else {
-            status = 'wrong';
-            statusLabel = '不正解 / Sai';
+        if (q.type === 'hazard') {
+            const a = answers[i];
+            const done = a ? a.filter(x => x !== undefined).length : 0;
+            let status, statusLabel;
+            if (done === 0) { status = 'unanswered'; statusLabel = 'Chưa trả lời'; }
+            else if (q.subs.every((s, si) => a[si] === s.answer)) { status = 'correct'; statusLabel = 'Đúng cả 3 ý (+2đ)'; }
+            else { status = 'wrong'; statusLabel = 'Chưa đúng đủ'; }
+
+            let subsHtml = '';
+            q.subs.forEach((s, si) => {
+                const ua = a ? a[si] : undefined;
+                const uaText = ua === undefined ? 'Chưa chọn' : (ua ? '○ Đúng' : '× Sai');
+                const caText = s.answer ? '○ Đúng' : '× Sai';
+                const ok = ua === s.answer;
+                subsHtml += `<div style="margin-top:10px; padding:10px 12px; background:${ok ? '#e8f8f5' : '#ffe0e0'}; border-radius:10px;">
+                    <div style="font-weight:600; margin-bottom:6px;">Ý ${si + 1}: ${s.vi}</div>
+                    <div style="font-size:13px;">Bạn chọn: <strong>${uaText}</strong> · Đáp án: <strong>${caText}</strong></div>
+                    <div style="font-size:13px; color:#5a4a58; margin-top:4px;">🇻🇳 ${s.explanationVi}</div>
+                </div>`;
+            });
+
+            item.className = `review-item ${status}`;
+            item.dataset.status = status;
+            item.innerHTML = `
+                <div class="review-header">
+                    <span class="review-q-number">${numLabel} ${i + 1} 🖼️</span>
+                    <span class="review-result-badge ${status}">${statusLabel}</span>
+                </div>
+                <div class="review-question-vi"><strong>Tình huống:</strong> ${q.scene}</div>
+                ${subsHtml}
+            `;
+            list.appendChild(item);
+            return;
         }
 
-        const item = document.createElement('div');
+        const userAnswer = answers[i];
+        let status, statusLabel;
+        if (userAnswer === undefined) {
+            status = 'unanswered';
+            statusLabel = examMode === 'honmen' ? 'Chưa trả lời' : '未回答 / Chưa trả lời';
+        } else if (userAnswer === q.answer) {
+            status = 'correct';
+            statusLabel = examMode === 'honmen' ? 'Đúng' : '正解 / Đúng';
+        } else {
+            status = 'wrong';
+            statusLabel = examMode === 'honmen' ? 'Sai' : '不正解 / Sai';
+        }
+
         item.className = `review-item ${status}`;
         item.dataset.status = status;
 
-        const userAnswerText = userAnswer === undefined
-            ? '--- / Chưa chọn'
-            : (userAnswer ? '○（正しい）' : '×（誤り）');
-        const correctAnswerText = q.answer ? '○（正しい / Đúng）' : '×（誤り / Sai）';
+        let userAnswerText, correctAnswerText, yourLabel, corrLabel;
+        if (examMode === 'honmen') {
+            userAnswerText = userAnswer === undefined ? 'Chưa chọn' : (userAnswer ? '○ Đúng' : '× Sai');
+            correctAnswerText = q.answer ? '○ Đúng' : '× Sai';
+            yourLabel = 'Bạn chọn'; corrLabel = 'Đáp án';
+        } else {
+            userAnswerText = userAnswer === undefined ? '--- / Chưa chọn' : (userAnswer ? '○（正しい）' : '×（誤り）');
+            correctAnswerText = q.answer ? '○（正しい / Đúng）' : '×（誤り / Sai）';
+            yourLabel = 'あなたの回答 / Bạn chọn'; corrLabel = '正解 / Đáp án';
+        }
+
+        const jpQ = (examMode !== 'honmen' && q.jp) ? `<div class="review-question-jp">${q.jp}</div>` : '';
+        const jpExp = (examMode !== 'honmen' && q.explanationJp) ? `<div class="explanation-jp">📖 ${q.explanationJp}</div>` : '';
 
         item.innerHTML = `
             <div class="review-header">
-                <span class="review-q-number">問題 ${i + 1}</span>
+                <span class="review-q-number">${numLabel} ${i + 1}</span>
                 <span class="review-result-badge ${status}">${statusLabel}</span>
             </div>
-            <div class="review-question-jp">${q.jp}</div>
+            ${jpQ}
             <div class="review-question-vi">${q.vi}</div>
             <div class="review-answer-row">
-                <span class="review-your-answer">あなたの回答 / Bạn chọn: <strong>${userAnswerText}</strong></span>
-                <span class="review-correct-answer">正解 / Đáp án: <strong>${correctAnswerText}</strong></span>
+                <span class="review-your-answer">${yourLabel}: <strong>${userAnswerText}</strong></span>
+                <span class="review-correct-answer">${corrLabel}: <strong>${correctAnswerText}</strong></span>
             </div>
             <div class="review-explanation">
-                <div class="explanation-jp">📖 ${q.explanationJp}</div>
+                ${jpExp}
                 <div class="explanation-vi">🇻🇳 ${q.explanationVi}</div>
             </div>
         `;
@@ -4096,6 +4729,10 @@ document.addEventListener('keydown', (e) => {
 
     if (e.key === 'ArrowLeft' || e.key === 'a') prevQuestion();
     if (e.key === 'ArrowRight' || e.key === 'd') nextQuestion();
+
+    // ○× shortcuts only for normal questions (hazard has 3 sub-answers)
+    const cur = questions[currentIndex];
+    if (cur && cur.type === 'hazard') return;
     if (e.key === '1' || e.key === 'o') selectAnswer(true);
     if (e.key === '2' || e.key === 'x') selectAnswer(false);
 });
