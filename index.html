@@ -1165,7 +1165,57 @@
             .inline-explain-jp { font-size: 15px; }
             .inline-explain-vi { font-size: 14.5px; }
         }
+        /* Chừa khoảng trống cuối để thanh điều hướng dưới không che giải thích (iPhone) */
+        @media (max-width: 600px) {
+            .question-card { padding-bottom: 28px; }
+            #inlineExplanation { scroll-margin-bottom: 120px; scroll-margin-top: 70px; }
+        }
     </style>
+    <script>
+    /* Tự động cuộn để xem TRỌN thông báo Đúng/Sai + giải thích, không bị thanh dưới che.
+       Dùng click ở cấp document (chạy sau handler của app) nên áp dụng cho cả Karimen,
+       Honmen và 3 ý của câu 危険予測. Tối ưu cho iPhone 13 (thanh dưới cố định + safe-area). */
+    (function () {
+        function fixedBarHeight() {
+            var nav = document.querySelector('.nav-controls');
+            if (!nav) return 0;
+            var cs = window.getComputedStyle(nav);
+            if (cs.position !== 'fixed' || cs.display === 'none' || cs.visibility === 'hidden') return 0;
+            return nav.getBoundingClientRect().height;
+        }
+        function headerHeight() {
+            var h = document.getElementById('examHeader');
+            return h ? h.getBoundingClientRect().height : 0;
+        }
+        function revealFully(exp) {
+            if (!exp) return;
+            requestAnimationFrame(function () {
+                var barH = fixedBarHeight();
+                var headH = headerHeight();
+                var pad = 14;
+                var rect = exp.getBoundingClientRect();
+                var avail = window.innerHeight - barH - headH - pad * 2;
+                var delta = 0;
+                if (rect.height > avail) {
+                    delta = rect.top - headH - pad;                 // giải thích dài: canh mép trên
+                } else if (rect.bottom > window.innerHeight - barH - pad) {
+                    delta = rect.bottom - (window.innerHeight - barH - pad); // canh mép dưới
+                }
+                if (Math.abs(delta) > 4) window.scrollBy({ top: delta, behavior: 'smooth' });
+            });
+        }
+        document.addEventListener('click', function (e) {
+            var btn = e.target.closest && e.target.closest('.answer-btn');
+            if (!btn) return;
+            setTimeout(function () {
+                var sub = btn.closest('.hazard-sub');
+                var exp = sub ? sub.querySelector('.inline-explanation')
+                              : document.getElementById('inlineExplanation');
+                if (exp && exp.offsetParent !== null) revealFully(exp);
+            }, 90);
+        }, false);
+    })();
+    </script>
 </head>
 <body>
 
