@@ -50,6 +50,8 @@ App có **2 đề thi**, người dùng chọn ở **màn hình home** (`homeScr
 - Hỗ trợ **phím tắt**: `1`/`O` = ○, `2`/`X` = ×, mũi tên trái/phải chuyển câu
 - **Hiệu ứng âm thanh** (Web Audio API, không cần file): tiếng đúng/sai khi chọn đáp án
 - **Toast chúc mừng cột mốc** (milestone) mỗi 5 câu đúng — lời nhắn động viên riêng cho Ngọc Anh
+- **Font dễ đọc**: Be Vietnam Pro (tiếng Việt) + Noto Sans JP (tiếng Nhật) qua Google Fonts (có fallback font hệ thống); chữ câu hỏi & giải thích cỡ lớn, tương phản cao, không in nghiêng
+- **Tự động cuộn**: sau khi chọn đáp án, trang tự cuộn để hiện **trọn** thông báo Đúng/Sai + giải thích, không bị thanh điều hướng dưới che (tối ưu cho iPhone, có tính safe-area)
 
 ## Yêu cầu cá nhân hóa cho Ngọc Anh
 
@@ -96,6 +98,7 @@ karimen/
 - Single-page app, không cần backend hay framework
 - Tất cả HTML, CSS, JS nằm trong 1 file `index.html`
 - Có **OG image + meta tags** cho chia sẻ mạng xã hội, **favicon hình trái tim** 💕
+- **Web fonts**: nạp Be Vietnam Pro + Noto Sans JP qua `<link>` Google Fonts; biến CSS `--font` được override để dùng font này (fallback font hệ thống khi offline)
 - **Ngân hàng câu hỏi** (trong phần `<script>`):
   - `allQuestions` — câu hỏi Karimen (hiện **339 câu** ○×)
   - `honmenOX` — câu ○× cho Honmen (hiện **204 câu**; các câu bổ sung gần đây nhóm bằng comment `// [+] <chủ đề>`)
@@ -104,3 +107,8 @@ karimen/
 - Mỗi lần thi, `pickRandom()` rút ngẫu nhiên đủ số câu cho đề đang chọn
 - Hiệu ứng âm thanh dùng **Web Audio API** (`playCorrectSound` / `playWrongSound`), không cần file âm thanh
 - Responsive, hoạt động tốt trên cả điện thoại và máy tính
+- **Tự động cuộn (mobile)**: một khối `<script>` riêng lắng nghe click ở cấp `document` (chạy sau handler của app), cuộn để hiện trọn `.inline-explanation`, có trừ chiều cao thanh `.nav-controls` cố định + header dính + safe-area iPhone. Áp dụng cho cả ○× lẫn 3 ý của câu 危険予測 → vì vậy `index.html` hiện có **2 khối `<script>`**
+
+## Quy ước làm việc
+
+- **Mỗi khi sửa app, tự động cập nhật `CLAUDE.md`** để file luôn phản ánh đúng tính năng/cấu trúc hiện tại (theo yêu cầu của chủ dự án).
