@@ -26,7 +26,7 @@ App có **2 đề thi**, người dùng chọn ở **màn hình home** (`homeScr
 - **Điểm đạt**: 90/100 điểm trở lên
 - **Điểm mỗi câu**: ○× = 1 điểm; mỗi câu 危険予測 có 3 ý nhỏ, **đúng cả 3 ý mới được 2 điểm**
 - **Ngôn ngữ**: **chỉ tiếng Việt** (theo yêu cầu của Ngọc Anh)
-- **Lưu ý nội dung**: ngân hàng câu hỏi Honmen do chủ dự án **tự soạn theo 道路交通法**, KHÔNG copy từ đề thật chính thức → cần tiếp tục fact-check và bổ sung (mục tiêu ~200 câu, hiện ~133 câu ○×)
+- **Lưu ý nội dung**: ngân hàng câu hỏi Honmen do chủ dự án **tự soạn theo 道路交通法**, KHÔNG copy từ đề thật chính thức → cần tiếp tục fact-check (đã đạt mục tiêu ~200 câu: hiện **204 câu ○×**)
 
 ## Yêu cầu nội dung
 
@@ -98,7 +98,7 @@ karimen/
 - Có **OG image + meta tags** cho chia sẻ mạng xã hội, **favicon hình trái tim** 💕
 - **Ngân hàng câu hỏi** (trong phần `<script>`):
   - `allQuestions` — câu hỏi Karimen (hiện **339 câu** ○×)
-  - `honmenOX` — câu ○× cho Honmen (hiện **133 câu**)
+  - `honmenOX` — câu ○× cho Honmen (hiện **204 câu**; các câu bổ sung gần đây nhóm bằng comment `// [+] <chủ đề>`)
   - `honmenHazards` — câu 危険予測 cho Honmen (**10 tình huống**, mỗi tình huống 3 ý nhỏ)
 - `EXAM_CONFIG` — cấu hình từng đề (số câu, thời gian, điểm đạt, song ngữ hay không, tiêu đề)
 - Mỗi lần thi, `pickRandom()` rút ngẫu nhiên đủ số câu cho đề đang chọn
