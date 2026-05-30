@@ -1259,6 +1259,55 @@
             return r.correct + '/' + r.qCount + ' câu';
         }
 
+        function pct(r) {
+            var d = (r.mode === 'honmen') ? (r.totalPoints || 1) : (r.qCount || 1);
+            var nm = (r.mode === 'honmen') ? r.points : r.correct;
+            return Math.max(0, Math.min(1, nm / d));
+        }
+
+        function bestOf(list, mode) {
+            var best = null;
+            list.forEach(function (r) { if (r.mode === mode && (!best || pct(r) > pct(best))) best = r; });
+            return best;
+        }
+
+        function buildStats(list) {
+            var k = bestOf(list, 'karimen'), hn = bestOf(list, 'honmen');
+            return '<div class="hist-stats">' +
+                '<div class="hist-stat kari"><div class="lbl">🏆 Karimen cao nhất</div><div class="val">' + (k ? fmtScore(k) : '—') + '</div></div>' +
+                '<div class="hist-stat hon"><div class="lbl">🏆 Honmen cao nhất</div><div class="val">' + (hn ? fmtScore(hn) : '—') + '</div></div>' +
+                '</div>';
+        }
+
+        function buildChart(list) {
+            var data = list.slice(0, 20).reverse(); // cũ -> mới (tối đa 20 lần)
+            if (!data.length) return '';
+            var W = 320, H = 130, padL = 10, padR = 10, padT = 12, padB = 14;
+            var plotW = W - padL - padR, plotH = H - padT - padB, n = data.length;
+            function X(i) { return n === 1 ? padL + plotW / 2 : padL + plotW * i / (n - 1); }
+            function Y(p) { return padT + plotH * (1 - p); }
+            var g = '';
+            g += '<line x1="' + padL + '" y1="' + Y(0) + '" x2="' + (W - padR) + '" y2="' + Y(0) + '" stroke="#efe7ec" stroke-width="1"/>';
+            g += '<line x1="' + padL + '" y1="' + Y(1) + '" x2="' + (W - padR) + '" y2="' + Y(1) + '" stroke="#f3eef1" stroke-width="1"/>';
+            var passY = Y(0.9);
+            g += '<line x1="' + padL + '" y1="' + passY + '" x2="' + (W - padR) + '" y2="' + passY + '" stroke="#2bae66" stroke-width="1.2" stroke-dasharray="4 3"/>';
+            g += '<text x="' + (W - padR) + '" y="' + (passY - 3) + '" text-anchor="end" font-size="9" fill="#2bae66">Đỗ 90%</text>';
+            if (n > 1) {
+                var pts = data.map(function (r, i) { return X(i).toFixed(1) + ',' + Y(pct(r)).toFixed(1); }).join(' ');
+                g += '<polyline points="' + pts + '" fill="none" stroke="#e8a4c0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>';
+            }
+            data.forEach(function (r, i) {
+                var col = r.mode === 'honmen' ? '#9b59b6' : '#e8628a';
+                g += '<circle cx="' + X(i).toFixed(1) + '" cy="' + Y(pct(r)).toFixed(1) + '" r="3.6" fill="' + col + '"/>';
+            });
+            var legend = '<div class="hist-legend">' +
+                '<span><span class="dot" style="background:#e8628a"></span>Karimen</span>' +
+                '<span><span class="dot" style="background:#9b59b6"></span>Honmen</span>' +
+                '<span><span class="dot" style="background:#2bae66"></span>Mức đỗ</span></div>';
+            return '<div class="hist-chart-wrap"><div class="hist-subtitle">📈 Tiến bộ (% điểm theo thời gian)</div>' +
+                '<svg viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Biểu đồ tiến bộ">' + g + '</svg>' + legend + '</div>';
+        }
+
         function renderHistory() {
             var home = document.getElementById('homeScreen');
             if (!home) return;
@@ -1286,7 +1335,7 @@
                         '<div class="hist-main"><div class="hist-score">' + fmtScore(r) + '</div>' +
                         '<div class="hist-date">' + (r.dateStr || '') + '</div></div>' + pass + '</div>';
                 }).join('');
-                panel.innerHTML = head + items;
+                panel.innerHTML = head + buildStats(list) + buildChart(list) + items;
             }
             var btn = document.getElementById('histClearBtn');
             if (btn) btn.onclick = function () {
@@ -1322,7 +1371,17 @@
             '.hist-score{font-size:15px;font-weight:700;color:#3a2a38;}' +
             '.hist-date{font-size:11px;color:#9b8a98;margin-top:2px;}' +
             '.hist-pass{font-size:12px;font-weight:700;white-space:nowrap;}' +
-            '.hist-pass.ok{color:#2bae66;}.hist-pass.no{color:#e8628a;}';
+            '.hist-pass.ok{color:#2bae66;}.hist-pass.no{color:#e8628a;}' +
+            '.hist-stats{display:flex;gap:8px;margin:0 4px 12px;}' +
+            '.hist-stat{flex:1;background:rgba(255,255,255,.85);border-radius:14px;padding:10px 8px;text-align:center;box-shadow:0 2px 10px rgba(184,92,138,.07);}' +
+            '.hist-stat .lbl{font-size:11px;color:#9b8a98;margin-bottom:3px;}' +
+            '.hist-stat .val{font-size:18px;font-weight:800;}' +
+            '.hist-stat.kari .val{color:#c94c73;}.hist-stat.hon .val{color:#9b59b6;}' +
+            '.hist-subtitle{font-size:13px;font-weight:700;color:#8a7a88;margin:2px 4px 8px;}' +
+            '.hist-chart-wrap{background:rgba(255,255,255,.85);border-radius:14px;padding:12px 10px 8px;margin:0 4px 12px;box-shadow:0 2px 10px rgba(184,92,138,.07);}' +
+            '.hist-chart-wrap svg{width:100%;height:auto;display:block;}' +
+            '.hist-legend{font-size:11px;color:#9b8a98;text-align:center;margin-top:6px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}' +
+            '.hist-legend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px;vertical-align:middle;}';
         document.head.appendChild(css);
 
         if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);

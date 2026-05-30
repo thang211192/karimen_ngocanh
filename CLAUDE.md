@@ -52,7 +52,7 @@ App có **2 đề thi**, người dùng chọn ở **màn hình home** (`homeScr
 - **Toast chúc mừng cột mốc** (milestone) mỗi 5 câu đúng — lời nhắn động viên riêng cho Ngọc Anh
 - **Font dễ đọc**: Be Vietnam Pro (tiếng Việt) + Noto Sans JP (tiếng Nhật) qua Google Fonts (có fallback font hệ thống); chữ câu hỏi & giải thích cỡ lớn, tương phản cao, không in nghiêng
 - **Tự động cuộn**: sau khi chọn đáp án, trang tự cuộn để hiện **trọn** thông báo Đúng/Sai + giải thích, không bị thanh điều hướng dưới che (tối ưu cho iPhone, có tính safe-area)
-- **Lịch sử làm bài**: sau khi nộp bài, tự lưu kết quả (đề, điểm, đỗ/trượt, ngày giờ) vào máy; màn hình home hiện bảng "📊 Lịch sử làm bài" (tối đa 15 lần gần nhất) + nút xóa
+- **Lịch sử làm bài**: sau khi nộp bài, tự lưu kết quả (đề, điểm, đỗ/trượt, ngày giờ) vào máy; màn hình home hiện bảng "📊 Lịch sử làm bài" (tối đa 15 lần gần nhất) + nút xóa, kèm **🏆 điểm cao nhất** mỗi đề và **📈 biểu đồ tiến bộ** (% điểm theo thời gian, có vạch mốc đỗ 90%)
 
 ## Yêu cầu cá nhân hóa cho Ngọc Anh
 
@@ -109,7 +109,7 @@ karimen/
 - Hiệu ứng âm thanh dùng **Web Audio API** (`playCorrectSound` / `playWrongSound`), không cần file âm thanh
 - Responsive, hoạt động tốt trên cả điện thoại và máy tính
 - **Tự động cuộn (mobile)**: một khối `<script>` riêng lắng nghe click ở cấp `document` (chạy sau handler của app), cuộn để hiện trọn `.inline-explanation`, có trừ chiều cao thanh `.nav-controls` cố định + header dính + safe-area iPhone. Áp dụng cho cả ○× lẫn 3 ý của câu 危険予測
-- **Lịch sử làm bài**: một khối `<script>` riêng lưu kết quả vào `localStorage` (key `karimen_history_v1`, tối đa 50 bản ghi); bọc (wrap) hàm `submitExam` để ghi kết quả sau khi nộp, tự tính điểm theo cùng quy tắc (○× 1đ, 危険予測 đúng cả 3 ý = 2đ); hiển thị bảng lịch sử chèn vào `#homeScreen`, cập nhật qua `MutationObserver`
+- **Lịch sử làm bài**: một khối `<script>` riêng lưu kết quả vào `localStorage` (key `karimen_history_v1`, tối đa 50 bản ghi); bọc (wrap) hàm `submitExam` để ghi kết quả sau khi nộp, tự tính điểm theo cùng quy tắc (○× 1đ, 危険予測 đúng cả 3 ý = 2đ); hiển thị bảng lịch sử chèn vào `#homeScreen`, cập nhật qua `MutationObserver`; có **điểm cao nhất** mỗi đề (`bestOf`) và **biểu đồ tiến bộ** vẽ bằng **SVG inline** (chuẩn hóa về % điểm, vạch mốc đỗ 90% — cả 2 đề đều đỗ ở 90%), không dùng thư viện ngoài
 - → Tổng cộng `index.html` hiện có **3 khối `<script>`** (app chính + tự động cuộn + lịch sử)
 
 ## Quy ước làm việc
