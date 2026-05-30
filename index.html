@@ -1216,6 +1216,119 @@
         }, false);
     })();
     </script>
+    <script>
+    /* Lưu & hiển thị LỊCH SỬ LÀM BÀI (điểm, đỗ/trượt, ngày giờ) — lưu trên máy bằng localStorage */
+    (function () {
+        var KEY = 'karimen_history_v1';
+        function load() { try { return JSON.parse(localStorage.getItem(KEY)) || []; } catch (e) { return []; } }
+        function store(list) { try { localStorage.setItem(KEY, JSON.stringify(list.slice(0, 50))); } catch (e) {} }
+
+        function computeResult() {
+            if (typeof questions === 'undefined' || !Array.isArray(questions) || !questions.length) return null;
+            var mode = (typeof examMode !== 'undefined') ? examMode : 'karimen';
+            var cfg = (typeof EXAM_CONFIG !== 'undefined' && EXAM_CONFIG[mode]) ? EXAM_CONFIG[mode] : {};
+            var pts = 0, totalPts = 0, correct = 0, answered = 0;
+            for (var i = 0; i < questions.length; i++) {
+                var q = questions[i], a = (typeof answers !== 'undefined') ? answers[i] : undefined;
+                if (q && q.type === 'hazard') {
+                    totalPts += 2;
+                    var arr = Array.isArray(a) ? a : [];
+                    if (arr.some(function (x) { return x !== undefined; })) answered++;
+                    if (q.subs.every(function (s, si) { return arr[si] === s.answer; })) { pts += 2; correct++; }
+                } else if (q) {
+                    totalPts += 1;
+                    if (a !== undefined) { answered++; if (a === q.answer) { pts += 1; correct++; } }
+                }
+            }
+            var pass = (cfg.pass != null) ? cfg.pass : (mode === 'honmen' ? 90 : 45);
+            return { mode: mode, points: pts, totalPoints: totalPts, qCount: questions.length,
+                     correct: correct, answered: answered, pass: pass, passed: pts >= pass };
+        }
+
+        function record() {
+            var r = computeResult(); if (!r) return;
+            var d = new Date();
+            r.ts = d.getTime();
+            try { r.dateStr = d.toLocaleString('vi-VN'); } catch (e) { r.dateStr = d.toString(); }
+            var list = load(); list.unshift(r); store(list);
+            renderHistory();
+        }
+
+        function fmtScore(r) {
+            if (r.mode === 'honmen') return r.points + '/' + r.totalPoints + ' điểm';
+            return r.correct + '/' + r.qCount + ' câu';
+        }
+
+        function renderHistory() {
+            var home = document.getElementById('homeScreen');
+            if (!home) return;
+            var panel = document.getElementById('historyPanel');
+            if (!panel) {
+                panel = document.createElement('div');
+                panel.id = 'historyPanel';
+                panel.className = 'hist-panel';
+                home.appendChild(panel);
+            }
+            var list = load();
+            var head = '<div class="hist-title"><span>📊 Lịch sử làm bài</span>' +
+                (list.length ? '<button class="hist-clear" type="button" id="histClearBtn">🗑️ Xóa</button>' : '') + '</div>';
+            if (!list.length) {
+                panel.innerHTML = head + '<div class="hist-empty">Chưa có lần thi nào. Cố lên Ngọc Anh! 🌸</div>';
+            } else {
+                var items = list.slice(0, 15).map(function (r) {
+                    var badge = r.mode === 'honmen'
+                        ? '<span class="hist-badge hon">Honmen</span>'
+                        : '<span class="hist-badge kari">Karimen</span>';
+                    var pass = r.passed
+                        ? '<span class="hist-pass ok">✅ Đỗ</span>'
+                        : '<span class="hist-pass no">❌ Chưa đỗ</span>';
+                    return '<div class="hist-item">' + badge +
+                        '<div class="hist-main"><div class="hist-score">' + fmtScore(r) + '</div>' +
+                        '<div class="hist-date">' + (r.dateStr || '') + '</div></div>' + pass + '</div>';
+                }).join('');
+                panel.innerHTML = head + items;
+            }
+            var btn = document.getElementById('histClearBtn');
+            if (btn) btn.onclick = function () {
+                if (confirm('Xóa toàn bộ lịch sử làm bài?')) { store([]); renderHistory(); }
+            };
+        }
+
+        function init() {
+            if (typeof window.submitExam === 'function' && !window.submitExam.__histWrapped) {
+                var orig = window.submitExam;
+                window.submitExam = function () { var res = orig.apply(this, arguments); setTimeout(record, 60); return res; };
+                window.submitExam.__histWrapped = true;
+            }
+            renderHistory();
+            var home = document.getElementById('homeScreen');
+            if (home && typeof MutationObserver !== 'undefined') {
+                new MutationObserver(function () {
+                    if (home.style.display !== 'none' && home.offsetParent !== null) renderHistory();
+                }).observe(home, { attributes: true, attributeFilter: ['style', 'class'] });
+            }
+        }
+
+        var css = document.createElement('style');
+        css.textContent = '.hist-panel{max-width:560px;margin:20px auto 8px;padding:0 16px;}' +
+            '.hist-title{font-size:16px;font-weight:700;color:#b85c8a;margin:0 4px 10px;display:flex;align-items:center;justify-content:space-between;gap:8px;}' +
+            '.hist-clear{font-size:12px;color:#b07a92;background:rgba(255,255,255,.75);border:1px solid #f0d8e4;border-radius:999px;padding:5px 12px;cursor:pointer;font-family:inherit;}' +
+            '.hist-empty{font-size:14px;color:#9b8a98;text-align:center;padding:16px;background:rgba(255,255,255,.6);border-radius:14px;}' +
+            '.hist-item{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.85);border-radius:14px;padding:10px 12px;margin-bottom:8px;box-shadow:0 2px 10px rgba(184,92,138,.07);}' +
+            '.hist-badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;white-space:nowrap;}' +
+            '.hist-badge.kari{background:#fde7f1;color:#c94c73;}' +
+            '.hist-badge.hon{background:#f3e5f5;color:#9b59b6;}' +
+            '.hist-main{flex:1;min-width:0;}' +
+            '.hist-score{font-size:15px;font-weight:700;color:#3a2a38;}' +
+            '.hist-date{font-size:11px;color:#9b8a98;margin-top:2px;}' +
+            '.hist-pass{font-size:12px;font-weight:700;white-space:nowrap;}' +
+            '.hist-pass.ok{color:#2bae66;}.hist-pass.no{color:#e8628a;}';
+        document.head.appendChild(css);
+
+        if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+        else init();
+    })();
+    </script>
 </head>
 <body>
 
