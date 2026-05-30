@@ -3990,7 +3990,82 @@ const honmenOX = [
     { vi: "Khi vượt xe đạp, phải giữ khoảng cách bên an toàn hoặc đi chậm.", answer: true, explanationVi: "Xe đạp dễ loạng choạng; vượt phải chừa khoảng cách an toàn hoặc đi chậm." },
     { vi: "Khi đi qua khu vực đang thi công, phải tuân theo người điều khiển và biển báo công trường, giảm tốc.", answer: true, explanationVi: "Khu thi công cần đi chậm và tuân theo chỉ dẫn để an toàn." },
     { vi: "Đèn phanh và đèn xi-nhan hỏng cũng không sao vì vẫn lái được bình thường.", answer: false, explanationVi: "Đèn phanh/xi-nhan hỏng khiến xe sau không hiểu ý định, rất nguy hiểm và là vi phạm; phải sửa." },
-    { vi: "Khi chở trẻ nhỏ, nên khóa cửa và bật khóa an toàn trẻ em để trẻ không tự mở cửa.", answer: true, explanationVi: "Dùng khóa an toàn trẻ em để tránh trẻ mở cửa khi xe đang chạy." }
+    { vi: "Khi chở trẻ nhỏ, nên khóa cửa và bật khóa an toàn trẻ em để trẻ không tự mở cửa.", answer: true, explanationVi: "Dùng khóa an toàn trẻ em để tránh trẻ mở cửa khi xe đang chạy." },
+    // [+] 信号
+    { vi: "Tại nơi có đèn mũi tên, khi đèn chính màu đỏ và đèn mũi tên xanh chỉ sang phải sáng lên thì xe được phép rẽ phải và cả quay đầu (U-turn).", answer: true, explanationVi: "Đèn mũi tên xanh chỉ sang phải cho phép xe đi theo hướng mũi tên, bao gồm cả quay đầu — trừ khi có biển 'cấm quay đầu' (転回禁止). Xe đạp và xe gắn máy rẽ hai giai đoạn không áp dụng." },
+    { vi: "Đèn tín hiệu dành cho người đi bộ màu xanh nhấp nháy có nghĩa là người chưa bắt đầu qua đường thì cứ yên tâm bắt đầu băng qua.", answer: false, explanationVi: "Đèn xanh nhấp nháy báo sắp chuyển sang đỏ. Người chưa qua thì KHÔNG nên bắt đầu băng, người đang qua thì khẩn trương qua nốt hoặc quay lại lề. Người lái cũng phải lưu ý." },
+    { vi: "Đèn tín hiệu xe màu vàng nhấp nháy có nghĩa giống như biển 'dừng lại', xe luôn phải dừng hẳn rồi mới đi.", answer: false, explanationVi: "Đèn vàng nhấp nháy: xe được đi tiếp nhưng phải chú ý quan sát an toàn (không bắt buộc dừng). Đèn đỏ nhấp nháy mới bắt buộc dừng tạm." },
+    // [+] 標識
+    { vi: "Biển báo hình tròn viền đỏ nói chung là loại biển cấm hoặc hạn chế (規制標識).", answer: true, explanationVi: "Biển hình tròn viền đỏ thuộc nhóm biển cấm/hạn chế (規制標識), ví dụ cấm đi vào, hạn chế tốc độ, cấm đỗ..." },
+    { vi: "Biển báo hình tam giác màu vàng là loại biển cảnh báo nguy hiểm (警戒標識).", answer: true, explanationVi: "Biển tam giác nền vàng thuộc nhóm cảnh báo (警戒標識), báo trước nguy hiểm như khúc cua, dốc, đường trơn, có trẻ em..." },
+    { vi: "Biển 'một chiều' (一方通行) cho phép xe chỉ được đi theo hướng mũi tên chỉ.", answer: true, explanationVi: "Biển 一方通行 quy định đường một chiều, xe chỉ được lưu thông theo hướng mũi tên." },
+    { vi: "Tại nơi có biển '警笛鳴らせ', người lái phải bấm còi tại vị trí quy định.", answer: true, explanationVi: "Biển 警笛鳴らせ (hãy bấm còi) yêu cầu bấm còi tại điểm đó, thường ở khúc cua khuất tầm nhìn trên đường núi." },
+    { vi: "Vạch hình thoi (ひし形) kẻ trên mặt đường báo phía trước có vạch sang đường cho người đi bộ hoặc làn xe đạp băng qua.", answer: true, explanationVi: "Vạch hình thoi trên mặt đường cảnh báo phía trước sắp có vạch sang đường (横断歩道) hoặc vạch xe đạp băng qua — hãy giảm tốc và chú ý." },
+    // [+] 速度
+    { vi: "Khi không có biển báo tốc độ, tốc độ tối đa theo luật định của xe gắn máy (原付) là 30km/h.", answer: true, explanationVi: "Xe gắn máy (原動機付自転車) có tốc độ tối đa luật định là 30km/h, thấp hơn ô tô (60km/h)." },
+    { vi: "Con số ghi trên biển báo tốc độ là tốc độ bắt buộc phải chạy, không được chạy chậm hơn.", answer: false, explanationVi: "Đó là tốc độ TỐI ĐA cho phép, không phải tốc độ bắt buộc. Tùy tình huống (mưa, đông xe) phải chạy chậm hơn cho an toàn." },
+    { vi: "Khi tốc độ tăng gấp 3 lần thì quãng đường phanh tăng lên khoảng 9 lần.", answer: true, explanationVi: "Quãng đường phanh tỉ lệ với bình phương tốc độ, nên tốc độ gấp 3 thì quãng đường phanh tăng khoảng 3×3 = 9 lần." },
+    // [+] 停止距離
+    { vi: "Quãng đường phản ứng (空走距離) sẽ dài hơn khi người lái mệt mỏi, buồn ngủ hoặc đã uống rượu bia.", answer: true, explanationVi: "Mệt mỏi, buồn ngủ, rượu bia làm phản xạ chậm lại, nên quãng đường xe chạy trước khi phanh ăn (空走距離) dài ra, kéo theo quãng đường dừng dài hơn." },
+    { vi: "Quãng đường phanh (制動距離) sẽ dài hơn khi xe chở nặng hơn.", answer: true, explanationVi: "Xe chở càng nặng thì quán tính càng lớn, quãng đường phanh càng dài. Khi chở nặng cần giữ khoảng cách xa hơn." },
+    { vi: "Trên đường ướt, giữ khoảng cách và tốc độ giống như khi đường khô là an toàn.", answer: false, explanationVi: "Đường ướt độ bám giảm, quãng đường phanh dài hơn. Phải giảm tốc và tăng khoảng cách so với khi đường khô." },
+    // [+] 追い越し
+    { vi: "'追い越し' (vượt) là việc đổi làn để vượt lên trước xe khác, còn '追い抜き' là vượt lên trước mà không đổi làn.", answer: true, explanationVi: "追い越し = đổi làn/đường rồi vượt lên trước; 追い抜き = vượt lên trước trong cùng làn mà không đổi làn. Hai khái niệm khác nhau." },
+    { vi: "Khi xe phía trước đang vượt một xe khác, mình được phép vượt luôn cả hai xe cùng lúc.", answer: false, explanationVi: "Đây là vượt kép (二重追い越し) và bị CẤM vì rất nguy hiểm — không được vượt một xe đang trong quá trình vượt xe khác." },
+    { vi: "Cấm vượt xe trên mọi cây cầu.", answer: false, explanationVi: "Cầu không phải là nơi cấm vượt mặc nhiên. Nơi cấm vượt là gần đỉnh dốc lên, dốc đứng xuống, trong hầm (không có làn riêng), ngã tư, đường ray, vạch sang đường và phạm vi 30m trước đó... trừ khi có biển cấm vượt thì mới cấm." },
+    { vi: "Khi vạch tim đường là vạch vàng liền nét, không được đè vạch lấn sang phần đường ngược chiều để vượt.", answer: true, explanationVi: "Vạch vàng liền ở tim đường cấm lấn sang phần đường ngược chiều, nên không được vượt theo kiểu lấn làn ở đoạn này." },
+    // [+] 駐停車
+    { vi: "Cấm đỗ xe trong phạm vi 1m tính từ thiết bị báo cháy (火災報知機).", answer: true, explanationVi: "Trong phạm vi 1m quanh thiết bị báo cháy là nơi cấm ĐỖ xe (駐車禁止) để không cản trở khi có hỏa hoạn." },
+    { vi: "Cấm đỗ xe trong phạm vi 5m tính từ trụ nước cứu hỏa (消火栓).", answer: true, explanationVi: "Quanh trụ nước/họng nước cứu hỏa, hố nước phòng cháy trong phạm vi 5m là nơi cấm ĐỖ xe để xe cứu hỏa lấy nước được." },
+    { vi: "Cấm cả dừng và đỗ xe trong phạm vi 10m tính từ hai đầu đường ray (踏切).", answer: true, explanationVi: "Đường ray và phạm vi 10m trước/sau hai đầu là nơi cấm dừng và đỗ (駐停車禁止)." },
+    { vi: "Khi đỗ xe trên đường, về nguyên tắc phải còn ít nhất 3.5m khoảng trống bên phải xe cho xe khác đi qua.", answer: true, explanationVi: "Quy định 'khoảng trống đỗ xe' (駐車余地): nếu đỗ mà bên phải xe không còn ≥3.5m cho xe khác qua thì không được đỗ, trừ nơi có quy định riêng." },
+    { vi: "Cấm đỗ xe trong phạm vi 3m tính từ lối ra vào của bãi đỗ xe hoặc ga-ra.", answer: true, explanationVi: "Trong phạm vi 3m từ lối ra vào dành cho xe (bãi đỗ, ga-ra) là nơi cấm ĐỖ xe để không chặn lối." },
+    { vi: "Trên đường một chiều có đủ rộng, được phép đỗ xe sát mép phải của đường.", answer: true, explanationVi: "Bình thường phải đỗ sát mép trái, nhưng trên đường một chiều thì được đỗ sát mép phải nếu không có biển cấm." },
+    // [+] 交差点
+    { vi: "Tại bùng binh (環状交差点 / vòng xuyến), xe đang chạy trong vòng được ưu tiên hơn xe chuẩn bị đi vào.", answer: true, explanationVi: "Ở vòng xuyến, xe đã ở trong vòng được ưu tiên; xe chuẩn bị vào phải đi chậm (徐行) và nhường đường." },
+    { vi: "Ở Nhật, xe đi trong vòng xuyến (環状交差点) di chuyển theo chiều kim đồng hồ.", answer: true, explanationVi: "Vì Nhật lái xe bên trái nên trong vòng xuyến xe đi theo chiều kim đồng hồ (vòng sang trái khi vào)." },
+    { vi: "Tại ngã tư không có đèn và không người điều khiển, khi đường mình đi hẹp rõ rệt hơn đường cắt ngang thì phải nhường đường cho xe trên đường rộng hơn.", answer: true, explanationVi: "Khi đường giao cắt rộng hơn rõ rệt, xe trên đường rộng được ưu tiên; xe trên đường hẹp phải đi chậm và nhường đường." },
+    { vi: "Khi từ đường nhánh đi vào đường ưu tiên (優先道路), xe phải đi chậm (徐行) và nhường đường cho xe trên đường ưu tiên.", answer: true, explanationVi: "Xe trên đường ưu tiên được đi trước; xe từ đường không ưu tiên phải giảm tốc và nhường đường khi nhập vào." },
+    // [+] 歩行者
+    { vi: "Khi đèn xanh, xe rẽ trái hoặc rẽ phải vẫn phải nhường đường cho người đi bộ đang băng qua phần đường mà xe rẽ vào.", answer: true, explanationVi: "Đèn xanh cho phép rẽ nhưng người đi bộ qua đường vẫn được ưu tiên — xe rẽ phải dừng nhường họ qua." },
+    { vi: "Khi có người đi bộ ở trong vùng an toàn (安全地帯), xe chạy ngang qua bên cạnh phải đi chậm.", answer: true, explanationVi: "Khi trong vùng an toàn có người, xe đi qua bên cạnh phải giảm tốc (徐行) để bảo đảm an toàn cho họ." },
+    { vi: "Khi tàu điện mặt đất (路面電車) đang dừng đón/trả khách mà không có vùng an toàn, về nguyên tắc xe phía sau phải dừng lại, không được vượt qua.", answer: true, explanationVi: "Khi không có vùng an toàn, hành khách lên xuống tàu sẽ băng qua đường, nên xe phải dừng chờ phía sau tàu điện (trừ trường hợp luật cho phép đi chậm khi đủ khoảng cách và không có người)." },
+    { vi: "Khi đi ngang qua người đi bộ hoặc người đi xe đạp, người lái phải giữ khoảng cách an toàn hoặc đi chậm lại.", answer: true, explanationVi: "Phải chừa khoảng cách an toàn; nếu không đủ khoảng cách thì phải đi chậm để tránh gây nguy hiểm cho họ." },
+    // [+] 緊急車両
+    { vi: "Trên đường một chiều, khi xe khẩn cấp đến gần mà việc nép sát trái lại gây cản trở, thì nên nép sát phải để nhường đường.", answer: true, explanationVi: "Thông thường nhường đường bằng cách nép trái, nhưng trên đường một chiều nếu nép trái cản trở thì nép sang phải để xe khẩn cấp đi qua." },
+    // [+] 高速道路
+    { vi: "Trên đường cao tốc, cấm chạy xe trên phần lề/làn dừng khẩn cấp (路肩).", answer: true, explanationVi: "Lề đường (路肩) chỉ dành cho dừng khẩn cấp; chạy xe trên đó bị cấm và rất nguy hiểm." },
+    { vi: "Khi nhập vào đường cao tốc từ làn tăng tốc, xe đang chạy trên làn chính được quyền ưu tiên.", answer: true, explanationVi: "Xe trên làn chính được ưu tiên; xe ở làn tăng tốc phải tăng tốc cho hợp dòng và nhập vào khi an toàn, không ép xe làn chính." },
+    { vi: "Trên đường cao tốc, người ngồi ghế sau cũng bắt buộc phải thắt dây an toàn.", answer: true, explanationVi: "Trên cao tốc, tất cả mọi vị trí (kể cả ghế sau) đều bắt buộc thắt dây an toàn." },
+    { vi: "Trên đường cao tốc, tốc độ tối đa của xe tải cỡ lớn thấp hơn ô tô con.", answer: true, explanationVi: "Ô tô con thường được tối đa 100km/h, còn xe tải cỡ lớn bị giới hạn thấp hơn (khoảng 80km/h)." },
+    { vi: "Khi xe hỏng dừng trên cao tốc vào ban đêm, ngoài đặt biển tam giác phản quang còn nên dùng thêm đèn hoặc pháo sáng cảnh báo.", answer: true, explanationVi: "Ban đêm tầm nhìn kém, ngoài biển tam giác cảnh báo nên dùng thêm đèn/pháo sáng (発炎筒) để xe sau nhận biết từ xa." },
+    // [+] 安全運転
+    { vi: "Hiện tượng vapor lock (ベーパーロック) là khi dùng phanh chân quá nhiều làm dầu phanh sôi sinh bọt khí khiến phanh kém ăn.", answer: true, explanationVi: "Dùng phanh chân liên tục làm nóng, dầu phanh sôi tạo bọt khí, lực phanh không truyền được nên phanh kém — nên dùng kèm phanh động cơ ở dốc dài." },
+    { vi: "Hiện tượng standing wave (スタンディングウェーブ) xảy ra khi lốp non hơi chạy ở tốc độ cao, lốp bị biến dạng dạng sóng và có thể nổ.", answer: true, explanationVi: "Lốp thiếu hơi chạy nhanh sẽ bị gợn sóng (standing wave), sinh nhiệt và có thể nổ — cần bơm lốp đủ áp suất." },
+    { vi: "Hiện tượng creep (クリープ) ở xe số tự động là khi để số D mà không đạp ga, xe vẫn tự bò đi.", answer: true, explanationVi: "Xe số tự động ở số D (hoặc R) có hiện tượng creep — tự bò đi khi nhả phanh dù không đạp ga, cần chú ý khi dừng." },
+    { vi: "Khi đỗ xe số tự động, nên về số P và kéo phanh tay.", answer: true, explanationVi: "Đỗ xe AT nên về P và kéo phanh tay; trên dốc nên chèn bánh thêm cho chắc chắn." },
+    { vi: "Điểm mù (死角) của xe tải, xe buýt cỡ lớn rộng hơn xe con, nên cần thận trọng khi đi gần các xe đó.", answer: true, explanationVi: "Xe lớn có điểm mù rộng (nhất là phía trước thấp, hai bên và phía sau), tài xế xe đó có thể không thấy mình — nên tránh đi lâu trong điểm mù." },
+    { vi: "Khi xe rẽ, bánh sau đi theo quỹ đạo phía trong so với bánh trước (内輪差), dễ cuốn vào người hoặc vật ở phía trong khúc cua.", answer: true, explanationVi: "Hiện tượng 内輪差: bánh sau ăn vào trong hơn bánh trước khi rẽ; xe càng dài chênh lệch càng lớn — chú ý người đi bộ, xe đạp ở phía trong." },
+    { vi: "Khi buồn ngủ hoặc vừa uống thuốc cảm gây buồn ngủ, vẫn có thể lái xe bình thường nếu cẩn thận.", answer: false, explanationVi: "Buồn ngủ, mệt mỏi hay thuốc gây buồn ngủ làm giảm tập trung và phản xạ — không nên lái xe, hãy nghỉ ngơi trước." },
+    { vi: "Khi xuống dốc dài, nên kết hợp phanh động cơ bằng cách về số thấp để giảm bớt việc rà phanh chân liên tục.", answer: true, explanationVi: "Về số thấp tạo phanh động cơ mạnh hơn, giúp giảm tải cho phanh chân, tránh hiện tượng fade/vapor lock trên dốc dài." },
+    // [+] 合図
+    { vi: "Khi không dùng được xi-nhan, tín hiệu bằng tay để báo rẽ phải (hoặc đổi làn sang phải) là giơ thẳng cánh tay phải nằm ngang ra ngoài.", answer: true, explanationVi: "Tín hiệu tay: rẽ phải/đổi làn sang phải = giơ tay phải duỗi ngang ra ngoài cửa xe (hoặc giơ tay trái gập vuông góc lên)." },
+    { vi: "Sau khi rẽ hoặc đổi làn xong, phải tắt tín hiệu (xi-nhan) ngay.", answer: true, explanationVi: "Tín hiệu phải duy trì cho đến khi hoàn thành thao tác, xong thì tắt ngay để không gây hiểu nhầm cho xe khác." },
+    { vi: "Khi xe gặp sự cố phải dừng trên đường, nên bật đèn cảnh báo nguy hiểm (hazard) để báo cho xe khác.", answer: true, explanationVi: "Bật đèn hazard giúp các xe khác nhận biết xe đang dừng/gặp sự cố để chủ động tránh." },
+    // [+] 免許
+    { vi: "Khi tập lái bằng bằng tạm (仮免許), phải có người đủ điều kiện ngồi giám sát và xe phải dán biển tập lái theo quy định.", answer: true, explanationVi: "Lái bằng bằng tạm cần người hướng dẫn đủ điều kiện ngồi cạnh và dán biển 仮免許練習中 theo quy định, đi đúng tuyến/điều kiện cho phép." },
+    { vi: "Khi điều khiển xe, người lái phải luôn mang theo giấy phép lái xe.", answer: true, explanationVi: "Người lái có nghĩa vụ mang theo giấy phép lái xe khi điều khiển xe và xuất trình khi được yêu cầu." },
+    { vi: "Để lái xe chở khách kinh doanh (taxi, xe buýt chở khách), cần có bằng lái loại 2 (第二種免許).", answer: true, explanationVi: "Chở khách có thu tiền (taxi, xe buýt khách) phải có bằng loại 2 (第二種免許); bằng loại 1 thông thường không đủ." },
+    // [+] 積載
+    { vi: "Giới hạn chiều cao của hàng hóa tính từ mặt đất nói chung là 3.8m.", answer: true, explanationVi: "Chiều cao tối đa của hàng chở (tính cả xe) nói chung là 3.8m tính từ mặt đường (một số tuyến đặc biệt có ngoại lệ)." },
+    { vi: "Khi kéo một xe bị hỏng bằng dây, khoảng cách giữa hai xe phải trong vòng 5m và treo một miếng vải trắng cỡ từ 0.3m vuông trở lên ở giữa dây.", answer: true, explanationVi: "Kéo bằng dây: khoảng cách hai xe ≤5m, treo vải TRẮNG ≥0.3m vuông ở giữa dây cho dễ thấy. (Lưu ý: vải đỏ là dùng cho hàng nhô ra, khác với kéo xe.)" },
+    { vi: "Khi hàng hóa nhô ra phía sau xe trong giới hạn cho phép, ban ngày phải gắn vải đỏ cỡ từ 0.3m vuông trở lên để cảnh báo.", answer: true, explanationVi: "Hàng nhô ra phải đánh dấu cảnh báo: ban ngày gắn vải đỏ ≥0.3m vuông, ban đêm gắn đèn đỏ hoặc tấm phản quang đỏ." },
+    // [+] 点検
+    { vi: "Lốp xe có rãnh gai quá mòn (dưới mức quy định) làm giảm độ bám và tăng nguy cơ trượt nước, cần phải thay.", answer: true, explanationVi: "Rãnh lốp mòn quá giới hạn làm giảm bám đường và thoát nước kém (dễ hydroplaning) — phải thay lốp để an toàn." },
+    { vi: "Lái xe sau khi uống rượu bia chỉ bị xử phạt khi say rõ, còn nồng độ cồn thấp thì không sao.", answer: false, explanationVi: "Cả mức 'có hơi men' (酒気帯び) lẫn 'say rõ' (酒酔い) đều bị xử phạt. Đã uống rượu bia thì tuyệt đối không lái xe." },
+    // [+] 事故
+    { vi: "Khi gây tai nạn giao thông, người lái có nghĩa vụ cứu giúp người bị thương và báo cho cảnh sát.", answer: true, explanationVi: "Người liên quan tai nạn phải dừng xe, cứu hộ người bị thương, ngăn nguy hiểm tiếp theo và báo cảnh sát (nghĩa vụ cứu hộ và trình báo)." },
+    { vi: "Khi đi qua bên cạnh xe đang đỗ, nên dự đoán khả năng cửa xe bất ngờ mở ra hoặc có người bước ra từ phía trước/sau xe.", answer: true, explanationVi: "Cạnh xe đỗ luôn tiềm ẩn nguy cơ mở cửa đột ngột hoặc người băng ra — hãy giữ khoảng cách và giảm tốc, sẵn sàng phanh." },
 ];
 
 // Câu dự đoán nguy hiểm (危険予測) — mỗi câu mô tả 1 tình huống + 3 ý nhỏ. Đúng cả 3 ý mới được 2 điểm.
