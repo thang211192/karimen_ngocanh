@@ -112,3 +112,4 @@ karimen/
 ## Quy ước làm việc
 
 - **Mỗi khi sửa app, tự động cập nhật `CLAUDE.md`** để file luôn phản ánh đúng tính năng/cấu trúc hiện tại (theo yêu cầu của chủ dự án).
+- **Tự động `git push` sau khi commit** (không cần hỏi). Lần đầu dùng `git push -u origin <branch>`; nếu push lỗi (chưa có remote / cần xác thực) thì báo lại cho chủ dự án.
